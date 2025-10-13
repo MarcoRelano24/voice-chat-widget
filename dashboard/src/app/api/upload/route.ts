@@ -58,7 +58,12 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error('Supabase upload error:', error)
       return NextResponse.json(
-        { error: 'Failed to upload file to storage' },
+        {
+          error: 'Failed to upload file to storage',
+          details: error.message || 'Unknown error',
+          bucket: 'widget-uploads',
+          filename: filename
+        },
         { status: 500 }
       )
     }
@@ -76,7 +81,11 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Upload error:', error)
     return NextResponse.json(
-      { error: 'Failed to upload file' },
+      {
+        error: 'Failed to upload file',
+        details: error.message || error.toString(),
+        stack: error.stack
+      },
       { status: 500 }
     )
   }
