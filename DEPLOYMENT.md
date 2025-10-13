@@ -176,6 +176,21 @@ Make sure you've run these SQL scripts in your Supabase SQL editor:
 
 ## Troubleshooting
 
+### Build Error: "No Next.js version detected"
+
+If you get this error during Vercel deployment:
+```
+Error: No Next.js version detected. Make sure your package.json has "next" in either "dependencies" or "devDependencies".
+```
+
+**Solution:**
+1. Go to your Vercel project **Settings** → **General**
+2. Under "Build & Development Settings", set **Root Directory** to: `dashboard`
+3. Framework Preset should be: **Next.js**
+4. Go to **Deployments** and click **Redeploy**
+
+**Why this happens:** The Next.js project is in the `dashboard` subdirectory, not in the root. Vercel needs to know where to find the `package.json` file.
+
 ### Widget not loading on external sites
 
 - **Check CORS**: Ensure the API routes have proper CORS headers (already configured)
