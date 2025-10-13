@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
+import { createClient } from '@supabase/supabase-js'
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,24 +36,41 @@ export async function POST(request: NextRequest) {
     const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_')
     const filename = `${timestamp}-${originalName}`
 
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = join(process.cwd(), 'public', 'uploads')
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true })
-    }
+    // Initialize Supabase client
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
 
-    // Save file
+    // Convert file to buffer
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
-    const filepath = join(uploadsDir, filename)
-    await writeFile(filepath, buffer)
 
-    // Return the public URL
-    const fileUrl = `/uploads/${filename}`
+    // Upload to Supabase Storage
+    const { data, error } = await supabase.storage
+      .from('widget-uploads')
+      .upload(filename, buffer, {
+        contentType: file.type,
+        cacheControl: '3600',
+        upsert: false
+      })
+
+    if (error) {
+      console.error('Supabase upload error:', error)
+      return NextResponse.json(
+        { error: 'Failed to upload file to storage' },
+        { status: 500 }
+      )
+    }
+
+    // Get public URL
+    const { data: { publicUrl } } = supabase.storage
+      .from('widget-uploads')
+      .getPublicUrl(filename)
 
     return NextResponse.json({
       success: true,
-      url: fileUrl,
+      url: publicUrl,
       filename: filename
     })
   } catch (error: any) {
@@ -80,7 +95,7 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    // Security: Only allow deleting files from uploads directory
+    // Security: Only allow deleting files without path traversal
     if (filename.includes('..') || filename.includes('/')) {
       return NextResponse.json(
         { error: 'Invalid filename' },
@@ -88,18 +103,26 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    const { unlink } = await import('fs/promises')
-    const filepath = join(process.cwd(), 'public', 'uploads', filename)
+    // Initialize Supabase client
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
 
-    if (existsSync(filepath)) {
-      await unlink(filepath)
-      return NextResponse.json({ success: true })
-    } else {
+    // Delete from Supabase Storage
+    const { error } = await supabase.storage
+      .from('widget-uploads')
+      .remove([filename])
+
+    if (error) {
+      console.error('Supabase delete error:', error)
       return NextResponse.json(
-        { error: 'File not found' },
-        { status: 404 }
+        { error: 'Failed to delete file from storage' },
+        { status: 500 }
       )
     }
+
+    return NextResponse.json({ success: true })
   } catch (error: any) {
     console.error('Delete error:', error)
     return NextResponse.json(
