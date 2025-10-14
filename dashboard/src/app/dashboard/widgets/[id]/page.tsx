@@ -3522,20 +3522,29 @@ export default function EditWidgetPage() {
                                   justifyContent: formData.logoAlignment === 'left' ? 'flex-start' : formData.logoAlignment === 'right' ? 'flex-end' : 'center',
                                   flex: formData.logoAlignment === 'center' ? 1 : 'none'
                                 }}>
-                                  <img
-                                    src={formData.logoUrl}
-                                    alt="Logo"
-                                    style={{
-                                      width: `${formData.logoSize}px`,
-                                      height: `${formData.logoSize}px`,
-                                      borderRadius: formData.logoShape === 'circle' ? '50%' : formData.logoShape === 'square' ? '0' : '8px',
-                                      backgroundColor: formData.logoBackgroundColor,
-                                      border: `${formData.logoBorderWidth}px ${formData.logoBorderStyle} ${formData.logoBorderColor}`,
-                                      objectFit: 'contain',
-                                      padding: `${formData.logoPadding}px`,
-                                      transform: `translate(${formData.logoOffsetX}px, ${formData.logoOffsetY}px)`
-                                    }}
-                                  />
+                                  <div style={{
+                                    width: `${formData.logoSize}px`,
+                                    height: `${formData.logoSize}px`,
+                                    borderRadius: formData.logoShape === 'circle' ? '50%' : formData.logoShape === 'square' ? '0' : '8px',
+                                    backgroundColor: formData.logoBackgroundColor,
+                                    border: `${formData.logoBorderWidth}px ${formData.logoBorderStyle} ${formData.logoBorderColor}`,
+                                    padding: `${formData.logoPadding}px`,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    overflow: 'hidden'
+                                  }}>
+                                    <img
+                                      src={formData.logoUrl}
+                                      alt="Logo"
+                                      style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'contain',
+                                        transform: `translate(${formData.logoOffsetX}px, ${formData.logoOffsetY}px)`
+                                      }}
+                                    />
+                                  </div>
                                 </div>
                               )}
                               <div style={{

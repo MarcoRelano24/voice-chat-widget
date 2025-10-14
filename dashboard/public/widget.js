@@ -752,7 +752,9 @@
     // Logo display in header with branding
     const logoHTML = config.content?.logoUrl
       ? `<div style="display: flex; justify-content: ${logoAlignJustify}; flex: ${logoFlexValue};">
-           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: contain; padding: ${logoPadding}px; transform: translate(${logoOffsetX}px, ${logoOffsetY}px);" />
+           <div style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; padding: ${logoPadding}px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+             <img src="${config.content.logoUrl}" alt="Logo" style="width: 100%; height: 100%; object-fit: contain; transform: translate(${logoOffsetX}px, ${logoOffsetY}px);" />
+           </div>
          </div>`
       : '';
 
@@ -901,7 +903,9 @@
     // Logo display in header with branding
     const logoHTML = config.content?.logoUrl
       ? `<div style="display: flex; justify-content: ${logoAlignJustify}; flex: ${logoFlexValue};">
-           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: contain; padding: ${logoPadding}px; transform: translate(${logoOffsetX}px, ${logoOffsetY}px);" />
+           <div style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; padding: ${logoPadding}px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+             <img src="${config.content.logoUrl}" alt="Logo" style="width: 100%; height: 100%; object-fit: contain; transform: translate(${logoOffsetX}px, ${logoOffsetY}px);" />
+           </div>
          </div>`
       : '';
 
