@@ -3494,7 +3494,7 @@ export default function EditWidgetPage() {
                                       borderRadius: formData.logoShape === 'circle' ? '50%' : formData.logoShape === 'square' ? '0' : '8px',
                                       backgroundColor: formData.logoBackgroundColor,
                                       border: `${formData.logoBorderWidth}px ${formData.logoBorderStyle} ${formData.logoBorderColor}`,
-                                      objectFit: 'cover',
+                                      objectFit: 'contain',
                                       padding: `${formData.logoPadding}px`
                                     }}
                                   />

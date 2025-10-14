@@ -750,7 +750,7 @@
     // Logo display in header with branding
     const logoHTML = config.content?.logoUrl
       ? `<div style="display: flex; justify-content: ${logoAlignJustify}; flex: ${logoFlexValue};">
-           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: cover; padding: ${logoPadding}px;" />
+           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: contain; padding: ${logoPadding}px;" />
          </div>`
       : '';
 
@@ -897,7 +897,7 @@
     // Logo display in header with branding
     const logoHTML = config.content?.logoUrl
       ? `<div style="display: flex; justify-content: ${logoAlignJustify}; flex: ${logoFlexValue};">
-           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: cover; padding: ${logoPadding}px;" />
+           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: contain; padding: ${logoPadding}px;" />
          </div>`
       : '';
 
