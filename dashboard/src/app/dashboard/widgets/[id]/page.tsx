@@ -3587,6 +3587,96 @@ export default function EditWidgetPage() {
 
                           {/* Body */}
                           <div style={{ padding: '20px', maxHeight: '300px', overflowY: 'auto', color: formData.textColor }}>
+                            {/* Inline Consent */}
+                            {showConsentPreview && formData.consentDisplayType === 'inline' && (
+                              <div style={{
+                                backgroundColor: '#f9fafb',
+                                borderRadius: '8px',
+                                marginBottom: '16px',
+                                border: '1px solid #e5e7eb',
+                                padding: '16px'
+                              }}>
+                                <h3 style={{
+                                  margin: '0 0 12px 0',
+                                  fontSize: '16px',
+                                  fontWeight: 600,
+                                  color: '#111827'
+                                }}>
+                                  {formData.consentTitle}
+                                </h3>
+                                <p style={{
+                                  margin: '0 0 12px 0',
+                                  fontSize: '13px',
+                                  lineHeight: '1.5',
+                                  color: '#4b5563'
+                                }}>
+                                  {formData.consentMessage}
+                                </p>
+                                {(formData.consentPrivacyUrl || formData.consentTermsUrl) && (
+                                  <div style={{
+                                    fontSize: '13px',
+                                    textAlign: 'center',
+                                    marginBottom: '12px'
+                                  }}>
+                                    {formData.consentTermsUrl && (
+                                      <a href={formData.consentTermsUrl} target="_blank" rel="noopener noreferrer" style={{
+                                        color: formData.primaryColor,
+                                        textDecoration: 'none',
+                                        fontWeight: 500
+                                      }}>
+                                        Terms of Service
+                                      </a>
+                                    )}
+                                    {formData.consentTermsUrl && formData.consentPrivacyUrl && ' • '}
+                                    {formData.consentPrivacyUrl && (
+                                      <a href={formData.consentPrivacyUrl} target="_blank" rel="noopener noreferrer" style={{
+                                        color: formData.primaryColor,
+                                        textDecoration: 'none',
+                                        fontWeight: 500
+                                      }}>
+                                        Privacy Policy
+                                      </a>
+                                    )}
+                                  </div>
+                                )}
+                                <div style={{
+                                  display: 'flex',
+                                  gap: '8px',
+                                  justifyContent: 'flex-end'
+                                }}>
+                                  <button
+                                    onClick={handleConsentDecline}
+                                    style={{
+                                      padding: '8px 16px',
+                                      border: 'none',
+                                      borderRadius: '6px',
+                                      fontSize: '13px',
+                                      fontWeight: 600,
+                                      cursor: 'pointer',
+                                      backgroundColor: '#f3f4f6',
+                                      color: '#374151'
+                                    }}
+                                  >
+                                    {formData.consentDeclineText}
+                                  </button>
+                                  <button
+                                    onClick={handleConsentAccept}
+                                    style={{
+                                      padding: '8px 16px',
+                                      border: 'none',
+                                      borderRadius: '6px',
+                                      fontSize: '13px',
+                                      fontWeight: 600,
+                                      cursor: 'pointer',
+                                      backgroundColor: formData.primaryColor,
+                                      color: 'white'
+                                    }}
+                                  >
+                                    {formData.consentAcceptText}
+                                  </button>
+                                </div>
+                              </div>
+                            )}
                             {transcript.length === 0 ? (
                               <div style={{ textAlign: 'center', color: '#666', fontSize: `${formData.fontSize}px` }}>
                                 {formData.welcomeMessage}
@@ -3878,6 +3968,96 @@ export default function EditWidgetPage() {
 
                         {/* Body */}
                         <div style={{ padding: `${formData.panelPadding}px`, color: formData.textColor, maxHeight: '300px', overflowY: 'auto' }}>
+                          {/* Inline Consent */}
+                          {showConsentPreview && formData.consentDisplayType === 'inline' && (
+                            <div style={{
+                              backgroundColor: '#f9fafb',
+                              borderRadius: '8px',
+                              marginBottom: '16px',
+                              border: '1px solid #e5e7eb',
+                              padding: '16px'
+                            }}>
+                              <h3 style={{
+                                margin: '0 0 12px 0',
+                                fontSize: '16px',
+                                fontWeight: 600,
+                                color: '#111827'
+                              }}>
+                                {formData.consentTitle}
+                              </h3>
+                              <p style={{
+                                margin: '0 0 12px 0',
+                                fontSize: '13px',
+                                lineHeight: '1.5',
+                                color: '#4b5563'
+                              }}>
+                                {formData.consentMessage}
+                              </p>
+                              {(formData.consentPrivacyUrl || formData.consentTermsUrl) && (
+                                <div style={{
+                                  fontSize: '13px',
+                                  textAlign: 'center',
+                                  marginBottom: '12px'
+                                }}>
+                                  {formData.consentTermsUrl && (
+                                    <a href={formData.consentTermsUrl} target="_blank" rel="noopener noreferrer" style={{
+                                      color: formData.primaryColor,
+                                      textDecoration: 'none',
+                                      fontWeight: 500
+                                    }}>
+                                      Terms of Service
+                                    </a>
+                                  )}
+                                  {formData.consentTermsUrl && formData.consentPrivacyUrl && ' • '}
+                                  {formData.consentPrivacyUrl && (
+                                    <a href={formData.consentPrivacyUrl} target="_blank" rel="noopener noreferrer" style={{
+                                      color: formData.primaryColor,
+                                      textDecoration: 'none',
+                                      fontWeight: 500
+                                    }}>
+                                      Privacy Policy
+                                    </a>
+                                  )}
+                                </div>
+                              )}
+                              <div style={{
+                                display: 'flex',
+                                gap: '8px',
+                                justifyContent: 'flex-end'
+                              }}>
+                                <button
+                                  onClick={handleConsentDecline}
+                                  style={{
+                                    padding: '8px 16px',
+                                    border: 'none',
+                                    borderRadius: '6px',
+                                    fontSize: '13px',
+                                    fontWeight: 600,
+                                    cursor: 'pointer',
+                                    backgroundColor: '#f3f4f6',
+                                    color: '#374151'
+                                  }}
+                                >
+                                  {formData.consentDeclineText}
+                                </button>
+                                <button
+                                  onClick={handleConsentAccept}
+                                  style={{
+                                    padding: '8px 16px',
+                                    border: 'none',
+                                    borderRadius: '6px',
+                                    fontSize: '13px',
+                                    fontWeight: 600,
+                                    cursor: 'pointer',
+                                    backgroundColor: formData.primaryColor,
+                                    color: 'white'
+                                  }}
+                                >
+                                  {formData.consentAcceptText}
+                                </button>
+                              </div>
+                            </div>
+                          )}
                           {transcript.length === 0 ? (
                             <div style={{ textAlign: 'center', color: '#666', fontSize: `${formData.fontSize}px`, marginBottom: `${formData.panelPadding}px` }}>
                               {formData.welcomeMessage}
@@ -3998,8 +4178,8 @@ export default function EditWidgetPage() {
           </div>
         </div>
 
-        {/* Consent Modal */}
-        {showConsentPreview && (
+        {/* Consent Modal - Only show if displayType is 'modal' */}
+        {showConsentPreview && formData.consentDisplayType === 'modal' && (
           <div style={{
             position: 'fixed',
             top: 0,
