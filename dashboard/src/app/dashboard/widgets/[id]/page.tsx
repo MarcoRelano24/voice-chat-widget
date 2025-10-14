@@ -663,6 +663,7 @@ export default function EditWidgetPage() {
     logoPosition: 'header' as 'header' | 'left' | 'none',
     // Logo customization
     logoAlignment: 'left' as 'left' | 'center' | 'right',
+    companyNameAlignment: 'left' as 'left' | 'center' | 'right',
     logoShape: 'rounded' as 'circle' | 'rounded' | 'square',
     logoSize: 32,
     logoBorderWidth: 0,
@@ -921,6 +922,7 @@ export default function EditWidgetPage() {
           logoUrl: config.branding?.logoUrl || '',
           logoPosition: config.branding?.logoPosition || 'header',
           logoAlignment: config.branding?.logoAlignment || 'left',
+          companyNameAlignment: config.branding?.companyNameAlignment || 'left',
           logoShape: config.branding?.logoShape || 'rounded',
           logoSize: config.branding?.logoSize || 32,
           logoBorderWidth: config.branding?.logoBorderWidth || 0,
@@ -1205,6 +1207,7 @@ export default function EditWidgetPage() {
           logoUrl: formData.logoUrl,
           logoPosition: formData.logoPosition,
           logoAlignment: formData.logoAlignment,
+          companyNameAlignment: formData.companyNameAlignment,
           logoShape: formData.logoShape,
           logoSize: formData.logoSize,
           logoBorderWidth: formData.logoBorderWidth,
@@ -2160,29 +2163,50 @@ export default function EditWidgetPage() {
                         {/* Logo Customization */}
                         {formData.logoUrl && formData.logoPosition !== 'none' && (
                           <>
-                            <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Logo & Name Alignment
-                              </label>
-                              <div className="grid grid-cols-3 gap-3">
-                                {(['left', 'center', 'right'] as const).map((align) => (
-                                  <button
-                                    key={align}
-                                    type="button"
-                                    onClick={() => setFormData({ ...formData, logoAlignment: align })}
-                                    className={`px-4 py-2.5 text-sm font-medium rounded-lg border-2 transition-all ${
-                                      formData.logoAlignment === align
-                                        ? 'border-blue-600 bg-blue-50 text-blue-700'
-                                        : 'border-gray-300 hover:border-gray-400 text-gray-700'
-                                    }`}
-                                  >
-                                    {align.charAt(0).toUpperCase() + align.slice(1)}
-                                  </button>
-                                ))}
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                  Logo Alignment
+                                </label>
+                                <div className="grid grid-cols-3 gap-2">
+                                  {(['left', 'center', 'right'] as const).map((align) => (
+                                    <button
+                                      key={align}
+                                      type="button"
+                                      onClick={() => setFormData({ ...formData, logoAlignment: align })}
+                                      className={`px-3 py-2 text-xs font-medium rounded-lg border-2 transition-all ${
+                                        formData.logoAlignment === align
+                                          ? 'border-blue-600 bg-blue-50 text-blue-700'
+                                          : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                                      }`}
+                                    >
+                                      {align.charAt(0).toUpperCase() + align.slice(1)}
+                                    </button>
+                                  ))}
+                                </div>
                               </div>
-                              <p className="text-xs text-gray-500 mt-2">
-                                Alignment of logo and company name in header
-                              </p>
+
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                  Company Name Alignment
+                                </label>
+                                <div className="grid grid-cols-3 gap-2">
+                                  {(['left', 'center', 'right'] as const).map((align) => (
+                                    <button
+                                      key={align}
+                                      type="button"
+                                      onClick={() => setFormData({ ...formData, companyNameAlignment: align })}
+                                      className={`px-3 py-2 text-xs font-medium rounded-lg border-2 transition-all ${
+                                        formData.companyNameAlignment === align
+                                          ? 'border-green-600 bg-green-50 text-green-700'
+                                          : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                                      }`}
+                                    >
+                                      {align.charAt(0).toUpperCase() + align.slice(1)}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
                             </div>
 
                             <div>
@@ -3352,11 +3376,37 @@ export default function EditWidgetPage() {
                             justifyContent: 'space-between',
                             alignItems: 'center'
                           }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <div style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '12px',
+                              flex: 1
+                            }}>
                               {formData.logoUrl && (
-                                <img src={formData.logoUrl} alt="Logo" style={{ width: '32px', height: '32px', borderRadius: '4px', objectFit: 'cover' }} />
+                                <div style={{
+                                  display: 'flex',
+                                  justifyContent: formData.logoAlignment === 'left' ? 'flex-start' : formData.logoAlignment === 'right' ? 'flex-end' : 'center',
+                                  flex: formData.logoAlignment === 'center' ? 1 : 'none'
+                                }}>
+                                  <img
+                                    src={formData.logoUrl}
+                                    alt="Logo"
+                                    style={{
+                                      width: `${formData.logoSize}px`,
+                                      height: `${formData.logoSize}px`,
+                                      borderRadius: formData.logoShape === 'circle' ? '50%' : formData.logoShape === 'square' ? '0' : '8px',
+                                      backgroundColor: formData.logoBackgroundColor,
+                                      border: `${formData.logoBorderWidth}px ${formData.logoBorderStyle} ${formData.logoBorderColor}`,
+                                      objectFit: 'cover',
+                                      padding: formData.logoBackgroundColor !== 'transparent' ? '4px' : '0'
+                                    }}
+                                  />
+                                </div>
                               )}
-                              <div>
+                              <div style={{
+                                flex: 1,
+                                textAlign: formData.companyNameAlignment
+                              }}>
                                 <div style={{ fontSize: `${formData.fontSize}px`, fontWeight: formData.fontWeight }}>
                                   {formData.companyName || 'Voice Assistant'}
                                 </div>
@@ -3610,11 +3660,37 @@ export default function EditWidgetPage() {
                           justifyContent: 'space-between',
                           gap: '8px'
                         }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                            flex: 1
+                          }}>
                             {formData.logoUrl && formData.logoPosition === 'header' && (
-                              <img src={formData.logoUrl} alt="Logo" style={{ width: '32px', height: '32px', borderRadius: '4px', objectFit: 'cover' }} />
+                              <div style={{
+                                display: 'flex',
+                                justifyContent: formData.logoAlignment === 'left' ? 'flex-start' : formData.logoAlignment === 'right' ? 'flex-end' : 'center',
+                                flex: formData.logoAlignment === 'center' ? 1 : 'none'
+                              }}>
+                                <img
+                                  src={formData.logoUrl}
+                                  alt="Logo"
+                                  style={{
+                                    width: `${formData.logoSize}px`,
+                                    height: `${formData.logoSize}px`,
+                                    borderRadius: formData.logoShape === 'circle' ? '50%' : formData.logoShape === 'square' ? '0' : '8px',
+                                    backgroundColor: formData.logoBackgroundColor,
+                                    border: `${formData.logoBorderWidth}px ${formData.logoBorderStyle} ${formData.logoBorderColor}`,
+                                    objectFit: 'cover',
+                                    padding: formData.logoBackgroundColor !== 'transparent' ? '4px' : '0'
+                                  }}
+                                />
+                              </div>
                             )}
-                            <div>
+                            <div style={{
+                              flex: 1,
+                              textAlign: formData.companyNameAlignment
+                            }}>
                               <div style={{ fontSize: `${formData.fontSize}px`, fontWeight: formData.fontWeight }}>
                                 {formData.companyName || 'Voice Assistant'}
                               </div>
