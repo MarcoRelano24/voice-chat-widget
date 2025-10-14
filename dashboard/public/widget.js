@@ -736,6 +736,8 @@
     const logoAlignment = branding.logoAlignment || 'left';
     const companyNameAlignment = branding.companyNameAlignment || 'left';
     const logoPadding = branding.logoPadding ?? 4;
+    const logoOffsetX = branding.logoOffsetX ?? 0;
+    const logoOffsetY = branding.logoOffsetY ?? 0;
     const companyNameFontSize = branding.companyNameFontSize || 16;
     const companyNameFontFamily = branding.companyNameFontFamily || 'inherit';
     const companyNameColor = branding.companyNameColor || '#ffffff';
@@ -750,7 +752,7 @@
     // Logo display in header with branding
     const logoHTML = config.content?.logoUrl
       ? `<div style="display: flex; justify-content: ${logoAlignJustify}; flex: ${logoFlexValue};">
-           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: contain; padding: ${logoPadding}px;" />
+           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: contain; padding: ${logoPadding}px; transform: translate(${logoOffsetX}px, ${logoOffsetY}px);" />
          </div>`
       : '';
 
@@ -883,6 +885,8 @@
     const logoAlignment = branding.logoAlignment || 'left';
     const companyNameAlignment = branding.companyNameAlignment || 'left';
     const logoPadding = branding.logoPadding ?? 4;
+    const logoOffsetX = branding.logoOffsetX ?? 0;
+    const logoOffsetY = branding.logoOffsetY ?? 0;
     const companyNameFontSize = branding.companyNameFontSize || 16;
     const companyNameFontFamily = branding.companyNameFontFamily || 'inherit';
     const companyNameColor = branding.companyNameColor || '#ffffff';
@@ -897,7 +901,7 @@
     // Logo display in header with branding
     const logoHTML = config.content?.logoUrl
       ? `<div style="display: flex; justify-content: ${logoAlignJustify}; flex: ${logoFlexValue};">
-           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: contain; padding: ${logoPadding}px;" />
+           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: contain; padding: ${logoPadding}px; transform: translate(${logoOffsetX}px, ${logoOffsetY}px);" />
          </div>`
       : '';
 

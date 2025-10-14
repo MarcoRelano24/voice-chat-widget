@@ -667,6 +667,8 @@ export default function EditWidgetPage() {
     logoShape: 'rounded' as 'circle' | 'rounded' | 'square',
     logoSize: 32,
     logoPadding: 4,
+    logoOffsetX: 0,
+    logoOffsetY: 0,
     logoBorderWidth: 0,
     logoBorderColor: '#e5e7eb',
     logoBorderStyle: 'solid' as 'solid' | 'dashed' | 'dotted',
@@ -930,6 +932,8 @@ export default function EditWidgetPage() {
           logoShape: config.branding?.logoShape || 'rounded',
           logoSize: config.branding?.logoSize || 32,
           logoPadding: config.branding?.logoPadding ?? 4,
+          logoOffsetX: config.branding?.logoOffsetX ?? 0,
+          logoOffsetY: config.branding?.logoOffsetY ?? 0,
           logoBorderWidth: config.branding?.logoBorderWidth || 0,
           logoBorderColor: config.branding?.logoBorderColor || '#e5e7eb',
           logoBorderStyle: config.branding?.logoBorderStyle || 'solid',
@@ -1219,6 +1223,8 @@ export default function EditWidgetPage() {
           logoShape: formData.logoShape,
           logoSize: formData.logoSize,
           logoPadding: formData.logoPadding,
+          logoOffsetX: formData.logoOffsetX,
+          logoOffsetY: formData.logoOffsetY,
           logoBorderWidth: formData.logoBorderWidth,
           logoBorderColor: formData.logoBorderColor,
           logoBorderStyle: formData.logoBorderStyle,
@@ -2273,6 +2279,37 @@ export default function EditWidgetPage() {
                                   max="20"
                                   value={formData.logoPadding}
                                   onChange={(e) => setFormData({ ...formData, logoPadding: parseInt(e.target.value) || 0 })}
+                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <label htmlFor="logoOffsetX" className="block text-sm font-medium text-gray-700 mb-2">
+                                  Logo Offset X (px)
+                                </label>
+                                <input
+                                  id="logoOffsetX"
+                                  type="number"
+                                  min="-20"
+                                  max="20"
+                                  value={formData.logoOffsetX}
+                                  onChange={(e) => setFormData({ ...formData, logoOffsetX: parseInt(e.target.value) || 0 })}
+                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                              </div>
+                              <div>
+                                <label htmlFor="logoOffsetY" className="block text-sm font-medium text-gray-700 mb-2">
+                                  Logo Offset Y (px)
+                                </label>
+                                <input
+                                  id="logoOffsetY"
+                                  type="number"
+                                  min="-20"
+                                  max="20"
+                                  value={formData.logoOffsetY}
+                                  onChange={(e) => setFormData({ ...formData, logoOffsetY: parseInt(e.target.value) || 0 })}
                                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
                               </div>
@@ -3495,7 +3532,8 @@ export default function EditWidgetPage() {
                                       backgroundColor: formData.logoBackgroundColor,
                                       border: `${formData.logoBorderWidth}px ${formData.logoBorderStyle} ${formData.logoBorderColor}`,
                                       objectFit: 'contain',
-                                      padding: `${formData.logoPadding}px`
+                                      padding: `${formData.logoPadding}px`,
+                                      transform: `translate(${formData.logoOffsetX}px, ${formData.logoOffsetY}px)`
                                     }}
                                   />
                                 </div>
