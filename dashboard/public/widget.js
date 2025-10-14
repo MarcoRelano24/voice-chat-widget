@@ -1150,7 +1150,8 @@
     });
 
     vapi.on('message', (message) => {
-      if (message.type === 'transcript' && message.transcript) {
+      // Only show final transcripts, not partial/interim ones
+      if (message.type === 'transcript' && message.transcript && message.transcriptType === 'final') {
         messages.push(message);
         updateTranscript();
       }
