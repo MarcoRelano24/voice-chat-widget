@@ -666,10 +666,14 @@ export default function EditWidgetPage() {
     companyNameAlignment: 'left' as 'left' | 'center' | 'right',
     logoShape: 'rounded' as 'circle' | 'rounded' | 'square',
     logoSize: 32,
+    logoPadding: 4,
     logoBorderWidth: 0,
     logoBorderColor: '#e5e7eb',
     logoBorderStyle: 'solid' as 'solid' | 'dashed' | 'dotted',
     logoBackgroundColor: 'transparent',
+    companyNameFontSize: 16,
+    companyNameFontFamily: 'inherit',
+    companyNameColor: '#ffffff',
     primaryColor: '#667eea',
     backgroundColor: '#ffffff',
     textColor: '#333333',
@@ -925,10 +929,14 @@ export default function EditWidgetPage() {
           companyNameAlignment: config.branding?.companyNameAlignment || 'left',
           logoShape: config.branding?.logoShape || 'rounded',
           logoSize: config.branding?.logoSize || 32,
+          logoPadding: config.branding?.logoPadding ?? 4,
           logoBorderWidth: config.branding?.logoBorderWidth || 0,
           logoBorderColor: config.branding?.logoBorderColor || '#e5e7eb',
           logoBorderStyle: config.branding?.logoBorderStyle || 'solid',
           logoBackgroundColor: config.branding?.logoBackgroundColor || 'transparent',
+          companyNameFontSize: config.branding?.companyNameFontSize || 16,
+          companyNameFontFamily: config.branding?.companyNameFontFamily || 'inherit',
+          companyNameColor: config.branding?.companyNameColor || '#ffffff',
           primaryColor: config.colors?.primary || '#667eea',
           backgroundColor: config.colors?.background || '#ffffff',
           textColor: config.colors?.text || '#333333',
@@ -1210,10 +1218,14 @@ export default function EditWidgetPage() {
           companyNameAlignment: formData.companyNameAlignment,
           logoShape: formData.logoShape,
           logoSize: formData.logoSize,
+          logoPadding: formData.logoPadding,
           logoBorderWidth: formData.logoBorderWidth,
           logoBorderColor: formData.logoBorderColor,
           logoBorderStyle: formData.logoBorderStyle,
           logoBackgroundColor: formData.logoBackgroundColor,
+          companyNameFontSize: formData.companyNameFontSize,
+          companyNameFontFamily: formData.companyNameFontFamily,
+          companyNameColor: formData.companyNameColor,
         },
         inline: {
           hoverColor: formData.hoverColor,
@@ -2235,19 +2247,35 @@ export default function EditWidgetPage() {
                               </div>
                             </div>
 
-                            <div>
-                              <label htmlFor="logoSize" className="block text-sm font-medium text-gray-700 mb-2">
-                                Logo Size (px)
-                              </label>
-                              <input
-                                id="logoSize"
-                                type="number"
-                                min="16"
-                                max="128"
-                                value={formData.logoSize}
-                                onChange={(e) => setFormData({ ...formData, logoSize: parseInt(e.target.value) || 32 })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                              />
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <label htmlFor="logoSize" className="block text-sm font-medium text-gray-700 mb-2">
+                                  Logo Size (px)
+                                </label>
+                                <input
+                                  id="logoSize"
+                                  type="number"
+                                  min="16"
+                                  max="128"
+                                  value={formData.logoSize}
+                                  onChange={(e) => setFormData({ ...formData, logoSize: parseInt(e.target.value) || 32 })}
+                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                              </div>
+                              <div>
+                                <label htmlFor="logoPadding" className="block text-sm font-medium text-gray-700 mb-2">
+                                  Logo Padding (px)
+                                </label>
+                                <input
+                                  id="logoPadding"
+                                  type="number"
+                                  min="0"
+                                  max="20"
+                                  value={formData.logoPadding}
+                                  onChange={(e) => setFormData({ ...formData, logoPadding: parseInt(e.target.value) || 0 })}
+                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                              </div>
                             </div>
 
                             <div>
@@ -2331,6 +2359,75 @@ export default function EditWidgetPage() {
                                     <option value="dotted">Dotted</option>
                                   </select>
                                 </div>
+                              </div>
+                            </div>
+
+                            <div className="border-t border-gray-200 pt-4 mt-4">
+                              <h4 className="text-sm font-semibold text-gray-900 mb-3">Company Name Font Settings</h4>
+
+                              <div className="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                  <label htmlFor="companyNameFontSize" className="block text-sm font-medium text-gray-700 mb-2">
+                                    Font Size (px)
+                                  </label>
+                                  <input
+                                    id="companyNameFontSize"
+                                    type="number"
+                                    min="10"
+                                    max="32"
+                                    value={formData.companyNameFontSize}
+                                    onChange={(e) => setFormData({ ...formData, companyNameFontSize: parseInt(e.target.value) || 16 })}
+                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                  />
+                                </div>
+                                <div>
+                                  <label htmlFor="companyNameColor" className="block text-sm font-medium text-gray-700 mb-2">
+                                    Font Color
+                                  </label>
+                                  <div className="flex items-center gap-2">
+                                    <input
+                                      id="companyNameColor"
+                                      type="color"
+                                      value={formData.companyNameColor}
+                                      onChange={(e) => setFormData({ ...formData, companyNameColor: e.target.value })}
+                                      className="w-10 h-10 rounded border border-gray-300 cursor-pointer"
+                                    />
+                                    <input
+                                      type="text"
+                                      value={formData.companyNameColor}
+                                      onChange={(e) => setFormData({ ...formData, companyNameColor: e.target.value })}
+                                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                      placeholder="#ffffff"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div>
+                                <label htmlFor="companyNameFontFamily" className="block text-sm font-medium text-gray-700 mb-2">
+                                  Font Family
+                                </label>
+                                <select
+                                  id="companyNameFontFamily"
+                                  value={formData.companyNameFontFamily}
+                                  onChange={(e) => setFormData({ ...formData, companyNameFontFamily: e.target.value })}
+                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                >
+                                  <option value="inherit">Inherit (System Default)</option>
+                                  <option value="Arial, sans-serif">Arial</option>
+                                  <option value="'Helvetica Neue', Helvetica, sans-serif">Helvetica</option>
+                                  <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                                  <option value="Georgia, serif">Georgia</option>
+                                  <option value="'Courier New', Courier, monospace">Courier New</option>
+                                  <option value="Verdana, sans-serif">Verdana</option>
+                                  <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                                  <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+                                  <option value="Impact, sans-serif">Impact</option>
+                                  <option value="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">System UI</option>
+                                </select>
+                                <p className="text-xs text-gray-500 mt-2">
+                                  Select a font family for the company name
+                                </p>
                               </div>
                             </div>
                           </>
@@ -3398,7 +3495,7 @@ export default function EditWidgetPage() {
                                       backgroundColor: formData.logoBackgroundColor,
                                       border: `${formData.logoBorderWidth}px ${formData.logoBorderStyle} ${formData.logoBorderColor}`,
                                       objectFit: 'cover',
-                                      padding: formData.logoBackgroundColor !== 'transparent' ? '4px' : '0'
+                                      padding: `${formData.logoPadding}px`
                                     }}
                                   />
                                 </div>
@@ -3407,7 +3504,12 @@ export default function EditWidgetPage() {
                                 flex: 1,
                                 textAlign: formData.companyNameAlignment
                               }}>
-                                <div style={{ fontSize: `${formData.fontSize}px`, fontWeight: formData.fontWeight }}>
+                                <div style={{
+                                  fontSize: `${formData.companyNameFontSize}px`,
+                                  fontWeight: formData.fontWeight,
+                                  fontFamily: formData.companyNameFontFamily,
+                                  color: formData.companyNameColor
+                                }}>
                                   {formData.companyName || 'Voice Assistant'}
                                 </div>
                                 <div style={{ fontSize: '12px', opacity: 0.9 }}>
@@ -3682,7 +3784,7 @@ export default function EditWidgetPage() {
                                     backgroundColor: formData.logoBackgroundColor,
                                     border: `${formData.logoBorderWidth}px ${formData.logoBorderStyle} ${formData.logoBorderColor}`,
                                     objectFit: 'cover',
-                                    padding: formData.logoBackgroundColor !== 'transparent' ? '4px' : '0'
+                                    padding: `${formData.logoPadding}px`
                                   }}
                                 />
                               </div>
@@ -3691,7 +3793,12 @@ export default function EditWidgetPage() {
                               flex: 1,
                               textAlign: formData.companyNameAlignment
                             }}>
-                              <div style={{ fontSize: `${formData.fontSize}px`, fontWeight: formData.fontWeight }}>
+                              <div style={{
+                                fontSize: `${formData.companyNameFontSize}px`,
+                                fontWeight: formData.fontWeight,
+                                fontFamily: formData.companyNameFontFamily,
+                                color: formData.companyNameColor
+                              }}>
                                 {formData.companyName || 'Voice Assistant'}
                               </div>
                               <div style={{ fontSize: '12px', opacity: 0.9 }}>

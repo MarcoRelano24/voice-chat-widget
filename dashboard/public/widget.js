@@ -735,6 +735,10 @@
     const logoBackgroundColor = branding.logoBackgroundColor || 'transparent';
     const logoAlignment = branding.logoAlignment || 'left';
     const companyNameAlignment = branding.companyNameAlignment || 'left';
+    const logoPadding = branding.logoPadding ?? 4;
+    const companyNameFontSize = branding.companyNameFontSize || 16;
+    const companyNameFontFamily = branding.companyNameFontFamily || 'inherit';
+    const companyNameColor = branding.companyNameColor || '#ffffff';
 
     // Calculate border radius based on shape
     const logoBorderRadius = logoShape === 'circle' ? '50%' : logoShape === 'square' ? '0' : '8px';
@@ -746,7 +750,7 @@
     // Logo display in header with branding
     const logoHTML = config.content?.logoUrl
       ? `<div style="display: flex; justify-content: ${logoAlignJustify}; flex: ${logoFlexValue};">
-           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: cover; padding: ${logoBackgroundColor !== 'transparent' ? '4px' : '0'};" />
+           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: cover; padding: ${logoPadding}px;" />
          </div>`
       : '';
 
@@ -762,7 +766,7 @@
           <div class="voice-widget-header-content" style="display: flex; align-items: center; gap: 12px; flex: 1;">
             ${logoHTML}
             <div style="flex: 1; text-align: ${companyNameTextAlign};">
-              <div class="voice-widget-title">${config.content?.companyName || 'Voice Assistant'}</div>
+              <div class="voice-widget-title" style="font-size: ${companyNameFontSize}px; font-family: ${companyNameFontFamily}; color: ${companyNameColor};">${config.content?.companyName || 'Voice Assistant'}</div>
               <div class="voice-widget-status">Offline</div>
             </div>
           </div>
@@ -878,6 +882,10 @@
     const logoBackgroundColor = branding.logoBackgroundColor || 'transparent';
     const logoAlignment = branding.logoAlignment || 'left';
     const companyNameAlignment = branding.companyNameAlignment || 'left';
+    const logoPadding = branding.logoPadding ?? 4;
+    const companyNameFontSize = branding.companyNameFontSize || 16;
+    const companyNameFontFamily = branding.companyNameFontFamily || 'inherit';
+    const companyNameColor = branding.companyNameColor || '#ffffff';
 
     // Calculate border radius based on shape
     const logoBorderRadius = logoShape === 'circle' ? '50%' : logoShape === 'square' ? '0' : '8px';
@@ -889,7 +897,7 @@
     // Logo display in header with branding
     const logoHTML = config.content?.logoUrl
       ? `<div style="display: flex; justify-content: ${logoAlignJustify}; flex: ${logoFlexValue};">
-           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: cover; padding: ${logoBackgroundColor !== 'transparent' ? '4px' : '0'};" />
+           <img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: cover; padding: ${logoPadding}px;" />
          </div>`
       : '';
 
@@ -902,7 +910,7 @@
           <div class="voice-widget-header-content" style="display: flex; align-items: center; gap: 12px; flex: 1;">
             ${logoHTML}
             <div style="flex: 1; text-align: ${companyNameTextAlign};">
-              <div class="voice-widget-title">${config.content?.companyName || 'Voice Assistant'}</div>
+              <div class="voice-widget-title" style="font-size: ${companyNameFontSize}px; font-family: ${companyNameFontFamily}; color: ${companyNameColor};">${config.content?.companyName || 'Voice Assistant'}</div>
               <div class="voice-widget-status">Offline</div>
             </div>
           </div>

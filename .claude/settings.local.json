@@ -9,7 +9,11 @@
       "Bash(git init:*)",
       "Bash(git config:*)",
       "Bash(git remote add:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: Voice Chat Widget Management Platform\n\nMulti-tenant voice chat widget platform with the following features:\n\nFeatures:\n- Multi-tenant client management system\n- Three widget types: floating, inline, and page overlay\n- Comprehensive customization options (colors, typography, dimensions)\n- Text alignment and margin controls for inline widgets\n- Hover text alignment with slide effects\n- Panel dimension controls with responsive layout\n- Legal & consent management (modal and inline display types)\n- Custom symbol support with configurable positioning\n- Animation controls (pulse, glow, ripple effects)\n- Mute button with customization options\n- Custom CSS and JavaScript support\n- Safe widget deletion (requires exact name confirmation)\n- Live preview in dashboard\n- Supabase authentication and database\n- Ready for Vercel deployment\n\nBuilt with Next.js 15, TypeScript, Tailwind CSS, and Vapi SDK.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
