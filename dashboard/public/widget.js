@@ -725,10 +725,26 @@
       </svg>
     `;
 
-    // Logo display in header
+    // Logo branding configuration
+    const branding = config.branding || {};
+    const logoSize = branding.logoSize || 32;
+    const logoShape = branding.logoShape || 'rounded';
+    const logoBorderWidth = branding.logoBorderWidth || 0;
+    const logoBorderColor = branding.logoBorderColor || '#e5e7eb';
+    const logoBorderStyle = branding.logoBorderStyle || 'solid';
+    const logoBackgroundColor = branding.logoBackgroundColor || 'transparent';
+    const logoAlignment = branding.logoAlignment || 'left';
+
+    // Calculate border radius based on shape
+    const logoBorderRadius = logoShape === 'circle' ? '50%' : logoShape === 'square' ? '0' : '8px';
+
+    // Logo display in header with branding
     const logoHTML = config.content?.logoUrl
-      ? `<img src="${config.content.logoUrl}" alt="Logo" style="width: 32px; height: 32px; border-radius: 4px; margin-right: 12px;" />`
+      ? `<img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: cover; flex-shrink: 0; padding: ${logoBackgroundColor !== 'transparent' ? '4px' : '0'};" />`
       : '';
+
+    // Header content alignment
+    const headerAlignment = logoAlignment === 'left' ? 'flex-start' : logoAlignment === 'right' ? 'flex-end' : 'center';
 
     container.innerHTML = `
       <button class="voice-widget-button" aria-label="Open voice chat">
@@ -736,7 +752,7 @@
       </button>
       <div class="voice-widget-panel hidden">
         <div class="voice-widget-header">
-          <div class="voice-widget-header-content">
+          <div class="voice-widget-header-content" style="justify-content: ${headerAlignment}; gap: ${logoHTML ? '12px' : '0'};">
             ${logoHTML}
             <div>
               <div class="voice-widget-title">${config.content?.companyName || 'Voice Assistant'}</div>
@@ -845,15 +861,31 @@
     container.style.justifyContent = 'center';
     container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
 
-    // Logo display in header
+    // Logo branding configuration
+    const branding = config.branding || {};
+    const logoSize = branding.logoSize || 32;
+    const logoShape = branding.logoShape || 'rounded';
+    const logoBorderWidth = branding.logoBorderWidth || 0;
+    const logoBorderColor = branding.logoBorderColor || '#e5e7eb';
+    const logoBorderStyle = branding.logoBorderStyle || 'solid';
+    const logoBackgroundColor = branding.logoBackgroundColor || 'transparent';
+    const logoAlignment = branding.logoAlignment || 'left';
+
+    // Calculate border radius based on shape
+    const logoBorderRadius = logoShape === 'circle' ? '50%' : logoShape === 'square' ? '0' : '8px';
+
+    // Logo display in header with branding
     const logoHTML = config.content?.logoUrl
-      ? `<img src="${config.content.logoUrl}" alt="Logo" style="width: 32px; height: 32px; border-radius: 4px; margin-right: 12px;" />`
+      ? `<img src="${config.content.logoUrl}" alt="Logo" style="width: ${logoSize}px; height: ${logoSize}px; border-radius: ${logoBorderRadius}; background-color: ${logoBackgroundColor}; border: ${logoBorderWidth}px ${logoBorderStyle} ${logoBorderColor}; object-fit: cover; flex-shrink: 0; padding: ${logoBackgroundColor !== 'transparent' ? '4px' : '0'};" />`
       : '';
+
+    // Header content alignment
+    const headerAlignment = logoAlignment === 'left' ? 'flex-start' : logoAlignment === 'right' ? 'flex-end' : 'center';
 
     container.innerHTML = `
       <div class="voice-widget-page-content">
         <div class="voice-widget-header">
-          <div class="voice-widget-header-content">
+          <div class="voice-widget-header-content" style="justify-content: ${headerAlignment}; gap: ${logoHTML ? '12px' : '0'};">
             ${logoHTML}
             <div>
               <div class="voice-widget-title">${config.content?.companyName || 'Voice Assistant'}</div>

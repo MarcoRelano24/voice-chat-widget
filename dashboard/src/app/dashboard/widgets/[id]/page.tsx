@@ -661,6 +661,14 @@ export default function EditWidgetPage() {
     companyName: '',
     logoUrl: '',
     logoPosition: 'header' as 'header' | 'left' | 'none',
+    // Logo customization
+    logoAlignment: 'left' as 'left' | 'center' | 'right',
+    logoShape: 'rounded' as 'circle' | 'rounded' | 'square',
+    logoSize: 32,
+    logoBorderWidth: 0,
+    logoBorderColor: '#e5e7eb',
+    logoBorderStyle: 'solid' as 'solid' | 'dashed' | 'dotted',
+    logoBackgroundColor: 'transparent',
     primaryColor: '#667eea',
     backgroundColor: '#ffffff',
     textColor: '#333333',
@@ -912,6 +920,13 @@ export default function EditWidgetPage() {
           companyName: config.content?.companyName || '',
           logoUrl: config.branding?.logoUrl || '',
           logoPosition: config.branding?.logoPosition || 'header',
+          logoAlignment: config.branding?.logoAlignment || 'left',
+          logoShape: config.branding?.logoShape || 'rounded',
+          logoSize: config.branding?.logoSize || 32,
+          logoBorderWidth: config.branding?.logoBorderWidth || 0,
+          logoBorderColor: config.branding?.logoBorderColor || '#e5e7eb',
+          logoBorderStyle: config.branding?.logoBorderStyle || 'solid',
+          logoBackgroundColor: config.branding?.logoBackgroundColor || 'transparent',
           primaryColor: config.colors?.primary || '#667eea',
           backgroundColor: config.colors?.background || '#ffffff',
           textColor: config.colors?.text || '#333333',
@@ -1189,6 +1204,13 @@ export default function EditWidgetPage() {
         branding: {
           logoUrl: formData.logoUrl,
           logoPosition: formData.logoPosition,
+          logoAlignment: formData.logoAlignment,
+          logoShape: formData.logoShape,
+          logoSize: formData.logoSize,
+          logoBorderWidth: formData.logoBorderWidth,
+          logoBorderColor: formData.logoBorderColor,
+          logoBorderStyle: formData.logoBorderStyle,
+          logoBackgroundColor: formData.logoBackgroundColor,
         },
         inline: {
           hoverColor: formData.hoverColor,
@@ -2134,6 +2156,161 @@ export default function EditWidgetPage() {
                             ))}
                           </div>
                         </div>
+
+                        {/* Logo Customization */}
+                        {formData.logoUrl && formData.logoPosition !== 'none' && (
+                          <>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Logo & Name Alignment
+                              </label>
+                              <div className="grid grid-cols-3 gap-3">
+                                {(['left', 'center', 'right'] as const).map((align) => (
+                                  <button
+                                    key={align}
+                                    type="button"
+                                    onClick={() => setFormData({ ...formData, logoAlignment: align })}
+                                    className={`px-4 py-2.5 text-sm font-medium rounded-lg border-2 transition-all ${
+                                      formData.logoAlignment === align
+                                        ? 'border-blue-600 bg-blue-50 text-blue-700'
+                                        : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                                    }`}
+                                  >
+                                    {align.charAt(0).toUpperCase() + align.slice(1)}
+                                  </button>
+                                ))}
+                              </div>
+                              <p className="text-xs text-gray-500 mt-2">
+                                Alignment of logo and company name in header
+                              </p>
+                            </div>
+
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Logo Shape
+                              </label>
+                              <div className="grid grid-cols-3 gap-3">
+                                {[
+                                  { value: 'circle', label: 'Circle' },
+                                  { value: 'rounded', label: 'Rounded' },
+                                  { value: 'square', label: 'Square' }
+                                ].map((shape) => (
+                                  <button
+                                    key={shape.value}
+                                    type="button"
+                                    onClick={() => setFormData({ ...formData, logoShape: shape.value as 'circle' | 'rounded' | 'square' })}
+                                    className={`px-4 py-2.5 text-sm font-medium rounded-lg border-2 transition-all ${
+                                      formData.logoShape === shape.value
+                                        ? 'border-blue-600 bg-blue-50 text-blue-700'
+                                        : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                                    }`}
+                                  >
+                                    {shape.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div>
+                              <label htmlFor="logoSize" className="block text-sm font-medium text-gray-700 mb-2">
+                                Logo Size (px)
+                              </label>
+                              <input
+                                id="logoSize"
+                                type="number"
+                                min="16"
+                                max="128"
+                                value={formData.logoSize}
+                                onChange={(e) => setFormData({ ...formData, logoSize: parseInt(e.target.value) || 32 })}
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              />
+                            </div>
+
+                            <div>
+                              <label htmlFor="logoBackgroundColor" className="block text-sm font-medium text-gray-700 mb-2">
+                                Logo Background Color
+                              </label>
+                              <div className="flex items-center gap-3">
+                                <input
+                                  id="logoBackgroundColor"
+                                  type="color"
+                                  value={formData.logoBackgroundColor === 'transparent' ? '#ffffff' : formData.logoBackgroundColor}
+                                  onChange={(e) => setFormData({ ...formData, logoBackgroundColor: e.target.value })}
+                                  className="w-16 h-10 rounded border border-gray-300 cursor-pointer"
+                                />
+                                <input
+                                  type="text"
+                                  value={formData.logoBackgroundColor}
+                                  onChange={(e) => setFormData({ ...formData, logoBackgroundColor: e.target.value })}
+                                  className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  placeholder="#ffffff or transparent"
+                                />
+                              </div>
+                              <p className="text-xs text-gray-500 mt-2">
+                                Use 'transparent' for no background or a hex color (e.g., #ffffff for white)
+                              </p>
+                            </div>
+
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-3">
+                                Logo Border
+                              </label>
+                              <div className="space-y-3">
+                                <div className="grid grid-cols-2 gap-3">
+                                  <div>
+                                    <label htmlFor="logoBorderWidth" className="block text-xs text-gray-600 mb-1">
+                                      Width (px)
+                                    </label>
+                                    <input
+                                      id="logoBorderWidth"
+                                      type="number"
+                                      min="0"
+                                      max="10"
+                                      value={formData.logoBorderWidth}
+                                      onChange={(e) => setFormData({ ...formData, logoBorderWidth: parseInt(e.target.value) || 0 })}
+                                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label htmlFor="logoBorderColor" className="block text-xs text-gray-600 mb-1">
+                                      Color
+                                    </label>
+                                    <div className="flex items-center gap-2">
+                                      <input
+                                        id="logoBorderColor"
+                                        type="color"
+                                        value={formData.logoBorderColor}
+                                        onChange={(e) => setFormData({ ...formData, logoBorderColor: e.target.value })}
+                                        className="w-10 h-10 rounded border border-gray-300 cursor-pointer"
+                                      />
+                                      <input
+                                        type="text"
+                                        value={formData.logoBorderColor}
+                                        onChange={(e) => setFormData({ ...formData, logoBorderColor: e.target.value })}
+                                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div>
+                                  <label htmlFor="logoBorderStyle" className="block text-xs text-gray-600 mb-1">
+                                    Style
+                                  </label>
+                                  <select
+                                    id="logoBorderStyle"
+                                    value={formData.logoBorderStyle}
+                                    onChange={(e) => setFormData({ ...formData, logoBorderStyle: e.target.value as 'solid' | 'dashed' | 'dotted' })}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  >
+                                    <option value="solid">Solid</option>
+                                    <option value="dashed">Dashed</option>
+                                    <option value="dotted">Dotted</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </CollapsibleSection>
 
