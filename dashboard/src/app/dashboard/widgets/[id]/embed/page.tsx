@@ -67,41 +67,16 @@ export default function EmbedCodePage() {
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 
-  // Base embed code for floating and page widgets
+  // Simple one-line embed code for floating and page widgets
   const baseEmbedCode = `<!-- Voice Widget by RomeaAI -->
-<!-- Load Daily.co SDK (required) -->
-<script src="https://unpkg.com/@daily-co/daily-js"></script>
-
-<!-- Load Vapi SDK -->
-<script src="${appUrl}/api/vapi-sdk"></script>
-
-<!-- Configure and load widget -->
-<script>
-  window.voiceWidgetConfig = {
-    widgetId: '${widget.id}'
-  };
-</script>
-<script src="${appUrl}/widget.js"></script>`
+<script src="${appUrl}/widget-loader.js?id=${widget.id}"></script>`
 
   // Inline widget embed code (needs container div)
   const inlineEmbedCode = `<!-- Voice Widget Container - Place this where you want the widget to appear -->
 <div id="voice-widget-container"></div>
 
 <!-- Voice Widget by RomeaAI -->
-<!-- Load Daily.co SDK (required) -->
-<script src="https://unpkg.com/@daily-co/daily-js"></script>
-
-<!-- Load Vapi SDK -->
-<script src="${appUrl}/api/vapi-sdk"></script>
-
-<!-- Configure and load widget -->
-<script>
-  window.voiceWidgetConfig = {
-    widgetId: '${widget.id}',
-    targetContainer: 'voice-widget-container'
-  };
-</script>
-<script src="${appUrl}/widget.js"></script>`
+<script src="${appUrl}/widget-loader.js?id=${widget.id}&target=voice-widget-container"></script>`
 
   // Choose embed code based on widget type
   const embedCode = widget.type === 'inline' ? inlineEmbedCode : baseEmbedCode
@@ -111,35 +86,14 @@ export default function EmbedCodePage() {
 
 export default function MyComponent() {
   useEffect(() => {
-    // Load Daily.co SDK (required for Vapi)
-    const dailyScript = document.createElement('script');
-    dailyScript.src = 'https://unpkg.com/@daily-co/daily-js';
-    dailyScript.async = true;
-    document.head.appendChild(dailyScript);
-
-    // Load Vapi SDK
-    const vapiScript = document.createElement('script');
-    vapiScript.src = '${appUrl}/api/vapi-sdk';
-    vapiScript.async = true;
-    document.head.appendChild(vapiScript);
-
-    // Load widget script
-    const widgetScript = document.createElement('script');
-    widgetScript.src = '${appUrl}/widget.js';
-    widgetScript.async = true;
-
-    // Set config before loading widget
-    window.voiceWidgetConfig = {
-      widgetId: '${widget.id}',
-      targetContainer: 'voice-widget-container'
-    };
-
-    document.body.appendChild(widgetScript);
+    // Load voice widget
+    const script = document.createElement('script');
+    script.src = '${appUrl}/widget-loader.js?id=${widget.id}&target=voice-widget-container';
+    script.async = true;
+    document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(widgetScript);
-      document.head.removeChild(vapiScript);
-      document.head.removeChild(dailyScript);
+      document.body.removeChild(script);
     };
   }, []);
 
@@ -159,34 +113,14 @@ export default function MyComponent() {
 
 export default function MyComponent() {
   useEffect(() => {
-    // Load Daily.co SDK (required for Vapi)
-    const dailyScript = document.createElement('script');
-    dailyScript.src = 'https://unpkg.com/@daily-co/daily-js';
-    dailyScript.async = true;
-    document.head.appendChild(dailyScript);
-
-    // Load Vapi SDK
-    const vapiScript = document.createElement('script');
-    vapiScript.src = '${appUrl}/api/vapi-sdk';
-    vapiScript.async = true;
-    document.head.appendChild(vapiScript);
-
-    // Load widget script
-    const widgetScript = document.createElement('script');
-    widgetScript.src = '${appUrl}/widget.js';
-    widgetScript.async = true;
-
-    // Set config before loading widget
-    window.voiceWidgetConfig = {
-      widgetId: '${widget.id}'
-    };
-
-    document.body.appendChild(widgetScript);
+    // Load voice widget
+    const script = document.createElement('script');
+    script.src = '${appUrl}/widget-loader.js?id=${widget.id}';
+    script.async = true;
+    document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(widgetScript);
-      document.head.removeChild(vapiScript);
-      document.head.removeChild(dailyScript);
+      document.body.removeChild(script);
     };
   }, []);
 
@@ -280,7 +214,8 @@ export default function MyComponent() {
     <p>Some content here...</p>
 
     <!-- Paste the widget code here ↓ -->
-    <!-- The button will appear right here in your page -->
+    <div id="voice-widget-container"></div>
+    <script src="${appUrl}/widget-loader.js?id=${widget.id}&target=voice-widget-container"></script>
 
     <p>More content below...</p>
 
@@ -299,6 +234,7 @@ export default function MyComponent() {
     <!-- Your website content here -->
 
     <!-- Paste the widget code here ↓ -->
+    <script src="${appUrl}/widget-loader.js?id=${widget.id}"></script>
 
   </body>
 </html>`}
@@ -331,13 +267,16 @@ export default function MyComponent() {
             <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
               <p className="text-xs text-gray-700 font-medium mb-1">💡 Tip: Customize the container ID</p>
               <p className="text-xs text-gray-600">
-                You can change <code className="bg-white px-1 rounded">voice-widget-container</code> to any ID you like. Just make sure the ID in the <code className="bg-white px-1 rounded">&lt;div&gt;</code> matches the <code className="bg-white px-1 rounded">targetContainer</code> value in the config!
+                You can change <code className="bg-white px-1 rounded">voice-widget-container</code> to any ID you like. Just make sure the ID in the <code className="bg-white px-1 rounded">&lt;div&gt;</code> matches the <code className="bg-white px-1 rounded">target</code> parameter in the script URL!
               </p>
             </div>
           ) : (
-            <p className="text-xs text-gray-500 mt-3">
-              Works with any HTML website, WordPress, Wix, Squarespace, Webflow, and more!
-            </p>
+            <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+              <p className="text-xs text-gray-700 font-medium mb-1">✨ Simple one-line embed</p>
+              <p className="text-xs text-gray-600">
+                Just one script tag - no external dependencies! Works with any HTML website, WordPress, Wix, Squarespace, Webflow, and more.
+              </p>
+            </div>
           )}
         </div>
       </div>

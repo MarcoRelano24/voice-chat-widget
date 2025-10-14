@@ -1082,6 +1082,38 @@ export default function EditWidgetPage() {
     fetchWidget()
   }, [id, supabase])
 
+  // Calculate text container width for preview
+  useEffect(() => {
+    if (formData.type === 'inline' && formData.enableSlideEffect && formData.hoverTransitionType !== 'color') {
+      const textContainer = document.querySelector('.preview-button-text-container')
+      if (textContainer) {
+        // Create hidden measurement elements
+        const measureMain = document.createElement('span')
+        const measureHover = document.createElement('span')
+
+        measureMain.style.cssText = 'position: absolute; visibility: hidden; white-space: nowrap; font-size: ' + formData.fontSize + 'px; font-weight: ' + formData.fontWeight + ';'
+        measureHover.style.cssText = 'position: absolute; visibility: hidden; white-space: nowrap; font-size: ' + formData.fontSize + 'px; font-weight: ' + formData.fontWeight + ';'
+
+        measureMain.textContent = formData.buttonText
+        measureHover.textContent = formData.hoverText
+
+        document.body.appendChild(measureMain)
+        document.body.appendChild(measureHover)
+
+        const mainWidth = measureMain.offsetWidth
+        const hoverWidth = measureHover.offsetWidth
+        const maxWidth = Math.max(mainWidth, hoverWidth)
+
+        document.body.removeChild(measureMain)
+        document.body.removeChild(measureHover)
+
+        // Set the container width
+        const container = textContainer as HTMLElement
+        container.style.width = `${maxWidth}px`
+      }
+    }
+  }, [formData.type, formData.enableSlideEffect, formData.hoverTransitionType, formData.buttonText, formData.hoverText, formData.fontSize, formData.fontWeight])
+
   const startCall = async () => {
     if (!vapiInstance) {
       setError('Vapi not initialized. Please check your API key.')

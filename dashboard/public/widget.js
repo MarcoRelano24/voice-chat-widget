@@ -865,6 +865,55 @@
         ${buttonContent}
       </button>
     `;
+
+    // Fix text container width to accommodate both texts
+    if (enableSlideEffect && (hoverTransitionType === 'text' || hoverTransitionType === 'both')) {
+      setTimeout(() => {
+        const button = container.querySelector('.voice-widget-inline-button');
+        const textContainer = button?.querySelector('.button-text-container');
+        const mainText = textContainer?.querySelector('.button-text');
+        const hoverTextEl = textContainer?.querySelector('.button-text-hover');
+
+        if (textContainer && mainText && hoverTextEl) {
+          // Create hidden measurement elements
+          const measureMain = document.createElement('span');
+          const measureHover = document.createElement('span');
+
+          measureMain.style.cssText = 'position: absolute; visibility: hidden; white-space: nowrap;';
+          measureHover.style.cssText = 'position: absolute; visibility: hidden; white-space: nowrap;';
+
+          // Copy computed styles
+          const computedStyle = window.getComputedStyle(mainText);
+          measureMain.style.font = computedStyle.font;
+          measureMain.style.fontSize = computedStyle.fontSize;
+          measureMain.style.fontWeight = computedStyle.fontWeight;
+          measureMain.style.fontFamily = computedStyle.fontFamily;
+          measureMain.style.letterSpacing = computedStyle.letterSpacing;
+
+          measureHover.style.font = computedStyle.font;
+          measureHover.style.fontSize = computedStyle.fontSize;
+          measureHover.style.fontWeight = computedStyle.fontWeight;
+          measureHover.style.fontFamily = computedStyle.fontFamily;
+          measureHover.style.letterSpacing = computedStyle.letterSpacing;
+
+          measureMain.textContent = buttonText;
+          measureHover.textContent = hoverText;
+
+          document.body.appendChild(measureMain);
+          document.body.appendChild(measureHover);
+
+          const mainWidth = measureMain.offsetWidth;
+          const hoverWidth = measureHover.offsetWidth;
+          const maxWidth = Math.max(mainWidth, hoverWidth);
+
+          document.body.removeChild(measureMain);
+          document.body.removeChild(measureHover);
+
+          // Set the container width to accommodate the larger text
+          textContainer.style.width = `${maxWidth}px`;
+        }
+      }, 0);
+    }
   }
 
   function createPageWidget(container, config) {
