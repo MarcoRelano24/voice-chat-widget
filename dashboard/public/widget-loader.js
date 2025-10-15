@@ -91,7 +91,8 @@
 
       // Step 3: Set widget config
       window.voiceWidgetConfig = {
-        widgetId: config.id
+        widgetId: config.id,
+        baseUrl: baseUrl
       };
 
       // Add target container if specified

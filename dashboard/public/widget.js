@@ -8,27 +8,9 @@
     return;
   }
 
-  // Determine API URL based on environment
-  // For development: use localhost
-  // For production: use the origin where the widget script is loaded from
-  const API_URL = (() => {
-    // Check if we're in development (file:// protocol or localhost)
-    if (window.location.protocol === 'file:' || window.location.hostname === 'localhost') {
-      return 'http://localhost:3000';
-    }
-
-    // In production, try to get the URL from the script tag
-    const scripts = document.getElementsByTagName('script');
-    for (let script of scripts) {
-      if (script.src && script.src.includes('widget.js')) {
-        const url = new URL(script.src);
-        return `${url.protocol}//${url.host}`;
-      }
-    }
-
-    // Fallback to current origin
-    return window.location.origin;
-  })();
+  // Get API URL from config (passed by widget-loader.js)
+  // This ensures the widget always connects to the correct server
+  const API_URL = config.baseUrl || 'http://localhost:3000';
 
   // Determine API endpoint - use demo endpoint for demo widgets
   const isDemoWidget = config.widgetId.startsWith('demo-');
