@@ -697,7 +697,6 @@
             ${logoHTML}
             <div style="flex: 1; text-align: ${companyNameTextAlign};">
               <div class="voice-widget-title" style="font-size: ${companyNameFontSize}px; font-family: ${companyNameFontFamily}; color: ${companyNameColor};">${config.content?.companyName || 'Voice Assistant'}</div>
-              <div class="voice-widget-status">Offline</div>
             </div>
           </div>
           <button class="voice-widget-close" aria-label="Close">×</button>
@@ -894,7 +893,6 @@
             ${logoHTML}
             <div style="flex: 1; text-align: ${companyNameTextAlign};">
               <div class="voice-widget-title" style="font-size: ${companyNameFontSize}px; font-family: ${companyNameFontFamily}; color: ${companyNameColor};">${config.content?.companyName || 'Voice Assistant'}</div>
-              <div class="voice-widget-status">Offline</div>
             </div>
           </div>
           <button class="voice-widget-close" aria-label="Close">×</button>
@@ -933,7 +931,6 @@
     const closeBtn = container.querySelector('.voice-widget-close');
     const startBtn = container.querySelector('.start-btn');
     const muteBtn = container.querySelector('.mute-btn');
-    const statusEl = container.querySelector('.voice-widget-status');
     const transcriptEl = container.querySelector('.voice-widget-transcript');
 
     let isActive = false;
@@ -1045,7 +1042,6 @@
     // Voice SDK event listeners
     vapi.on('call-start', () => {
       isActive = true;
-      if (statusEl) statusEl.textContent = 'Connected';
       if (startBtn) {
         startBtn.textContent = 'End Call';
         startBtn.classList.add('danger');
@@ -1060,7 +1056,6 @@
     vapi.on('call-end', () => {
       isActive = false;
       isMuted = false;
-      if (statusEl) statusEl.textContent = 'Offline';
       if (startBtn) {
         startBtn.textContent = 'Start Call';
         startBtn.classList.remove('danger');
@@ -1082,7 +1077,6 @@
 
     vapi.on('error', (error) => {
       isActive = false;
-      if (statusEl) statusEl.textContent = 'Error';
     });
 
     function updateTranscript() {
@@ -1255,11 +1249,6 @@
       .voice-widget-title {
         font-size: ${titleFontSize}px;
         font-weight: ${titleFontWeight};
-      }
-      .voice-widget-status {
-        font-size: ${smallFontSize}px;
-        opacity: 0.9;
-        font-weight: ${bodyFontWeight};
       }
 
       .voice-widget-close {
