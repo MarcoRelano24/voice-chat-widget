@@ -65,3 +65,40 @@ input[type="range"]::-moz-range-thumb:hover {
   transform: scale(1.2);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
+
+/* Dark mode select and option element fixes */
+.dark select {
+  color-scheme: dark;
+}
+
+.dark select option {
+  background-color: rgb(55 65 81); /* gray-700 */
+  color: rgb(255 255 255); /* white */
+}
+
+.dark select option:checked,
+.dark select option:hover {
+  background-color: rgb(59 130 246); /* blue-500 */
+  color: rgb(255 255 255); /* white */
+}
+
+/* Ensure focus states have proper contrast */
+.dark select:focus option:checked {
+  background-color: rgb(37 99 235); /* blue-600 */
+  color: rgb(255 255 255); /* white */
+}
+
+/* Fix autofill background in dark mode */
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus {
+  -webkit-text-fill-color: rgb(255 255 255); /* white */
+  -webkit-box-shadow: 0 0 0 1000px rgb(55 65 81) inset; /* gray-700 */
+  box-shadow: 0 0 0 1000px rgb(55 65 81) inset; /* gray-700 */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Fix textarea in dark mode */
+.dark textarea {
+  color-scheme: dark;
+}
