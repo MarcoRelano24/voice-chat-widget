@@ -114,7 +114,6 @@ SELECT
       'welcomeMessage', 'How can we help you today?'
     ),
     'vapi', jsonb_build_object(
-      'publicApiKey', 'YOUR_VAPI_KEY',
       'assistantId', 'YOUR_ASSISTANT_ID'
     )
   )

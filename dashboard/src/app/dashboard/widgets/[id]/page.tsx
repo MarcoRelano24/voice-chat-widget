@@ -672,7 +672,6 @@ export default function EditWidgetPage() {
   const [formData, setFormData] = useState({
     name: '',
     type: 'floating' as 'floating' | 'inline' | 'page',
-    vapiPublicKey: '',
     vapiAssistantId: '',
     companyName: '',
     logoUrl: '',
@@ -881,10 +880,11 @@ export default function EditWidgetPage() {
     })
   }, [])
 
-  // Initialize Vapi instance when API key is available
+  // Initialize Vapi instance using environment variable
   useEffect(() => {
     const initVapi = async () => {
-      if (!formData.vapiPublicKey || typeof window === 'undefined') {
+      const publicKey = process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY
+      if (!publicKey || typeof window === 'undefined') {
         return
       }
 
@@ -901,7 +901,7 @@ export default function EditWidgetPage() {
 
       try {
         const Vapi = (window as any).Vapi.default || (window as any).Vapi
-        const vapi = new Vapi(formData.vapiPublicKey)
+        const vapi = new Vapi(publicKey)
 
         vapi.on('call-start', () => {
           console.log('Call started')
@@ -943,7 +943,7 @@ export default function EditWidgetPage() {
     }
 
     initVapi()
-  }, [formData.vapiPublicKey])
+  }, [])
 
   useEffect(() => {
     async function fetchWidget() {
@@ -963,7 +963,6 @@ export default function EditWidgetPage() {
         setFormData({
           name: data.name,
           type: data.type,
-          vapiPublicKey: config.vapi?.publicApiKey || '',
           vapiAssistantId: config.vapi?.assistantId || '',
           companyName: config.content?.companyName || '',
           logoUrl: config.content?.logoUrl || config.branding?.logoUrl || '',
@@ -1383,7 +1382,6 @@ export default function EditWidgetPage() {
           fontWeight: formData.fontWeight,
         },
         vapi: {
-          publicApiKey: formData.vapiPublicKey || undefined, // Use env variable if not provided
           assistantId: formData.vapiAssistantId,
         },
         consent: {
@@ -1910,23 +1908,6 @@ export default function EditWidgetPage() {
                 <div className="pt-4 border-t border-gray-200">
                   <div className="space-y-3">
                     <div>
-                      <label htmlFor="vapiPublicKey" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Vapi Public API Key (Optional)
-                      </label>
-                      <input
-                        id="vapiPublicKey"
-                        type="text"
-                        value={formData.vapiPublicKey}
-                        onChange={(e) => setFormData({ ...formData, vapiPublicKey: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
-                        placeholder="pk_... (leave empty to use environment variable)"
-                      />
-                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                        If left empty, the widget will use the NEXT_PUBLIC_VAPI_PUBLIC_KEY from your environment variables.
-                      </p>
-                    </div>
-
-                    <div>
                       <label htmlFor="vapiAssistantId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Vapi Assistant ID
                       </label>
@@ -1936,9 +1917,12 @@ export default function EditWidgetPage() {
                         required
                         value={formData.vapiAssistantId}
                         onChange={(e) => setFormData({ ...formData, vapiAssistantId: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                        className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
                         placeholder="asst_..."
                       />
+                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        The Vapi Public API Key is configured via NEXT_PUBLIC_VAPI_PUBLIC_KEY environment variable.
+                      </p>
                     </div>
                   </div>
                 </div>

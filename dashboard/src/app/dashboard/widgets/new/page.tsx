@@ -25,7 +25,6 @@ export default function NewWidgetPage() {
     name: '',
     type: 'floating' as 'floating' | 'inline' | 'page',
     clientId: clientIdFromUrl || '',
-    vapiPublicKey: '',
     vapiAssistantId: '',
     companyName: '',
     primaryColor: '#667eea',
@@ -88,7 +87,6 @@ export default function NewWidgetPage() {
           welcomeMessage: formData.welcomeMessage,
         },
         vapi: {
-          publicApiKey: formData.vapiPublicKey || undefined, // Use env variable if not provided
           assistantId: formData.vapiAssistantId,
         },
       }
@@ -220,23 +218,6 @@ export default function NewWidgetPage() {
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="vapiPublicKey" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Vapi Public API Key (Optional)
-              </label>
-              <input
-                id="vapiPublicKey"
-                type="text"
-                value={formData.vapiPublicKey}
-                onChange={(e) => setFormData({ ...formData, vapiPublicKey: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
-                placeholder="pk_... (leave empty to use environment variable)"
-              />
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                If left empty, the widget will use the NEXT_PUBLIC_VAPI_PUBLIC_KEY from your environment variables.
-              </p>
-            </div>
-
-            <div>
               <label htmlFor="vapiAssistantId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Vapi Assistant ID *
               </label>
@@ -249,6 +230,9 @@ export default function NewWidgetPage() {
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
                 placeholder="asst_..."
               />
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                The Vapi Public API Key is configured via NEXT_PUBLIC_VAPI_PUBLIC_KEY environment variable.
+              </p>
             </div>
           </div>
         </div>
