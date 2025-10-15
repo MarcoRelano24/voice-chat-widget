@@ -83,11 +83,15 @@ export interface WidgetConfig {
     slideDirection?: 'up' | 'down' | 'left' | 'right';
     hoverTransitionType?: 'text' | 'background' | 'both';
     hoverColor?: string;
+    hoverTextColor?: string;
     hoverScale?: number;
     activeColor?: string;
     connectingText?: string;
     activeText?: string;
     enableRipple?: boolean;
+    borderWidth?: number;
+    borderStyle?: string;
+    borderColor?: string;
   };
   // Mute button configuration
   muteButton?: {
