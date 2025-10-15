@@ -122,6 +122,14 @@ export interface Widget {
   config: WidgetConfig;
   is_active: boolean;
   landing_page_enabled?: boolean;
+  landing_page_title?: string;
+  landing_page_description?: string;
+  landing_page_custom_html?: string;
+  landing_page_custom_css?: string;
+  landing_page_custom_js?: string;
+  landing_page_show_default_content?: boolean;
+  landing_page_background_color?: string;
+  landing_page_header_image?: string;
   created_at: string;
   updated_at: string;
 }

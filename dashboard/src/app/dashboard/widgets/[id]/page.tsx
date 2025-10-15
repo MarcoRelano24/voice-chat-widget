@@ -789,6 +789,16 @@ export default function EditWidgetPage() {
     isActive: true,
     landingPageEnabled: false,
 
+    // Landing Page Customization
+    landingPageTitle: '',
+    landingPageDescription: '',
+    landingPageCustomHTML: '',
+    landingPageCustomCSS: '',
+    landingPageCustomJS: '',
+    landingPageShowDefaultContent: true,
+    landingPageBackgroundColor: '#ffffff',
+    landingPageHeaderImage: '',
+
     // Legal & Consent
     enableConsent: false,
     consentDisplayType: 'modal' as 'modal' | 'inline',
@@ -1055,6 +1065,16 @@ export default function EditWidgetPage() {
           offsetY: config.display?.offsetY || 20,
           isActive: data.is_active,
           landingPageEnabled: data.landing_page_enabled || false,
+
+          // Landing Page Customization
+          landingPageTitle: data.landing_page_title || '',
+          landingPageDescription: data.landing_page_description || '',
+          landingPageCustomHTML: data.landing_page_custom_html || '',
+          landingPageCustomCSS: data.landing_page_custom_css || '',
+          landingPageCustomJS: data.landing_page_custom_js || '',
+          landingPageShowDefaultContent: data.landing_page_show_default_content !== false,
+          landingPageBackgroundColor: data.landing_page_background_color || '#ffffff',
+          landingPageHeaderImage: data.landing_page_header_image || '',
 
           // Legal & Consent
           enableConsent: config.consent?.enabled || false,
@@ -1371,6 +1391,14 @@ export default function EditWidgetPage() {
           config: widgetConfig,
           is_active: formData.isActive,
           landing_page_enabled: formData.landingPageEnabled,
+          landing_page_title: formData.landingPageTitle || null,
+          landing_page_description: formData.landingPageDescription || null,
+          landing_page_custom_html: formData.landingPageCustomHTML || null,
+          landing_page_custom_css: formData.landingPageCustomCSS || null,
+          landing_page_custom_js: formData.landingPageCustomJS || null,
+          landing_page_show_default_content: formData.landingPageShowDefaultContent,
+          landing_page_background_color: formData.landingPageBackgroundColor || '#ffffff',
+          landing_page_header_image: formData.landingPageHeaderImage || null,
         })
         .eq('id', id)
 
@@ -1548,25 +1576,164 @@ export default function EditWidgetPage() {
                   </div>
 
                   {formData.landingPageEnabled && clientName && (
-                    <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                      <p className="text-xs text-green-900 font-medium mb-2">Landing Page URL:</p>
-                      <div className="flex items-center gap-2">
-                        <code className="flex-1 px-3 py-2 bg-white rounded border border-green-300 text-sm text-green-800 font-mono">
-                          https://voice.romea.ai/{generateSlug(clientName, formData.type)}
-                        </code>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigator.clipboard.writeText(`https://voice.romea.ai/${generateSlug(clientName, formData.type)}`)
-                            setSuccess('Landing page URL copied to clipboard!')
-                            setTimeout(() => setSuccess(''), 2000)
-                          }}
-                          className="px-3 py-2 bg-green-600 text-white text-xs rounded hover:bg-green-700 transition-colors"
-                        >
-                          Copy
-                        </button>
+                    <>
+                      <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                        <p className="text-xs text-green-900 font-medium mb-2">Landing Page URL:</p>
+                        <div className="flex items-center gap-2">
+                          <code className="flex-1 px-3 py-2 bg-white rounded border border-green-300 text-sm text-green-800 font-mono">
+                            https://voice.romea.ai/{generateSlug(clientName, formData.type)}
+                          </code>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              navigator.clipboard.writeText(`https://voice.romea.ai/${generateSlug(clientName, formData.type)}`)
+                              setSuccess('Landing page URL copied to clipboard!')
+                              setTimeout(() => setSuccess(''), 2000)
+                            }}
+                            className="px-3 py-2 bg-green-600 text-white text-xs rounded hover:bg-green-700 transition-colors"
+                          >
+                            Copy
+                          </button>
+                        </div>
                       </div>
-                    </div>
+
+                      {/* Landing Page Customization Section */}
+                      <div className="border border-gray-200 rounded-lg overflow-hidden">
+                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3 border-b border-gray-200">
+                          <h3 className="text-sm font-semibold text-gray-800">Landing Page Customization</h3>
+                          <p className="text-xs text-gray-600 mt-1">Customize the appearance and content of your landing page</p>
+                        </div>
+
+                        <div className="p-4 space-y-4">
+                          {/* Basic Information */}
+                          <div className="space-y-3">
+                            <div>
+                              <label htmlFor="landingPageTitle" className="block text-sm font-medium text-gray-700 mb-2">
+                                Page Title
+                              </label>
+                              <input
+                                id="landingPageTitle"
+                                type="text"
+                                value={formData.landingPageTitle}
+                                onChange={(e) => setFormData({ ...formData, landingPageTitle: e.target.value })}
+                                placeholder="Welcome to our voice assistant (optional, defaults to company name)"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                              />
+                            </div>
+
+                            <div>
+                              <label htmlFor="landingPageDescription" className="block text-sm font-medium text-gray-700 mb-2">
+                                Description
+                              </label>
+                              <textarea
+                                id="landingPageDescription"
+                                value={formData.landingPageDescription}
+                                onChange={(e) => setFormData({ ...formData, landingPageDescription: e.target.value })}
+                                placeholder="Describe your voice assistant and what it can help with..."
+                                rows={3}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Visual Customization */}
+                          <div className="space-y-3 pt-3 border-t">
+                            <h4 className="text-sm font-medium text-gray-800">Visual Settings</h4>
+
+                            <div className="grid grid-cols-2 gap-3">
+                              <div>
+                                <label htmlFor="landingPageBackgroundColor" className="block text-sm font-medium text-gray-700 mb-2">
+                                  Background Color
+                                </label>
+                                <input
+                                  id="landingPageBackgroundColor"
+                                  type="color"
+                                  value={formData.landingPageBackgroundColor}
+                                  onChange={(e) => setFormData({ ...formData, landingPageBackgroundColor: e.target.value })}
+                                  className="w-full h-10 rounded border border-gray-300 cursor-pointer"
+                                />
+                              </div>
+
+                              <div>
+                                <label htmlFor="landingPageHeaderImage" className="block text-sm font-medium text-gray-700 mb-2">
+                                  Header Image URL
+                                </label>
+                                <input
+                                  id="landingPageHeaderImage"
+                                  type="url"
+                                  value={formData.landingPageHeaderImage}
+                                  onChange={(e) => setFormData({ ...formData, landingPageHeaderImage: e.target.value })}
+                                  placeholder="https://example.com/hero.jpg"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                />
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                              <input
+                                id="landingPageShowDefaultContent"
+                                type="checkbox"
+                                checked={formData.landingPageShowDefaultContent}
+                                onChange={(e) => setFormData({ ...formData, landingPageShowDefaultContent: e.target.checked })}
+                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                              />
+                              <label htmlFor="landingPageShowDefaultContent" className="text-sm text-gray-700">
+                                Show default content (instructions and help text)
+                              </label>
+                            </div>
+                          </div>
+
+                          {/* Custom Code Section */}
+                          <div className="space-y-3 pt-3 border-t">
+                            <h4 className="text-sm font-medium text-gray-800">Custom Code</h4>
+                            <p className="text-xs text-gray-500">Add your own HTML, CSS, and JavaScript to customize the landing page</p>
+
+                            <div>
+                              <label htmlFor="landingPageCustomHTML" className="block text-sm font-medium text-gray-700 mb-2">
+                                Custom HTML
+                              </label>
+                              <textarea
+                                id="landingPageCustomHTML"
+                                value={formData.landingPageCustomHTML}
+                                onChange={(e) => setFormData({ ...formData, landingPageCustomHTML: e.target.value })}
+                                placeholder="<div>Your custom HTML content here...</div>"
+                                rows={5}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                              />
+                            </div>
+
+                            <div>
+                              <label htmlFor="landingPageCustomCSS" className="block text-sm font-medium text-gray-700 mb-2">
+                                Custom CSS
+                              </label>
+                              <textarea
+                                id="landingPageCustomCSS"
+                                value={formData.landingPageCustomCSS}
+                                onChange={(e) => setFormData({ ...formData, landingPageCustomCSS: e.target.value })}
+                                placeholder=".custom-class { color: blue; }"
+                                rows={5}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                              />
+                            </div>
+
+                            <div>
+                              <label htmlFor="landingPageCustomJS" className="block text-sm font-medium text-gray-700 mb-2">
+                                Custom JavaScript
+                              </label>
+                              <textarea
+                                id="landingPageCustomJS"
+                                value={formData.landingPageCustomJS}
+                                onChange={(e) => setFormData({ ...formData, landingPageCustomJS: e.target.value })}
+                                placeholder="console.log('Custom JS'); // Your code here"
+                                rows={5}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                              />
+                              <p className="text-xs text-amber-600 mt-1">⚠️ Be careful with custom JavaScript - test thoroughly before deploying</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </>
                   )}
                 </div>
 

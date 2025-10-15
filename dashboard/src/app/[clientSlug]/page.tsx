@@ -139,15 +139,29 @@ export default function ClientLandingPage() {
 
   const config = widget.config
   const companyName = config.content?.companyName || client.name
-  const welcomeMessage = config.content?.welcomeMessage || `Welcome to ${companyName}`
+  const defaultWelcomeMessage = config.content?.welcomeMessage || `Welcome to ${companyName}`
   const primaryColor = config.colors?.primary || '#667eea'
-  const backgroundColor = config.colors?.background || '#ffffff'
   const textColor = config.colors?.text || '#333333'
 
+  // Landing page customization
+  const pageTitle = widget.landing_page_title || defaultWelcomeMessage
+  const pageDescription = widget.landing_page_description || client.description || ''
+  const pageBackgroundColor = widget.landing_page_background_color || '#ffffff'
+  const headerImage = widget.landing_page_header_image
+  const showDefaultContent = widget.landing_page_show_default_content !== false
+  const customHTML = widget.landing_page_custom_html
+  const customCSS = widget.landing_page_custom_css
+  const customJS = widget.landing_page_custom_js
+
   return (
-    <div className="min-h-screen" style={{ backgroundColor }}>
+    <div className="min-h-screen" style={{ backgroundColor: pageBackgroundColor }}>
+      {/* Custom CSS */}
+      {customCSS && (
+        <style dangerouslySetInnerHTML={{ __html: customCSS }} />
+      )}
+
       {/* Header */}
-      <header className="border-b" style={{ backgroundColor, borderColor: `${primaryColor}20` }}>
+      <header className="border-b" style={{ backgroundColor: pageBackgroundColor, borderColor: `${primaryColor}20` }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -166,34 +180,56 @@ export default function ClientLandingPage() {
         </div>
       </header>
 
+      {/* Header Image */}
+      {headerImage && (
+        <div className="w-full" style={{ maxHeight: '400px', overflow: 'hidden' }}>
+          <img
+            src={headerImage}
+            alt="Header"
+            className="w-full h-full object-cover"
+            style={{ maxHeight: '400px' }}
+          />
+        </div>
+      )}
+
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4" style={{ color: textColor }}>
-            {welcomeMessage}
+            {pageTitle}
           </h2>
-          {client.description && (
-            <p className="text-lg text-gray-600 mb-8">{client.description}</p>
+          {pageDescription && (
+            <p className="text-lg text-gray-600 mb-8">{pageDescription}</p>
           )}
         </div>
+
+        {/* Custom HTML Content */}
+        {customHTML && (
+          <div
+            className="mb-12"
+            dangerouslySetInnerHTML={{ __html: customHTML }}
+          />
+        )}
 
         {/* Widget Container */}
         <div className="flex justify-center">
           <div id="voice-widget-container"></div>
         </div>
 
-        {/* Instructions */}
-        <div className="mt-12 p-6 bg-gray-50 rounded-xl border border-gray-200">
-          <h3 className="text-lg font-semibold mb-3" style={{ color: textColor }}>
-            How to use:
-          </h3>
-          <ol className="list-decimal list-inside space-y-2 text-gray-600">
-            <li>Click the button below to start a voice conversation</li>
-            <li>Allow microphone access when prompted</li>
-            <li>Speak naturally - our AI assistant will help you</li>
-            <li>Click &quot;End Call&quot; when you&apos;re done</li>
-          </ol>
-        </div>
+        {/* Default Instructions (conditional) */}
+        {showDefaultContent && (
+          <div className="mt-12 p-6 bg-gray-50 rounded-xl border border-gray-200">
+            <h3 className="text-lg font-semibold mb-3" style={{ color: textColor }}>
+              How to use:
+            </h3>
+            <ol className="list-decimal list-inside space-y-2 text-gray-600">
+              <li>Click the button below to start a voice conversation</li>
+              <li>Allow microphone access when prompted</li>
+              <li>Speak naturally - our AI assistant will help you</li>
+              <li>Click &quot;End Call&quot; when you&apos;re done</li>
+            </ol>
+          </div>
+        )}
       </main>
 
       {/* Footer */}
@@ -219,6 +255,15 @@ export default function ClientLandingPage() {
         src={`https://voice.romea.ai/widget-loader.js?id=${widget.id}&target=voice-widget-container`}
         strategy="afterInteractive"
       />
+
+      {/* Custom JavaScript */}
+      {customJS && (
+        <Script
+          id="custom-landing-page-js"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: customJS }}
+        />
+      )}
     </div>
   )
 }
