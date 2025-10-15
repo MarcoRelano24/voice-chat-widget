@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { generateRandomSlug, sanitizeSlug } from '@/lib/utils/slug'
+import type { Client } from '@/lib/types/widget'
 import Link from 'next/link'
 import {
   ChevronDownIcon,
@@ -665,6 +667,7 @@ export default function EditWidgetPage() {
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
   const [clientName, setClientName] = useState<string>('')
+  const [clients, setClients] = useState<Client[]>([])
 
   const [formData, setFormData] = useState({
     name: '',
@@ -787,7 +790,9 @@ export default function EditWidgetPage() {
     offsetX: 20,
     offsetY: 20,
     isActive: true,
+    clientId: '',
     landingPageEnabled: false,
+    landingPageSlug: '',
 
     // Landing Page Customization
     landingPageTitle: '',
@@ -1064,7 +1069,9 @@ export default function EditWidgetPage() {
           offsetX: config.display?.offsetX || 20,
           offsetY: config.display?.offsetY || 20,
           isActive: data.is_active,
+          clientId: data.client_id || '',
           landingPageEnabled: data.landing_page_enabled || false,
+          landingPageSlug: data.landing_page_slug || '',
 
           // Landing Page Customization
           landingPageTitle: data.landing_page_title || '',
@@ -1121,6 +1128,22 @@ export default function EditWidgetPage() {
 
     fetchWidget()
   }, [id, supabase])
+
+  // Fetch all clients for dropdown
+  useEffect(() => {
+    async function fetchClients() {
+      const { data, error } = await supabase
+        .from('clients')
+        .select('*')
+        .order('name')
+
+      if (!error && data) {
+        setClients(data)
+      }
+    }
+
+    fetchClients()
+  }, [supabase])
 
   // Calculate text container width for preview
   useEffect(() => {
@@ -1383,6 +1406,13 @@ export default function EditWidgetPage() {
         },
       }
 
+      // Auto-generate landing page slug if enabled but slug is empty
+      let landingPageSlug = formData.landingPageSlug
+      if (formData.landingPageEnabled && !landingPageSlug) {
+        landingPageSlug = generateRandomSlug()
+        setFormData({ ...formData, landingPageSlug })
+      }
+
       const { error: updateError } = await supabase
         .from('widgets')
         .update({
@@ -1390,7 +1420,9 @@ export default function EditWidgetPage() {
           type: formData.type,
           config: widgetConfig,
           is_active: formData.isActive,
+          client_id: formData.clientId || null,
           landing_page_enabled: formData.landingPageEnabled,
+          landing_page_slug: landingPageSlug || null,
           landing_page_title: formData.landingPageTitle || null,
           landing_page_description: formData.landingPageDescription || null,
           landing_page_custom_html: formData.landingPageCustomHTML || null,
@@ -1555,6 +1587,35 @@ export default function EditWidgetPage() {
                   </label>
                 </div>
 
+                {/* Client Selector */}
+                <div className="space-y-2">
+                  <label htmlFor="clientId" className="block text-sm font-medium text-gray-700">
+                    Associate with Client
+                  </label>
+                  <select
+                    id="clientId"
+                    value={formData.clientId}
+                    onChange={(e) => {
+                      const selectedClient = clients.find(c => c.id === e.target.value)
+                      setFormData({ ...formData, clientId: e.target.value })
+                      if (selectedClient) {
+                        setClientName(selectedClient.name)
+                      }
+                    }}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="">No client (optional)</option>
+                    {clients.map((client) => (
+                      <option key={client.id} value={client.id}>
+                        {client.name}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-xs text-gray-500">
+                    Associate this widget with a client to enable landing pages
+                  </p>
+                </div>
+
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
                     <input
@@ -1577,20 +1638,49 @@ export default function EditWidgetPage() {
 
                   {formData.landingPageEnabled && clientName && (
                     <>
+                      {/* Landing Page Slug Editor */}
+                      <div className="space-y-2 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <label htmlFor="landingPageSlug" className="block text-sm font-medium text-gray-700">
+                          Landing Page Slug
+                        </label>
+                        <div className="flex gap-2">
+                          <input
+                            id="landingPageSlug"
+                            type="text"
+                            value={formData.landingPageSlug}
+                            onChange={(e) => setFormData({ ...formData, landingPageSlug: sanitizeSlug(e.target.value) })}
+                            placeholder="auto-generated-slug"
+                            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setFormData({ ...formData, landingPageSlug: generateRandomSlug() })}
+                            className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap"
+                          >
+                            Generate
+                          </button>
+                        </div>
+                        <p className="text-xs text-gray-500">
+                          A unique identifier for your landing page URL. Click "Generate" for a random slug.
+                        </p>
+                      </div>
+
                       <div className="p-3 bg-green-50 rounded-lg border border-green-200">
                         <p className="text-xs text-green-900 font-medium mb-2">Landing Page URL:</p>
                         <div className="flex items-center gap-2">
-                          <code className="flex-1 px-3 py-2 bg-white rounded border border-green-300 text-sm text-green-800 font-mono">
-                            https://voice.romea.ai/{generateSlug(clientName, formData.type)}
+                          <code className="flex-1 px-3 py-2 bg-white rounded border border-green-300 text-sm text-green-800 font-mono break-all">
+                            https://voice.romea.ai/{generateSlug(clientName)}/{formData.landingPageSlug || 'your-slug-here'}
                           </code>
                           <button
                             type="button"
                             onClick={() => {
-                              navigator.clipboard.writeText(`https://voice.romea.ai/${generateSlug(clientName, formData.type)}`)
+                              const url = `https://voice.romea.ai/${generateSlug(clientName)}/${formData.landingPageSlug}`
+                              navigator.clipboard.writeText(url)
                               setSuccess('Landing page URL copied to clipboard!')
                               setTimeout(() => setSuccess(''), 2000)
                             }}
-                            className="px-3 py-2 bg-green-600 text-white text-xs rounded hover:bg-green-700 transition-colors"
+                            disabled={!formData.landingPageSlug}
+                            className="px-3 py-2 bg-green-600 text-white text-xs rounded hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             Copy
                           </button>

@@ -122,6 +122,7 @@ export interface Widget {
   config: WidgetConfig;
   is_active: boolean;
   landing_page_enabled?: boolean;
+  landing_page_slug?: string;
   landing_page_title?: string;
   landing_page_description?: string;
   landing_page_custom_html?: string;
