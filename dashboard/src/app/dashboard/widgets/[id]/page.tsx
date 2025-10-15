@@ -3976,9 +3976,6 @@ export default function EditWidgetPage() {
                                 }}>
                                   {formData.companyName || 'Voice Assistant'}
                                 </div>
-                                <div style={{ fontSize: '12px', opacity: 0.9 }}>
-                                  {previewState === 'active' ? 'Connected' : previewState === 'connecting' ? 'Connecting...' : 'Offline'}
-                                </div>
                               </div>
                             </div>
                             <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
@@ -4364,9 +4361,6 @@ export default function EditWidgetPage() {
                                 color: formData.companyNameColor
                               }}>
                                 {formData.companyName || 'Voice Assistant'}
-                              </div>
-                              <div style={{ fontSize: '12px', opacity: 0.9 }}>
-                                {previewState === 'active' ? 'Connected' : previewState === 'connecting' ? 'Connecting...' : 'Offline'}
                               </div>
                             </div>
                           </div>
