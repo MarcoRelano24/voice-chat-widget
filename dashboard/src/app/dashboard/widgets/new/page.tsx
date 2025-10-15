@@ -131,20 +131,20 @@ export default function NewWidgetPage() {
   return (
     <div className="max-w-3xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Create New Widget</h1>
-        <p className="text-gray-600 mt-1">Set up your voice chat widget</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Create New Widget</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">Set up your voice chat widget</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 space-y-6">
+      <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8 space-y-6">
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg text-sm">
             {error}
           </div>
         )}
 
         {/* Widget Name */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Widget Name *
           </label>
           <input
@@ -153,25 +153,25 @@ export default function NewWidgetPage() {
             required
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             placeholder="e.g., Support Widget"
           />
-          <p className="text-xs text-gray-500 mt-1">This is for your reference only</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">This is for your reference only</p>
         </div>
 
         {/* Client Selection */}
         <div>
-          <label htmlFor="client" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="client" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Client (Optional)
           </label>
           {loadingClients ? (
-            <div className="text-sm text-gray-500">Loading clients...</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">Loading clients...</div>
           ) : (
             <select
               id="client"
               value={formData.clientId}
               onChange={(e) => setFormData({ ...formData, clientId: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             >
               <option value="">None - General Widget</option>
               {clients.map((client) => (
@@ -181,14 +181,14 @@ export default function NewWidgetPage() {
               ))}
             </select>
           )}
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
             Assign this widget to a specific client for better organization
           </p>
         </div>
 
         {/* Widget Type */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Widget Type *
           </label>
           <div className="grid grid-cols-3 gap-4">
@@ -199,8 +199,8 @@ export default function NewWidgetPage() {
                 onClick={() => setFormData({ ...formData, type })}
                 className={`p-4 border-2 rounded-lg text-center transition-colors ${
                   formData.type === type
-                    ? 'border-blue-600 bg-blue-50'
-                    : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-blue-600 dark:border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-gray-900 dark:text-white'
+                    : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 text-gray-900 dark:text-gray-300'
                 }`}
               >
                 <div className="text-2xl mb-2">
@@ -215,12 +215,12 @@ export default function NewWidgetPage() {
         </div>
 
         {/* Vapi Configuration */}
-        <div className="pt-6 border-t border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Vapi Configuration</h3>
+        <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Vapi Configuration</h3>
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="vapiPublicKey" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="vapiPublicKey" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Vapi Public API Key *
               </label>
               <input
@@ -229,13 +229,13 @@ export default function NewWidgetPage() {
                 required
                 value={formData.vapiPublicKey}
                 onChange={(e) => setFormData({ ...formData, vapiPublicKey: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
                 placeholder="pk_..."
               />
             </div>
 
             <div>
-              <label htmlFor="vapiAssistantId" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="vapiAssistantId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Vapi Assistant ID *
               </label>
               <input
@@ -244,7 +244,7 @@ export default function NewWidgetPage() {
                 required
                 value={formData.vapiAssistantId}
                 onChange={(e) => setFormData({ ...formData, vapiAssistantId: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
                 placeholder="asst_..."
               />
             </div>
@@ -252,12 +252,12 @@ export default function NewWidgetPage() {
         </div>
 
         {/* Appearance */}
-        <div className="pt-6 border-t border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Appearance</h3>
+        <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Appearance</h3>
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Company Name
               </label>
               <input
@@ -265,13 +265,13 @@ export default function NewWidgetPage() {
                 type="text"
                 value={formData.companyName}
                 onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="Your Company"
               />
             </div>
 
             <div>
-              <label htmlFor="primaryColor" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="primaryColor" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Primary Color
               </label>
               <div className="flex items-center space-x-3">
@@ -286,13 +286,13 @@ export default function NewWidgetPage() {
                   type="text"
                   value={formData.primaryColor}
                   onChange={(e) => setFormData({ ...formData, primaryColor: e.target.value })}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="welcomeMessage" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="welcomeMessage" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Welcome Message
               </label>
               <textarea
@@ -300,7 +300,7 @@ export default function NewWidgetPage() {
                 rows={3}
                 value={formData.welcomeMessage}
                 onChange={(e) => setFormData({ ...formData, welcomeMessage: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="How can we help you today?"
               />
             </div>
@@ -308,11 +308,11 @@ export default function NewWidgetPage() {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
+        <div className="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
           <button
             type="button"
             onClick={() => router.back()}
-            className="px-6 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             Cancel
           </button>

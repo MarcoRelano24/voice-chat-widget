@@ -49,11 +49,11 @@ export default function Sidebar({ userEmail }: SidebarProps) {
   }
 
   return (
-    <div className="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200">
+    <div className="fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
       <div className="flex flex-col h-full">
         {/* Logo */}
-        <div className="flex items-center justify-center h-16 border-b border-gray-200 px-4">
-          <h1 className="text-lg font-bold text-gray-900 text-center leading-tight">
+        <div className="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700 px-4">
+          <h1 className="text-lg font-bold text-gray-900 dark:text-white text-center leading-tight">
             Voice Chat Widget<br />Management
           </h1>
         </div>
@@ -66,8 +66,8 @@ export default function Sidebar({ userEmail }: SidebarProps) {
               href="/dashboard"
               className={`flex items-center px-4 py-3 rounded-lg transition-colors ${
                 isActive('/dashboard') && !pathname.includes('/clients')
-                  ? 'bg-blue-50 text-blue-700'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
               <span className="text-xl mr-3">📊</span>
@@ -77,8 +77,8 @@ export default function Sidebar({ userEmail }: SidebarProps) {
               href="/dashboard/analytics"
               className={`flex items-center px-4 py-3 rounded-lg transition-colors ${
                 isActive('/dashboard/analytics')
-                  ? 'bg-blue-50 text-blue-700'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
               <span className="text-xl mr-3">📈</span>
@@ -89,12 +89,12 @@ export default function Sidebar({ userEmail }: SidebarProps) {
           {/* Clients Section */}
           <div>
             <div className="flex items-center justify-between px-4 mb-3">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Clients
               </h3>
               <Link
                 href="/dashboard/clients/new"
-                className="text-blue-600 hover:text-blue-700 text-xl"
+                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-xl"
                 title="Add new client"
               >
                 +
@@ -102,9 +102,9 @@ export default function Sidebar({ userEmail }: SidebarProps) {
             </div>
             <div className="space-y-1">
               {loading ? (
-                <div className="px-4 py-2 text-sm text-gray-500">Loading...</div>
+                <div className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">Loading...</div>
               ) : clients.length === 0 ? (
-                <div className="px-4 py-2 text-sm text-gray-500">
+                <div className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">
                   No clients yet
                 </div>
               ) : (
@@ -114,8 +114,8 @@ export default function Sidebar({ userEmail }: SidebarProps) {
                     href={`/dashboard/clients/${client.id}`}
                     className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
                       pathname === `/dashboard/clients/${client.id}`
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-700 hover:bg-gray-100'
+                        ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                     }`}
                   >
                     <span className="text-base mr-3">👤</span>
@@ -128,22 +128,22 @@ export default function Sidebar({ userEmail }: SidebarProps) {
         </nav>
 
         {/* User Info */}
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
             <div className="flex items-center min-w-0 flex-1">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 bg-blue-600 dark:bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <span className="text-white text-sm font-semibold">
                   {userEmail?.[0]?.toUpperCase()}
                 </span>
               </div>
               <div className="ml-3 min-w-0 flex-1">
-                <p className="text-sm font-medium text-gray-700 truncate">{userEmail}</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 truncate">{userEmail}</p>
               </div>
             </div>
             <form action="/api/auth/signout" method="post">
               <button
                 type="submit"
-                className="text-gray-400 hover:text-gray-600 text-sm ml-2"
+                className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 text-sm ml-2"
               >
                 Logout
               </button>

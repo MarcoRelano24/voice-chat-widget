@@ -137,7 +137,7 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
 
   return (
     <div className="relative">
-      <label className="block text-sm font-medium text-gray-700 mb-2">
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
         {label}
       </label>
 
@@ -145,7 +145,7 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
         <button
           type="button"
           onClick={() => setShowPicker(!showPicker)}
-          className="relative w-12 h-12 rounded-lg border-2 border-gray-300 overflow-hidden cursor-pointer hover:border-gray-400 transition-colors shadow-sm"
+          className="relative w-12 h-12 rounded-lg border-2 border-gray-300 dark:border-gray-600 overflow-hidden cursor-pointer hover:border-gray-400 dark:hover:border-gray-500 transition-colors shadow-sm"
           style={{ backgroundColor: value }}
         >
           <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/5" />
@@ -156,7 +156,7 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
             type="text"
             value={hexInput}
             onChange={(e) => handleHexInput(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm uppercase"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm uppercase"
             placeholder="#667eea"
             maxLength={7}
           />
@@ -164,7 +164,7 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
       </div>
 
       {description && (
-        <p className="mt-1 text-xs text-gray-500">{description}</p>
+        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">{description}</p>
       )}
 
       {showPicker && (
@@ -173,11 +173,11 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
             className="fixed inset-0 z-[100]"
             onClick={() => setShowPicker(false)}
           />
-          <div className="absolute z-[110] mt-2 p-4 bg-white rounded-xl shadow-2xl border border-gray-200 w-80 max-h-[500px] overflow-y-auto left-0">
+          <div className="absolute z-[110] mt-2 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 w-80 max-h-[500px] overflow-y-auto left-0">
             {/* Color Spectrum Picker */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium text-gray-700">Color Picker</span>
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Color Picker</span>
               </div>
 
               {/* Saturation/Lightness Square */}
@@ -215,7 +215,7 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
 
               {/* Hue Slider */}
               <div className="mb-3">
-                <label className="text-xs text-gray-600 mb-1 block">Hue</label>
+                <label className="text-xs text-gray-600 dark:text-gray-400 mb-1 block">Hue</label>
                 <input
                   type="range"
                   min="0"
@@ -232,7 +232,7 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
               {/* RGB Sliders */}
               <div className="space-y-2 mb-3">
                 <div>
-                  <label className="text-xs text-gray-600 mb-1 block flex justify-between">
+                  <label className="text-xs text-gray-600 dark:text-gray-400 mb-1 block flex justify-between">
                     <span>Saturation</span>
                     <span>{saturation}%</span>
                   </label>
@@ -249,7 +249,7 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-gray-600 mb-1 block flex justify-between">
+                  <label className="text-xs text-gray-600 dark:text-gray-400 mb-1 block flex justify-between">
                     <span>Lightness</span>
                     <span>{lightness}%</span>
                   </label>
@@ -268,9 +268,9 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
               </div>
             </div>
 
-            <div className="border-t pt-4 mb-4">
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium text-gray-700">Presets</span>
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Presets</span>
               </div>
               <div className="grid grid-cols-6 gap-2">
                 {COLOR_PRESETS.map((preset) => (
@@ -278,7 +278,7 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
                     key={preset.color}
                     type="button"
                     onClick={() => handleColorChange(preset.color)}
-                    className="w-full aspect-square rounded-lg border-2 hover:border-gray-400 transition-all hover:scale-105"
+                    className="w-full aspect-square rounded-lg border-2 hover:border-gray-400 dark:hover:border-gray-500 transition-all hover:scale-105"
                     style={{
                       backgroundColor: preset.color,
                       borderColor: value === preset.color ? '#3b82f6' : '#e5e7eb'
@@ -290,9 +290,9 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
             </div>
 
             {recentColors.length > 0 && (
-              <div className="border-t pt-4">
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-medium text-gray-700">Recent</span>
+                  <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Recent</span>
                 </div>
                 <div className="grid grid-cols-8 gap-2">
                   {recentColors.map((color, idx) => (
@@ -300,7 +300,7 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
                       key={`${color}-${idx}`}
                       type="button"
                       onClick={() => handleColorChange(color)}
-                      className="w-full aspect-square rounded-lg border-2 hover:border-gray-400 transition-all hover:scale-105"
+                      className="w-full aspect-square rounded-lg border-2 hover:border-gray-400 dark:hover:border-gray-500 transition-all hover:scale-105"
                       style={{
                         backgroundColor: color,
                         borderColor: value === color ? '#3b82f6' : '#e5e7eb'
@@ -403,11 +403,11 @@ function ImageUpload({ label, value, onChange, description }: ImageUploadProps) 
 
   return (
     <div className="space-y-3">
-      <label className="block text-sm font-medium text-gray-700">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
 
       {value ? (
         <div className="relative group">
-          <div className="relative w-full h-32 rounded-lg border-2 border-gray-200 overflow-hidden bg-gray-50">
+          <div className="relative w-full h-32 rounded-lg border-2 border-gray-200 dark:border-gray-700 overflow-hidden bg-gray-50 dark:bg-gray-900">
             <img
               src={value}
               alt="Uploaded logo"
@@ -417,7 +417,7 @@ function ImageUpload({ label, value, onChange, description }: ImageUploadProps) 
               <button
                 type="button"
                 onClick={() => document.getElementById(`file-input-${label}`)?.click()}
-                className="px-3 py-2 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
+                className="px-3 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
                 Replace
               </button>
@@ -434,21 +434,21 @@ function ImageUpload({ label, value, onChange, description }: ImageUploadProps) 
       ) : (
         <div
           onClick={() => document.getElementById(`file-input-${label}`)?.click()}
-          className="relative w-full h-32 rounded-lg border-2 border-dashed border-gray-300 hover:border-blue-400 transition-colors cursor-pointer bg-gray-50 hover:bg-blue-50/50"
+          className="relative w-full h-32 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 hover:border-blue-400 dark:hover:border-blue-500 transition-colors cursor-pointer bg-gray-50 dark:bg-gray-900 hover:bg-blue-50/50 dark:hover:bg-blue-900/20"
         >
           <div className="flex flex-col items-center justify-center h-full text-center p-4">
             {uploading ? (
               <>
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
-                <p className="text-sm text-gray-500">Uploading...</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-500">Uploading...</p>
               </>
             ) : (
               <>
-                <svg className="w-10 h-10 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-10 h-10 text-gray-400 dark:text-gray-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
-                <p className="text-sm text-gray-600 font-medium">Click to upload image</p>
-                <p className="text-xs text-gray-500 mt-1">PNG, JPG, GIF, WebP, SVG (max 5MB)</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 font-medium">Click to upload image</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">PNG, JPG, GIF, WebP, SVG (max 5MB)</p>
               </>
             )}
           </div>
@@ -465,11 +465,11 @@ function ImageUpload({ label, value, onChange, description }: ImageUploadProps) 
       />
 
       {error && (
-        <p className="text-sm text-red-600">{error}</p>
+        <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
       )}
 
       {description && (
-        <p className="text-xs text-gray-500">{description}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">{description}</p>
       )}
     </div>
   )
@@ -507,12 +507,12 @@ function BoxModelControl({ label, values, onChange, min = 0, max = 100, unit = '
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="text-sm font-medium text-gray-700">{label}</label>
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
         <button
           type="button"
           onClick={() => setLinkedValues(!linkedValues)}
           className={`text-xs px-2 py-1 rounded transition-colors ${
-            linkedValues ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'
+            linkedValues ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
           }`}
           title={linkedValues ? 'Unlink values' : 'Link values'}
         >
@@ -522,7 +522,7 @@ function BoxModelControl({ label, values, onChange, min = 0, max = 100, unit = '
 
       <div className="relative">
         {/* Visual Box Model */}
-        <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 border border-gray-200">
+        <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-700 dark:border-gray-700">
           <div className="grid grid-cols-3 gap-2 items-center">
             {/* Top */}
             <div className="col-span-3 flex justify-center">
@@ -532,7 +532,7 @@ function BoxModelControl({ label, values, onChange, min = 0, max = 100, unit = '
                 onChange={(e) => handleChange('top', parseInt(e.target.value) || 0)}
                 min={min}
                 max={max}
-                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="Top"
               />
             </div>
@@ -545,13 +545,13 @@ function BoxModelControl({ label, values, onChange, min = 0, max = 100, unit = '
                 onChange={(e) => handleChange('left', parseInt(e.target.value) || 0)}
                 min={min}
                 max={max}
-                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="Left"
               />
             </div>
 
             <div className="flex items-center justify-center">
-              <div className="text-xs font-medium text-gray-500 bg-white px-3 py-2 rounded border border-gray-200">
+              <div className="text-xs font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-700 px-3 py-2 rounded border border-gray-200 dark:border-gray-700 dark:border-gray-600">
                 {label}
               </div>
             </div>
@@ -563,7 +563,7 @@ function BoxModelControl({ label, values, onChange, min = 0, max = 100, unit = '
                 onChange={(e) => handleChange('right', parseInt(e.target.value) || 0)}
                 min={min}
                 max={max}
-                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="Right"
               />
             </div>
@@ -576,14 +576,14 @@ function BoxModelControl({ label, values, onChange, min = 0, max = 100, unit = '
                 onChange={(e) => handleChange('bottom', parseInt(e.target.value) || 0)}
                 min={min}
                 max={max}
-                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="Bottom"
               />
             </div>
           </div>
         </div>
 
-        <p className="text-xs text-gray-500 mt-2">
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
           Values in {unit} • {linkedValues ? 'All sides linked' : 'Individual side control'}
         </p>
       </div>
@@ -604,30 +604,30 @@ function CollapsibleSection({ title, icon, children, defaultOpen = true, descrip
   const [isOpen, setIsOpen] = useState(defaultOpen)
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-visible">
+    <div className="bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700 overflow-visible">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 flex items-center justify-between bg-gradient-to-r from-gray-50 to-white hover:from-gray-100 hover:to-gray-50 transition-all"
+        className="w-full px-6 py-4 flex items-center justify-between bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-800 hover:from-gray-100 hover:to-gray-50 dark:hover:from-gray-700 dark:hover:to-gray-750 transition-all"
       >
         <div className="flex items-center gap-3">
-          {icon && <div className="text-blue-600">{icon}</div>}
+          {icon && <div className="text-blue-600 dark:text-blue-400">{icon}</div>}
           <div className="text-left">
-            <h3 className="text-base font-semibold text-gray-900">{title}</h3>
+            <h3 className="text-base font-semibold text-gray-900 dark:text-white">{title}</h3>
             {description && (
-              <p className="text-xs text-gray-500 mt-0.5">{description}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{description}</p>
             )}
           </div>
         </div>
         {isOpen ? (
-          <ChevronUpIcon className="w-5 h-5 text-gray-400" />
+          <ChevronUpIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500" />
         ) : (
-          <ChevronDownIcon className="w-5 h-5 text-gray-400" />
+          <ChevronDownIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500" />
         )}
       </button>
 
       {isOpen && (
-        <div className="px-6 py-5 border-t border-gray-100">
+        <div className="px-6 py-5 border-t border-gray-100 dark:border-gray-700">
           {children}
         </div>
       )}
@@ -746,11 +746,17 @@ export default function EditWidgetPage() {
 
     // Inline Widget Hover Effects
     hoverColor: '#5568d3',
+    hoverTextColor: '#ffffff',
     hoverText: 'Click to Call',
     hoverScale: 1.05,
     hoverTransitionType: 'both' as 'color' | 'text' | 'both',
     enableSlideEffect: true,
     slideDirection: 'up' as 'up' | 'down' | 'left' | 'right',
+
+    // Inline Widget Border
+    inlineBorderWidth: 0,
+    inlineBorderStyle: 'solid' as 'solid' | 'dashed' | 'dotted' | 'none',
+    inlineBorderColor: '#e5e7eb',
 
     // Inline Widget Symbol/Icon
     enableSymbol: false,
@@ -1026,11 +1032,17 @@ export default function EditWidgetPage() {
 
           // Inline Widget Hover Effects
           hoverColor: config.inline?.hoverColor || '#5568d3',
+          hoverTextColor: config.inline?.hoverTextColor || '#ffffff',
           hoverText: config.inline?.hoverText || 'Click to Call',
           hoverScale: config.inline?.hoverScale || 1.05,
           hoverTransitionType: config.inline?.hoverTransitionType || 'both',
           enableSlideEffect: config.inline?.enableSlideEffect !== false,
           slideDirection: config.inline?.slideDirection || 'up',
+
+          // Inline Widget Border
+          inlineBorderWidth: config.inline?.borderWidth ?? 0,
+          inlineBorderStyle: config.inline?.borderStyle || 'solid',
+          inlineBorderColor: config.inline?.borderColor || '#e5e7eb',
 
           // Inline Widget Symbol/Icon
           enableSymbol: config.inline?.enableSymbol || false,
@@ -1333,11 +1345,15 @@ export default function EditWidgetPage() {
         },
         inline: {
           hoverColor: formData.hoverColor,
+          hoverTextColor: formData.hoverTextColor,
           hoverText: formData.hoverText,
           hoverScale: formData.hoverScale,
           hoverTransitionType: formData.hoverTransitionType,
           enableSlideEffect: formData.enableSlideEffect,
           slideDirection: formData.slideDirection,
+          borderWidth: formData.inlineBorderWidth,
+          borderStyle: formData.inlineBorderStyle,
+          borderColor: formData.inlineBorderColor,
           enableSymbol: formData.enableSymbol,
           symbolText: formData.symbolText,
           symbolPosition: formData.symbolPosition,
@@ -1463,7 +1479,7 @@ export default function EditWidgetPage() {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
-          <div className="text-gray-600">Loading widget...</div>
+          <div className="text-gray-600 dark:text-gray-400 dark:text-gray-400 dark:text-gray-500">Loading widget...</div>
         </div>
       </div>
     )
@@ -1482,7 +1498,7 @@ export default function EditWidgetPage() {
       <div className="mb-6">
         <Link
           href="/dashboard"
-          className="text-blue-600 hover:text-blue-700 text-sm font-medium inline-flex items-center gap-1 mb-3"
+          className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium inline-flex items-center gap-1 mb-3"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -1491,13 +1507,13 @@ export default function EditWidgetPage() {
         </Link>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Edit Widget</h1>
-            <p className="text-gray-600 mt-1">Customize your voice chat widget</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Edit Widget</h1>
+            <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mt-1">Customize your voice chat widget</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="text-right">
-              <div className="text-xs text-gray-500">Widget Type</div>
-              <div className="text-sm font-semibold text-gray-900 capitalize">{formData.type}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">Widget Type</div>
+              <div className="text-sm font-semibold text-gray-900 dark:text-white capitalize">{formData.type}</div>
             </div>
           </div>
         </div>
@@ -1505,7 +1521,7 @@ export default function EditWidgetPage() {
 
       {/* Alerts */}
       {error && (
-        <div className="mb-6 bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-r-lg shadow-sm">
+        <div className="mb-6 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 text-red-700 dark:text-red-400 px-4 py-3 rounded-r-lg shadow-sm">
           <div className="flex items-center">
             <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -1516,7 +1532,7 @@ export default function EditWidgetPage() {
       )}
 
       {success && (
-        <div className="mb-6 bg-green-50 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded-r-lg shadow-sm">
+        <div className="mb-6 bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 text-green-700 dark:text-green-400 px-4 py-3 rounded-r-lg shadow-sm">
           <div className="flex items-center">
             <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -1532,20 +1548,20 @@ export default function EditWidgetPage() {
         <div className="xl:col-span-2">
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Basic Info Card */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
               <div className="flex items-center gap-3 mb-5">
                 <div className="p-2 bg-blue-50 rounded-lg">
                   <Squares2X2Icon className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-900">Basic Information</h2>
-                  <p className="text-xs text-gray-500">Configure widget name, type, and status</p>
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Basic Information</h2>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">Configure widget name, type, and status</p>
                 </div>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Widget Name
                   </label>
                   <input
@@ -1560,7 +1576,7 @@ export default function EditWidgetPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Widget Type
                   </label>
                   <div className="grid grid-cols-3 gap-3">
@@ -1614,7 +1630,7 @@ export default function EditWidgetPage() {
                         setClientName(selectedClient.name)
                       }
                     }}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">No client (optional)</option>
                     {clients.map((client) => (
@@ -1623,21 +1639,21 @@ export default function EditWidgetPage() {
                       </option>
                     ))}
                   </select>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">
                     Associate this widget with a client to enable landing pages
                   </p>
                 </div>
 
                 {/* Domain Restrictions */}
-                <div className="space-y-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="space-y-3 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-2">
                     <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
-                    <h3 className="text-sm font-semibold text-gray-900">Domain Restrictions (CORS)</h3>
+                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Domain Restrictions (CORS)</h3>
                   </div>
 
-                  <p className="text-xs text-gray-600">
+                  <p className="text-xs text-gray-600 dark:text-gray-400 dark:text-gray-500">
                     Restrict which domains can embed and use this widget. Leave empty to allow all domains.
                   </p>
 
@@ -1651,10 +1667,10 @@ export default function EditWidgetPage() {
                       onChange={(e) => setFormData({ ...formData, allowedDomains: e.target.value })}
                       placeholder={'example.com\nwww.example.com\n*.staging.example.com\nlocalhost'}
                       rows={6}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
                     />
                     <div className="space-y-1">
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">
                         <strong>Examples:</strong>
                       </p>
                       <ul className="text-xs text-gray-500 space-y-1 ml-4">
@@ -1698,7 +1714,7 @@ export default function EditWidgetPage() {
                   {formData.landingPageEnabled && clientName && (
                     <>
                       {/* Landing Page Slug Editor */}
-                      <div className="space-y-2 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                      <div className="space-y-2 p-3 bg-gray-50 rounded-lg border border-gray-200 dark:border-gray-700">
                         <label htmlFor="landingPageSlug" className="block text-sm font-medium text-gray-700">
                           Landing Page Slug
                         </label>
@@ -1709,7 +1725,7 @@ export default function EditWidgetPage() {
                             value={formData.landingPageSlug}
                             onChange={(e) => setFormData({ ...formData, landingPageSlug: sanitizeSlug(e.target.value) })}
                             placeholder="auto-generated-slug"
-                            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
                           />
                           <button
                             type="button"
@@ -1719,15 +1735,15 @@ export default function EditWidgetPage() {
                             Generate
                           </button>
                         </div>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">
                           A unique identifier for your landing page URL. Click "Generate" for a random slug.
                         </p>
                       </div>
 
-                      <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                        <p className="text-xs text-green-900 font-medium mb-2">Landing Page URL:</p>
-                        <div className="flex items-center gap-2">
-                          <code className="flex-1 px-3 py-2 bg-white rounded border border-green-300 text-sm text-green-800 font-mono break-all">
+                      <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                        <p className="text-xs text-green-900 dark:text-green-300 font-medium mb-2">Landing Page URL:</p>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                          <code className="flex-1 px-3 py-2 bg-white dark:bg-gray-800 rounded border border-green-300 dark:border-green-700 text-sm text-green-800 dark:text-green-300 font-mono break-all">
                             https://voice.romea.ai/{generateSlug(clientName)}/{formData.landingPageSlug || 'your-slug-here'}
                           </code>
                           <button
@@ -1739,7 +1755,7 @@ export default function EditWidgetPage() {
                               setTimeout(() => setSuccess(''), 2000)
                             }}
                             disabled={!formData.landingPageSlug}
-                            className="px-3 py-2 bg-green-600 text-white text-xs rounded hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full sm:w-auto px-3 py-2 bg-green-600 text-white text-xs rounded hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             Copy
                           </button>
@@ -1747,9 +1763,9 @@ export default function EditWidgetPage() {
                       </div>
 
                       {/* Landing Page Customization Section */}
-                      <div className="border border-gray-200 rounded-lg overflow-hidden">
+                      <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
                         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3 border-b border-gray-200">
-                          <h3 className="text-sm font-semibold text-gray-800">Landing Page Customization</h3>
+                          <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">Landing Page Customization</h3>
                           <p className="text-xs text-gray-600 mt-1">Customize the appearance and content of your landing page</p>
                         </div>
 
@@ -1757,7 +1773,7 @@ export default function EditWidgetPage() {
                           {/* Basic Information */}
                           <div className="space-y-3">
                             <div>
-                              <label htmlFor="landingPageTitle" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="landingPageTitle" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Page Title
                               </label>
                               <input
@@ -1766,12 +1782,12 @@ export default function EditWidgetPage() {
                                 value={formData.landingPageTitle}
                                 onChange={(e) => setFormData({ ...formData, landingPageTitle: e.target.value })}
                                 placeholder="Welcome to our voice assistant (optional, defaults to company name)"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                               />
                             </div>
 
                             <div>
-                              <label htmlFor="landingPageDescription" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="landingPageDescription" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Description
                               </label>
                               <textarea
@@ -1780,18 +1796,18 @@ export default function EditWidgetPage() {
                                 onChange={(e) => setFormData({ ...formData, landingPageDescription: e.target.value })}
                                 placeholder="Describe your voice assistant and what it can help with..."
                                 rows={3}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                               />
                             </div>
                           </div>
 
                           {/* Visual Customization */}
                           <div className="space-y-3 pt-3 border-t">
-                            <h4 className="text-sm font-medium text-gray-800">Visual Settings</h4>
+                            <h4 className="text-sm font-medium text-gray-800 dark:text-gray-200">Visual Settings</h4>
 
                             <div className="grid grid-cols-2 gap-3">
                               <div>
-                                <label htmlFor="landingPageBackgroundColor" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="landingPageBackgroundColor" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Background Color
                                 </label>
                                 <input
@@ -1804,7 +1820,7 @@ export default function EditWidgetPage() {
                               </div>
 
                               <div>
-                                <label htmlFor="landingPageHeaderImage" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="landingPageHeaderImage" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Header Image URL
                                 </label>
                                 <input
@@ -1813,7 +1829,7 @@ export default function EditWidgetPage() {
                                   value={formData.landingPageHeaderImage}
                                   onChange={(e) => setFormData({ ...formData, landingPageHeaderImage: e.target.value })}
                                   placeholder="https://example.com/hero.jpg"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                                 />
                               </div>
                             </div>
@@ -1839,11 +1855,11 @@ export default function EditWidgetPage() {
 
                           {/* Custom Code Section */}
                           <div className="space-y-3 pt-3 border-t">
-                            <h4 className="text-sm font-medium text-gray-800">Custom Code</h4>
-                            <p className="text-xs text-gray-500">Add your own HTML, CSS, and JavaScript to customize the landing page</p>
+                            <h4 className="text-sm font-medium text-gray-800 dark:text-gray-200">Custom Code</h4>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">Add your own HTML, CSS, and JavaScript to customize the landing page</p>
 
                             <div>
-                              <label htmlFor="landingPageCustomHTML" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="landingPageCustomHTML" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Custom HTML
                               </label>
                               <textarea
@@ -1852,12 +1868,12 @@ export default function EditWidgetPage() {
                                 onChange={(e) => setFormData({ ...formData, landingPageCustomHTML: e.target.value })}
                                 placeholder="<div>Your custom HTML content here...</div>"
                                 rows={5}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
                               />
                             </div>
 
                             <div>
-                              <label htmlFor="landingPageCustomCSS" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="landingPageCustomCSS" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Custom CSS
                               </label>
                               <textarea
@@ -1866,12 +1882,12 @@ export default function EditWidgetPage() {
                                 onChange={(e) => setFormData({ ...formData, landingPageCustomCSS: e.target.value })}
                                 placeholder=".custom-class { color: blue; }"
                                 rows={5}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
                               />
                             </div>
 
                             <div>
-                              <label htmlFor="landingPageCustomJS" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="landingPageCustomJS" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Custom JavaScript
                               </label>
                               <textarea
@@ -1880,7 +1896,7 @@ export default function EditWidgetPage() {
                                 onChange={(e) => setFormData({ ...formData, landingPageCustomJS: e.target.value })}
                                 placeholder="console.log('Custom JS'); // Your code here"
                                 rows={5}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
                               />
                               <p className="text-xs text-amber-600 mt-1">⚠️ Be careful with custom JavaScript - test thoroughly before deploying</p>
                             </div>
@@ -1894,7 +1910,7 @@ export default function EditWidgetPage() {
                 <div className="pt-4 border-t border-gray-200">
                   <div className="space-y-3">
                     <div>
-                      <label htmlFor="vapiPublicKey" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="vapiPublicKey" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Vapi Public API Key
                       </label>
                       <input
@@ -1909,7 +1925,7 @@ export default function EditWidgetPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="vapiAssistantId" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="vapiAssistantId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Vapi Assistant ID
                       </label>
                       <input
@@ -1928,9 +1944,9 @@ export default function EditWidgetPage() {
             </div>
 
             {/* Tabbed Content */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+            <div className="bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
               {/* Tab Navigation */}
-              <div className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white rounded-t-xl overflow-hidden">
+              <div className="border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-800 rounded-t-xl overflow-hidden">
                 <nav className="flex -mb-px">
                   {tabs.map((tab) => (
                     <button
@@ -1939,8 +1955,8 @@ export default function EditWidgetPage() {
                       onClick={() => setActiveTab(tab.id)}
                       className={`flex-1 py-4 px-4 text-center border-b-2 font-medium text-sm transition-all ${
                         activeTab === tab.id
-                          ? 'border-blue-500 text-blue-600 bg-blue-50/50'
-                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                          ? 'border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/30'
+                          : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
                       }`}
                     >
                       <div className="flex items-center justify-center gap-2">
@@ -2000,7 +2016,7 @@ export default function EditWidgetPage() {
                       >
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label htmlFor="panelWidth" className="block text-sm font-medium text-gray-700 mb-2">
+                            <label htmlFor="panelWidth" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                               Width (px)
                             </label>
                             <input
@@ -2010,11 +2026,11 @@ export default function EditWidgetPage() {
                               max="600"
                               value={formData.panelWidth}
                               onChange={(e) => setFormData({ ...formData, panelWidth: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                           <div>
-                            <label htmlFor="panelHeight" className="block text-sm font-medium text-gray-700 mb-2">
+                            <label htmlFor="panelHeight" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                               Height (px)
                             </label>
                             <input
@@ -2024,11 +2040,11 @@ export default function EditWidgetPage() {
                               max="800"
                               value={formData.panelHeight}
                               onChange={(e) => setFormData({ ...formData, panelHeight: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                           <div>
-                            <label htmlFor="buttonPadding" className="block text-sm font-medium text-gray-700 mb-2">
+                            <label htmlFor="buttonPadding" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                               Button Padding (px)
                             </label>
                             <input
@@ -2038,11 +2054,11 @@ export default function EditWidgetPage() {
                               max="40"
                               value={formData.buttonPadding}
                               onChange={(e) => setFormData({ ...formData, buttonPadding: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                           <div>
-                            <label htmlFor="panelPadding" className="block text-sm font-medium text-gray-700 mb-2">
+                            <label htmlFor="panelPadding" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                               Panel Padding (px)
                             </label>
                             <input
@@ -2052,7 +2068,7 @@ export default function EditWidgetPage() {
                               max="40"
                               value={formData.panelPadding}
                               onChange={(e) => setFormData({ ...formData, panelPadding: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                         </div>
@@ -2068,7 +2084,7 @@ export default function EditWidgetPage() {
                       >
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label htmlFor="inlineButtonWidth" className="block text-sm font-medium text-gray-700 mb-2">
+                            <label htmlFor="inlineButtonWidth" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                               Width
                             </label>
                             <input
@@ -2076,12 +2092,12 @@ export default function EditWidgetPage() {
                               type="text"
                               value={formData.inlineButtonWidth}
                               onChange={(e) => setFormData({ ...formData, inlineButtonWidth: e.target.value })}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                               placeholder="auto or 200px"
                             />
                           </div>
                           <div>
-                            <label htmlFor="inlineButtonHeight" className="block text-sm font-medium text-gray-700 mb-2">
+                            <label htmlFor="inlineButtonHeight" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                               Height (px)
                             </label>
                             <input
@@ -2091,11 +2107,11 @@ export default function EditWidgetPage() {
                               max="100"
                               value={formData.inlineButtonHeight}
                               onChange={(e) => setFormData({ ...formData, inlineButtonHeight: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                           <div>
-                            <label htmlFor="buttonPadding" className="block text-sm font-medium text-gray-700 mb-2">
+                            <label htmlFor="buttonPadding" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                               Padding (px)
                             </label>
                             <input
@@ -2105,7 +2121,7 @@ export default function EditWidgetPage() {
                               max="40"
                               value={formData.buttonPadding}
                               onChange={(e) => setFormData({ ...formData, buttonPadding: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                         </div>
@@ -2122,7 +2138,7 @@ export default function EditWidgetPage() {
                         <div className="space-y-4">
                           {/* Text Alignment */}
                           <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                               Text Alignment
                             </label>
                             <div className="grid grid-cols-3 gap-3">
@@ -2134,7 +2150,7 @@ export default function EditWidgetPage() {
                                   className={`px-4 py-2.5 text-sm font-medium rounded-lg border-2 transition-all ${
                                     formData.textAlign === align
                                       ? 'border-blue-600 bg-blue-50 text-blue-700'
-                                      : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                                      : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700'
                                   }`}
                                 >
                                   {align.charAt(0).toUpperCase() + align.slice(1)}
@@ -2149,7 +2165,7 @@ export default function EditWidgetPage() {
                           {/* Hover Text Alignment */}
                           {formData.enableSlideEffect && (
                             <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-2">
+                              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Hover Text Alignment
                               </label>
                               <div className="grid grid-cols-3 gap-3">
@@ -2161,7 +2177,7 @@ export default function EditWidgetPage() {
                                     className={`px-4 py-2.5 text-sm font-medium rounded-lg border-2 transition-all ${
                                       formData.hoverTextAlign === align
                                         ? 'border-green-600 bg-green-50 text-green-700'
-                                        : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                                        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700'
                                     }`}
                                   >
                                     {align.charAt(0).toUpperCase() + align.slice(1)}
@@ -2191,7 +2207,7 @@ export default function EditWidgetPage() {
                                   max="100"
                                   value={formData.marginTop}
                                   onChange={(e) => setFormData({ ...formData, marginTop: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
                               </div>
                               <div>
@@ -2205,7 +2221,7 @@ export default function EditWidgetPage() {
                                   max="100"
                                   value={formData.marginRight}
                                   onChange={(e) => setFormData({ ...formData, marginRight: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
                               </div>
                               <div>
@@ -2219,7 +2235,7 @@ export default function EditWidgetPage() {
                                   max="100"
                                   value={formData.marginBottom}
                                   onChange={(e) => setFormData({ ...formData, marginBottom: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
                               </div>
                               <div>
@@ -2233,7 +2249,7 @@ export default function EditWidgetPage() {
                                   max="100"
                                   value={formData.marginLeft}
                                   onChange={(e) => setFormData({ ...formData, marginLeft: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
                               </div>
                             </div>
@@ -2253,7 +2269,7 @@ export default function EditWidgetPage() {
                       <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label htmlFor="borderRadius" className="block text-sm font-medium text-gray-700 mb-2">
+                            <label htmlFor="borderRadius" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                               Border Radius (px)
                             </label>
                             <input
@@ -2263,11 +2279,11 @@ export default function EditWidgetPage() {
                               max="50"
                               value={formData.borderRadius}
                               onChange={(e) => setFormData({ ...formData, borderRadius: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                           <div>
-                            <label htmlFor="borderWidth" className="block text-sm font-medium text-gray-700 mb-2">
+                            <label htmlFor="borderWidth" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                               Border Width (px)
                             </label>
                             <input
@@ -2277,7 +2293,7 @@ export default function EditWidgetPage() {
                               max="10"
                               value={formData.borderWidth}
                               onChange={(e) => setFormData({ ...formData, borderWidth: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                         </div>
@@ -2291,7 +2307,7 @@ export default function EditWidgetPage() {
                         )}
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Shadow Intensity
                           </label>
                           <div className="grid grid-cols-4 gap-2">
@@ -2381,7 +2397,7 @@ export default function EditWidgetPage() {
                         />
 
                         <div className="space-y-4">
-                          <h4 className="text-sm font-medium text-gray-700">Border Colors</h4>
+                          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">Border Colors</h4>
                           <div className="grid grid-cols-2 gap-4">
                             <ColorPicker
                               label="Top Border"
@@ -2407,7 +2423,7 @@ export default function EditWidgetPage() {
                         </div>
 
                         <div className="space-y-4">
-                          <h4 className="text-sm font-medium text-gray-700">Border Radius (Individual Corners)</h4>
+                          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">Border Radius (Individual Corners)</h4>
                           <div className="grid grid-cols-2 gap-4">
                             <div>
                               <label htmlFor="borderTopLeftRadius" className="block text-xs font-medium text-gray-600 mb-2">
@@ -2420,7 +2436,7 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.borderTopLeftRadius}
                                 onChange={(e) => setFormData({ ...formData, borderTopLeftRadius: parseInt(e.target.value) })}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               />
                             </div>
                             <div>
@@ -2434,7 +2450,7 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.borderTopRightRadius}
                                 onChange={(e) => setFormData({ ...formData, borderTopRightRadius: parseInt(e.target.value) })}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               />
                             </div>
                             <div>
@@ -2448,7 +2464,7 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.borderBottomLeftRadius}
                                 onChange={(e) => setFormData({ ...formData, borderBottomLeftRadius: parseInt(e.target.value) })}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               />
                             </div>
                             <div>
@@ -2462,7 +2478,7 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.borderBottomRightRadius}
                                 onChange={(e) => setFormData({ ...formData, borderBottomRightRadius: parseInt(e.target.value) })}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               />
                             </div>
                           </div>
@@ -2478,7 +2494,7 @@ export default function EditWidgetPage() {
                       >
                         <div className="space-y-4">
                           <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                               Screen Position
                             </label>
                             <div className="grid grid-cols-2 gap-3">
@@ -2506,7 +2522,7 @@ export default function EditWidgetPage() {
 
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <label htmlFor="offsetX" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="offsetX" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Horizontal Offset (px)
                               </label>
                               <input
@@ -2516,11 +2532,11 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.offsetX}
                                 onChange={(e) => setFormData({ ...formData, offsetX: parseInt(e.target.value) })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                               />
                             </div>
                             <div>
-                              <label htmlFor="offsetY" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="offsetY" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Vertical Offset (px)
                               </label>
                               <input
@@ -2530,7 +2546,7 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.offsetY}
                                 onChange={(e) => setFormData({ ...formData, offsetY: parseInt(e.target.value) })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                               />
                             </div>
                           </div>
@@ -2550,7 +2566,7 @@ export default function EditWidgetPage() {
                     >
                       <div className="space-y-4">
                         <div>
-                          <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
+                          <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Company Name
                           </label>
                           <input
@@ -2558,7 +2574,7 @@ export default function EditWidgetPage() {
                             type="text"
                             value={formData.companyName}
                             onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             placeholder="Your Company"
                           />
                         </div>
@@ -2571,7 +2587,7 @@ export default function EditWidgetPage() {
                         />
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Logo Position
                           </label>
                           <div className="grid grid-cols-2 gap-3">
@@ -2600,7 +2616,7 @@ export default function EditWidgetPage() {
                           <>
                             <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Logo Alignment
                                 </label>
                                 <div className="grid grid-cols-3 gap-2">
@@ -2612,7 +2628,7 @@ export default function EditWidgetPage() {
                                       className={`px-3 py-2 text-xs font-medium rounded-lg border-2 transition-all ${
                                         formData.logoAlignment === align
                                           ? 'border-blue-600 bg-blue-50 text-blue-700'
-                                          : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                                          : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700'
                                       }`}
                                     >
                                       {align.charAt(0).toUpperCase() + align.slice(1)}
@@ -2622,7 +2638,7 @@ export default function EditWidgetPage() {
                               </div>
 
                               <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Company Name Alignment
                                 </label>
                                 <div className="grid grid-cols-3 gap-2">
@@ -2634,7 +2650,7 @@ export default function EditWidgetPage() {
                                       className={`px-3 py-2 text-xs font-medium rounded-lg border-2 transition-all ${
                                         formData.companyNameAlignment === align
                                           ? 'border-green-600 bg-green-50 text-green-700'
-                                          : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                                          : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700'
                                       }`}
                                     >
                                       {align.charAt(0).toUpperCase() + align.slice(1)}
@@ -2645,7 +2661,7 @@ export default function EditWidgetPage() {
                             </div>
 
                             <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-2">
+                              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Logo Shape
                               </label>
                               <div className="grid grid-cols-3 gap-3">
@@ -2661,7 +2677,7 @@ export default function EditWidgetPage() {
                                     className={`px-4 py-2.5 text-sm font-medium rounded-lg border-2 transition-all ${
                                       formData.logoShape === shape.value
                                         ? 'border-blue-600 bg-blue-50 text-blue-700'
-                                        : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                                        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700'
                                     }`}
                                   >
                                     {shape.label}
@@ -2672,7 +2688,7 @@ export default function EditWidgetPage() {
 
                             <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <label htmlFor="logoSize" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="logoSize" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Logo Size (px)
                                 </label>
                                 <input
@@ -2682,11 +2698,11 @@ export default function EditWidgetPage() {
                                   max="128"
                                   value={formData.logoSize}
                                   onChange={(e) => setFormData({ ...formData, logoSize: parseInt(e.target.value) || 32 })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                               <div>
-                                <label htmlFor="logoPadding" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="logoPadding" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Logo Padding (px)
                                 </label>
                                 <input
@@ -2696,14 +2712,14 @@ export default function EditWidgetPage() {
                                   max="20"
                                   value={formData.logoPadding}
                                   onChange={(e) => setFormData({ ...formData, logoPadding: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <label htmlFor="logoOffsetX" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="logoOffsetX" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Logo Offset X (px)
                                 </label>
                                 <input
@@ -2713,11 +2729,11 @@ export default function EditWidgetPage() {
                                   max="20"
                                   value={formData.logoOffsetX}
                                   onChange={(e) => setFormData({ ...formData, logoOffsetX: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                               <div>
-                                <label htmlFor="logoOffsetY" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="logoOffsetY" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Logo Offset Y (px)
                                 </label>
                                 <input
@@ -2727,13 +2743,13 @@ export default function EditWidgetPage() {
                                   max="20"
                                   value={formData.logoOffsetY}
                                   onChange={(e) => setFormData({ ...formData, logoOffsetY: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                             </div>
 
                             <div>
-                              <label htmlFor="logoBackgroundColor" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="logoBackgroundColor" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Logo Background Color
                               </label>
                               <div className="flex items-center gap-3">
@@ -2774,7 +2790,7 @@ export default function EditWidgetPage() {
                                       max="10"
                                       value={formData.logoBorderWidth}
                                       onChange={(e) => setFormData({ ...formData, logoBorderWidth: parseInt(e.target.value) || 0 })}
-                                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     />
                                   </div>
                                   <div>
@@ -2793,7 +2809,7 @@ export default function EditWidgetPage() {
                                         type="text"
                                         value={formData.logoBorderColor}
                                         onChange={(e) => setFormData({ ...formData, logoBorderColor: e.target.value })}
-                                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                                       />
                                     </div>
                                   </div>
@@ -2806,7 +2822,7 @@ export default function EditWidgetPage() {
                                     id="logoBorderStyle"
                                     value={formData.logoBorderStyle}
                                     onChange={(e) => setFormData({ ...formData, logoBorderStyle: e.target.value as 'solid' | 'dashed' | 'dotted' })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                   >
                                     <option value="solid">Solid</option>
                                     <option value="dashed">Dashed</option>
@@ -2821,7 +2837,7 @@ export default function EditWidgetPage() {
 
                               <div className="grid grid-cols-2 gap-4 mb-4">
                                 <div>
-                                  <label htmlFor="companyNameFontSize" className="block text-sm font-medium text-gray-700 mb-2">
+                                  <label htmlFor="companyNameFontSize" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Font Size (px)
                                   </label>
                                   <input
@@ -2835,7 +2851,7 @@ export default function EditWidgetPage() {
                                   />
                                 </div>
                                 <div>
-                                  <label htmlFor="companyNameColor" className="block text-sm font-medium text-gray-700 mb-2">
+                                  <label htmlFor="companyNameColor" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Font Color
                                   </label>
                                   <div className="flex items-center gap-2">
@@ -2850,7 +2866,7 @@ export default function EditWidgetPage() {
                                       type="text"
                                       value={formData.companyNameColor}
                                       onChange={(e) => setFormData({ ...formData, companyNameColor: e.target.value })}
-                                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                                       placeholder="#ffffff"
                                     />
                                   </div>
@@ -2858,7 +2874,7 @@ export default function EditWidgetPage() {
                               </div>
 
                               <div>
-                                <label htmlFor="companyNameFontFamily" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="companyNameFontFamily" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Font Family
                                 </label>
                                 <select
@@ -2896,7 +2912,7 @@ export default function EditWidgetPage() {
                         defaultOpen={true}
                       >
                         <div>
-                          <label htmlFor="welcomeMessage" className="block text-sm font-medium text-gray-700 mb-2">
+                          <label htmlFor="welcomeMessage" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Message Text
                           </label>
                           <textarea
@@ -2904,7 +2920,7 @@ export default function EditWidgetPage() {
                             rows={3}
                             value={formData.welcomeMessage}
                             onChange={(e) => setFormData({ ...formData, welcomeMessage: e.target.value })}
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             placeholder="How can we help you today?"
                           />
                         </div>
@@ -2917,7 +2933,7 @@ export default function EditWidgetPage() {
                       defaultOpen={true}
                     >
                       <div>
-                        <label htmlFor="buttonText" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="buttonText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Start Call Button
                         </label>
                         <input
@@ -2925,7 +2941,7 @@ export default function EditWidgetPage() {
                           type="text"
                           value={formData.buttonText}
                           onChange={(e) => setFormData({ ...formData, buttonText: e.target.value })}
-                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                           placeholder="Start Call"
                         />
                       </div>
@@ -2947,7 +2963,7 @@ export default function EditWidgetPage() {
                                 onChange={(e) => setFormData({ ...formData, enableFooter: e.target.checked })}
                                 className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                               />
-                              <label htmlFor="enableFooter" className="text-sm font-medium text-gray-700">
+                              <label htmlFor="enableFooter" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Enable Footer
                               </label>
                             </div>
@@ -2955,7 +2971,7 @@ export default function EditWidgetPage() {
                             {formData.enableFooter && (
                               <>
                                 <div>
-                                  <label htmlFor="footerText" className="block text-sm font-medium text-gray-700 mb-2">
+                                  <label htmlFor="footerText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Footer Text
                                   </label>
                                   <input
@@ -2963,13 +2979,13 @@ export default function EditWidgetPage() {
                                     type="text"
                                     value={formData.footerText}
                                     onChange={(e) => setFormData({ ...formData, footerText: e.target.value })}
-                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                     placeholder="Powered by"
                                   />
                                 </div>
 
                                 <div>
-                                  <label htmlFor="footerLinkText" className="block text-sm font-medium text-gray-700 mb-2">
+                                  <label htmlFor="footerLinkText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Link Text
                                   </label>
                                   <input
@@ -2977,13 +2993,13 @@ export default function EditWidgetPage() {
                                     type="text"
                                     value={formData.footerLinkText}
                                     onChange={(e) => setFormData({ ...formData, footerLinkText: e.target.value })}
-                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                     placeholder="Romea AI"
                                   />
                                 </div>
 
                                 <div>
-                                  <label htmlFor="footerLinkUrl" className="block text-sm font-medium text-gray-700 mb-2">
+                                  <label htmlFor="footerLinkUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Link URL
                                   </label>
                                   <input
@@ -2991,7 +3007,7 @@ export default function EditWidgetPage() {
                                     type="url"
                                     value={formData.footerLinkUrl}
                                     onChange={(e) => setFormData({ ...formData, footerLinkUrl: e.target.value })}
-                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                     placeholder="https://www.romea.ai/"
                                   />
                                 </div>
@@ -3077,12 +3093,20 @@ export default function EditWidgetPage() {
                           <div className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                               <ColorPicker
-                                label="Hover Color"
+                                label="Hover Background Color"
                                 value={formData.hoverColor}
                                 onChange={(color) => setFormData({ ...formData, hoverColor: color })}
                               />
+                              <ColorPicker
+                                label="Hover Text Color"
+                                value={formData.hoverTextColor}
+                                onChange={(color) => setFormData({ ...formData, hoverTextColor: color })}
+                              />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <label htmlFor="hoverScale" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="hoverScale" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Hover Scale
                                 </label>
                                 <input
@@ -3093,13 +3117,13 @@ export default function EditWidgetPage() {
                                   step="0.01"
                                   value={formData.hoverScale}
                                   onChange={(e) => setFormData({ ...formData, hoverScale: parseFloat(e.target.value) })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                             </div>
 
                             <div>
-                              <label htmlFor="hoverText" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="hoverText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Hover Text
                               </label>
                               <input
@@ -3107,13 +3131,13 @@ export default function EditWidgetPage() {
                                 type="text"
                                 value={formData.hoverText}
                                 onChange={(e) => setFormData({ ...formData, hoverText: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 placeholder="Click to Call"
                               />
                             </div>
 
                             <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-2">
+                              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Transition Type
                               </label>
                               <div className="grid grid-cols-3 gap-2">
@@ -3149,7 +3173,7 @@ export default function EditWidgetPage() {
 
                             {formData.enableSlideEffect && (
                               <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Slide Direction
                                 </label>
                                 <div className="grid grid-cols-4 gap-2">
@@ -3170,6 +3194,53 @@ export default function EditWidgetPage() {
                                 </div>
                               </div>
                             )}
+                          </div>
+                        </CollapsibleSection>
+
+                        <CollapsibleSection
+                          title="Border Configuration"
+                          description="Configure button border styling"
+                          defaultOpen={false}
+                        >
+                          <div className="space-y-4">
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <label htmlFor="inlineBorderWidth" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                  Border Width (px)
+                                </label>
+                                <input
+                                  id="inlineBorderWidth"
+                                  type="number"
+                                  min="0"
+                                  max="10"
+                                  value={formData.inlineBorderWidth}
+                                  onChange={(e) => setFormData({ ...formData, inlineBorderWidth: parseInt(e.target.value) || 0 })}
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                              </div>
+                              <div>
+                                <label htmlFor="inlineBorderStyle" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                  Border Style
+                                </label>
+                                <select
+                                  id="inlineBorderStyle"
+                                  value={formData.inlineBorderStyle}
+                                  onChange={(e) => setFormData({ ...formData, inlineBorderStyle: e.target.value as any })}
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                >
+                                  <option value="solid">Solid</option>
+                                  <option value="dashed">Dashed</option>
+                                  <option value="dotted">Dotted</option>
+                                  <option value="none">None</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <ColorPicker
+                              label="Border Color"
+                              value={formData.inlineBorderColor}
+                              onChange={(color) => setFormData({ ...formData, inlineBorderColor: color })}
+                            />
                           </div>
                         </CollapsibleSection>
 
@@ -3196,7 +3267,7 @@ export default function EditWidgetPage() {
                               <>
                                 <div className="grid grid-cols-2 gap-4">
                                   <div>
-                                    <label htmlFor="symbolText" className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label htmlFor="symbolText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                       Symbol/Emoji
                                     </label>
                                     <input
@@ -3208,7 +3279,7 @@ export default function EditWidgetPage() {
                                     />
                                   </div>
                                   <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                       Position
                                     </label>
                                     <div className="grid grid-cols-2 gap-2">
@@ -3245,7 +3316,7 @@ export default function EditWidgetPage() {
 
                                 <div className="grid grid-cols-2 gap-4">
                                   <div>
-                                    <label htmlFor="symbolSize" className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label htmlFor="symbolSize" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                       Size (px)
                                     </label>
                                     <input
@@ -3255,11 +3326,11 @@ export default function EditWidgetPage() {
                                       max="60"
                                       value={formData.symbolSize}
                                       onChange={(e) => setFormData({ ...formData, symbolSize: parseInt(e.target.value) })}
-                                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                      className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                     />
                                   </div>
                                   <div>
-                                    <label htmlFor="symbolBorderRadius" className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label htmlFor="symbolBorderRadius" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                       Border Radius (px)
                                     </label>
                                     <input
@@ -3269,7 +3340,7 @@ export default function EditWidgetPage() {
                                       max="50"
                                       value={formData.symbolBorderRadius}
                                       onChange={(e) => setFormData({ ...formData, symbolBorderRadius: parseInt(e.target.value) })}
-                                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                      className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                     />
                                   </div>
                                 </div>
@@ -3292,7 +3363,7 @@ export default function EditWidgetPage() {
                             />
 
                             <div>
-                              <label htmlFor="activeText" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="activeText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Active Call Text
                               </label>
                               <input
@@ -3300,13 +3371,13 @@ export default function EditWidgetPage() {
                                 type="text"
                                 value={formData.activeText}
                                 onChange={(e) => setFormData({ ...formData, activeText: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 placeholder="End Call"
                               />
                             </div>
 
                             <div>
-                              <label htmlFor="connectingText" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="connectingText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Connecting Text
                               </label>
                               <input
@@ -3314,7 +3385,7 @@ export default function EditWidgetPage() {
                                 type="text"
                                 value={formData.connectingText}
                                 onChange={(e) => setFormData({ ...formData, connectingText: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 placeholder="Connecting..."
                               />
                             </div>
@@ -3373,7 +3444,7 @@ export default function EditWidgetPage() {
                         )}
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Animation Speed
                           </label>
                           <div className="grid grid-cols-3 gap-2">
@@ -3419,7 +3490,7 @@ export default function EditWidgetPage() {
                           <>
                             <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <label htmlFor="muteButtonText" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="muteButtonText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Mute Button Text
                                 </label>
                                 <input
@@ -3427,11 +3498,11 @@ export default function EditWidgetPage() {
                                   type="text"
                                   value={formData.muteButtonText}
                                   onChange={(e) => setFormData({ ...formData, muteButtonText: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                               <div>
-                                <label htmlFor="unmuteButtonText" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="unmuteButtonText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Unmute Button Text
                                 </label>
                                 <input
@@ -3439,7 +3510,7 @@ export default function EditWidgetPage() {
                                   type="text"
                                   value={formData.unmuteButtonText}
                                   onChange={(e) => setFormData({ ...formData, unmuteButtonText: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                             </div>
@@ -3502,7 +3573,7 @@ export default function EditWidgetPage() {
                           <>
                             {(formData.type === 'floating' || formData.type === 'page') && (
                               <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Display Type
                                 </label>
                                 <div className="grid grid-cols-2 gap-3">
@@ -3528,7 +3599,7 @@ export default function EditWidgetPage() {
                             )}
 
                             <div>
-                              <label htmlFor="consentTitle" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="consentTitle" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Consent Title
                               </label>
                               <input
@@ -3536,12 +3607,12 @@ export default function EditWidgetPage() {
                                 type="text"
                                 value={formData.consentTitle}
                                 onChange={(e) => setFormData({ ...formData, consentTitle: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                               />
                             </div>
 
                             <div>
-                              <label htmlFor="consentMessage" className="block text-sm font-medium text-gray-700 mb-2">
+                              <label htmlFor="consentMessage" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Consent Message
                               </label>
                               <textarea
@@ -3549,13 +3620,13 @@ export default function EditWidgetPage() {
                                 rows={4}
                                 value={formData.consentMessage}
                                 onChange={(e) => setFormData({ ...formData, consentMessage: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                               />
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <label htmlFor="consentAcceptText" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="consentAcceptText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Accept Button
                                 </label>
                                 <input
@@ -3563,11 +3634,11 @@ export default function EditWidgetPage() {
                                   type="text"
                                   value={formData.consentAcceptText}
                                   onChange={(e) => setFormData({ ...formData, consentAcceptText: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                               <div>
-                                <label htmlFor="consentDeclineText" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="consentDeclineText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Decline Button
                                 </label>
                                 <input
@@ -3575,14 +3646,14 @@ export default function EditWidgetPage() {
                                   type="text"
                                   value={formData.consentDeclineText}
                                   onChange={(e) => setFormData({ ...formData, consentDeclineText: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <label htmlFor="consentTermsUrl" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="consentTermsUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Terms of Service URL
                                 </label>
                                 <input
@@ -3590,12 +3661,12 @@ export default function EditWidgetPage() {
                                   type="url"
                                   value={formData.consentTermsUrl}
                                   onChange={(e) => setFormData({ ...formData, consentTermsUrl: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                   placeholder="https://..."
                                 />
                               </div>
                               <div>
-                                <label htmlFor="consentPrivacyUrl" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="consentPrivacyUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                   Privacy Policy URL
                                 </label>
                                 <input
@@ -3603,7 +3674,7 @@ export default function EditWidgetPage() {
                                   type="url"
                                   value={formData.consentPrivacyUrl}
                                   onChange={(e) => setFormData({ ...formData, consentPrivacyUrl: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                   placeholder="https://..."
                                 />
                               </div>
@@ -3620,7 +3691,7 @@ export default function EditWidgetPage() {
                     >
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <label htmlFor="fontSize" className="block text-sm font-medium text-gray-700 mb-2">
+                          <label htmlFor="fontSize" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Font Size (px)
                           </label>
                           <input
@@ -3630,11 +3701,11 @@ export default function EditWidgetPage() {
                             max="24"
                             value={formData.fontSize}
                             onChange={(e) => setFormData({ ...formData, fontSize: parseInt(e.target.value) })}
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Font Weight
                           </label>
                           <div className="grid grid-cols-2 gap-2">
@@ -3671,7 +3742,7 @@ export default function EditWidgetPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-semibold text-gray-900 mb-1">Ready to save?</h3>
-                  <p className="text-xs text-gray-600">Your changes will be applied immediately</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 dark:text-gray-500">Your changes will be applied immediately</p>
                 </div>
                 <button
                   type="submit"
@@ -3698,7 +3769,7 @@ export default function EditWidgetPage() {
         {/* Right Column - Live Preview */}
         <div className="xl:col-span-1">
           <div className="sticky top-6">
-            <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
               <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4">
                 <div className="flex items-center gap-3">
                   <EyeIcon className="w-5 h-5 text-white" />
