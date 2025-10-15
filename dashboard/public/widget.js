@@ -1017,8 +1017,16 @@
 
         // Start the call
         try {
+          if (startBtn) {
+            startBtn.textContent = 'Connecting...';
+            startBtn.disabled = true;
+          }
           await vapi.start(config.vapi.assistantId);
         } catch (error) {
+          if (startBtn) {
+            startBtn.textContent = 'Start Call';
+            startBtn.disabled = false;
+          }
           alert('Failed to start call. Please check your configuration.');
         }
       }
@@ -1045,6 +1053,7 @@
       if (startBtn) {
         startBtn.textContent = 'End Call';
         startBtn.classList.add('danger');
+        startBtn.disabled = false;
       }
       // Show mute button if enabled
       if (muteBtn && muteButtonEnabled) {
@@ -1156,9 +1165,15 @@
 
     const inlineConfig = config.inline || {};
     const hoverColor = inlineConfig.hoverColor || primaryColor;
+    const hoverTextColor = inlineConfig.hoverTextColor || buttonTextColor;
     const hoverScale = inlineConfig.hoverScale || 1.05;
     const activeColor = inlineConfig.activeColor || '#dc3545';
     const activeTextColor = inlineConfig.activeTextColor || buttonTextColor;
+
+    // Inline button border configuration
+    const inlineBorderWidth = inlineConfig.borderWidth ?? borderWidth;
+    const inlineBorderStyle = inlineConfig.borderStyle || borderStyle;
+    const inlineBorderColor = inlineConfig.borderColor || borderColor;
 
     // Inline button layout
     const textAlign = inlineConfig.textAlign || 'center';
@@ -1392,7 +1407,7 @@
         padding: ${buttonPadding}px ${buttonPadding * 2}px;
         background: ${buttonBgColor};
         color: ${buttonTextColor};
-        border: ${borderWidth}px ${borderStyle} ${borderColor};
+        border: ${inlineBorderWidth}px ${inlineBorderStyle} ${inlineBorderColor};
         border-radius: 50px;
         font-size: ${bodyFontSize}px;
         font-weight: ${titleFontWeight};
@@ -1413,6 +1428,7 @@
         transform: scale(${hoverScale});
         box-shadow: 0 6px 20px rgba(0,0,0,0.2);
         background: ${hoverColor};
+        color: ${hoverTextColor};
         justify-content: ${hoverTextAlign === 'left' ? 'flex-start' : hoverTextAlign === 'right' ? 'flex-end' : 'center'};
       }
 
