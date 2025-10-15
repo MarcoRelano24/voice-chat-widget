@@ -1677,9 +1677,14 @@ export default function EditWidgetPage() {
                                 onChange={(e) => setFormData({ ...formData, landingPageShowDefaultContent: e.target.checked })}
                                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                               />
-                              <label htmlFor="landingPageShowDefaultContent" className="text-sm text-gray-700">
-                                Show default content (instructions and help text)
-                              </label>
+                              <div className="flex-1">
+                                <label htmlFor="landingPageShowDefaultContent" className="text-sm text-gray-700 font-medium block">
+                                  Show default content
+                                </label>
+                                <p className="text-xs text-gray-500 mt-0.5">
+                                  Includes header, title, instructions, and &quot;Powered by Romea AI&quot; footer
+                                </p>
+                              </div>
                             </div>
                           </div>
 

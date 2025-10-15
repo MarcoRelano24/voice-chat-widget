@@ -160,25 +160,27 @@ export default function ClientLandingPage() {
         <style dangerouslySetInnerHTML={{ __html: customCSS }} />
       )}
 
-      {/* Header */}
-      <header className="border-b" style={{ backgroundColor: pageBackgroundColor, borderColor: `${primaryColor}20` }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              {config.content?.logoUrl && (
-                <img
-                  src={config.content.logoUrl}
-                  alt={companyName}
-                  className="h-12 w-auto object-contain"
-                />
-              )}
-              <h1 className="text-2xl font-bold" style={{ color: primaryColor }}>
-                {companyName}
-              </h1>
+      {/* Header (conditional) */}
+      {showDefaultContent && (
+        <header className="border-b" style={{ backgroundColor: pageBackgroundColor, borderColor: `${primaryColor}20` }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                {config.content?.logoUrl && (
+                  <img
+                    src={config.content.logoUrl}
+                    alt={companyName}
+                    className="h-12 w-auto object-contain"
+                  />
+                )}
+                <h1 className="text-2xl font-bold" style={{ color: primaryColor }}>
+                  {companyName}
+                </h1>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* Header Image */}
       {headerImage && (
@@ -194,14 +196,17 @@ export default function ClientLandingPage() {
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4" style={{ color: textColor }}>
-            {pageTitle}
-          </h2>
-          {pageDescription && (
-            <p className="text-lg text-gray-600 mb-8">{pageDescription}</p>
-          )}
-        </div>
+        {/* Title and Description (conditional) */}
+        {showDefaultContent && (
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4" style={{ color: textColor }}>
+              {pageTitle}
+            </h2>
+            {pageDescription && (
+              <p className="text-lg text-gray-600 mb-8">{pageDescription}</p>
+            )}
+          </div>
+        )}
 
         {/* Custom HTML Content */}
         {customHTML && (
@@ -232,23 +237,25 @@ export default function ClientLandingPage() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t mt-20" style={{ borderColor: `${primaryColor}20` }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-sm text-gray-500">
-            Powered by{' '}
-            <a
-              href="https://www.romea.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium hover:underline"
-              style={{ color: primaryColor }}
-            >
-              Romea AI
-            </a>
-          </p>
-        </div>
-      </footer>
+      {/* Footer (conditional) */}
+      {showDefaultContent && (
+        <footer className="border-t mt-20" style={{ borderColor: `${primaryColor}20` }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <p className="text-center text-sm text-gray-500">
+              Powered by{' '}
+              <a
+                href="https://www.romea.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium hover:underline"
+                style={{ color: primaryColor }}
+              >
+                Romea AI
+              </a>
+            </p>
+          </div>
+        </footer>
+      )}
 
       {/* Load Widget Script */}
       <Script
