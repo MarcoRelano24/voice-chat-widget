@@ -1,5 +1,6 @@
 import { createClient as createBrowserClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
+import { isDomainAllowed, getCorsHeaders } from '@/lib/utils/cors'
 
 export async function GET(
   request: Request,
@@ -7,6 +8,9 @@ export async function GET(
 ) {
   try {
     const { id } = await params
+
+    // Get origin from request headers
+    const origin = request.headers.get('origin') || request.headers.get('referer')
 
     // Use public client to allow unauthenticated access
     const supabase = createBrowserClient(
@@ -16,7 +20,7 @@ export async function GET(
 
     const { data: widget, error } = await supabase
       .from('widgets')
-      .select('config, is_active')
+      .select('config, is_active, allowed_domains')
       .eq('id', id)
       .single()
 
@@ -34,12 +38,25 @@ export async function GET(
       )
     }
 
+    // Check domain restrictions
+    if (!isDomainAllowed(origin, widget.allowed_domains)) {
+      return NextResponse.json(
+        { error: 'Domain not authorized to use this widget' },
+        {
+          status: 403,
+          headers: {
+            'Access-Control-Allow-Methods': 'GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          }
+        }
+      )
+    }
+
+    // Get appropriate CORS headers
+    const corsHeaders = getCorsHeaders(origin, widget.allowed_domains)
+
     return NextResponse.json(widget.config, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
+      headers: corsHeaders,
     })
   } catch (error) {
     console.error('Error fetching widget config:', error)
@@ -50,11 +67,16 @@ export async function GET(
   }
 }
 
-export async function OPTIONS() {
+export async function OPTIONS(request: Request) {
+  // Get origin for CORS preflight
+  const origin = request.headers.get('origin')
+
+  // For OPTIONS, we allow all origins to respond to preflight
+  // The actual domain check happens in the GET request
   return new NextResponse(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': origin || '*',
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     },

@@ -791,6 +791,7 @@ export default function EditWidgetPage() {
     offsetY: 20,
     isActive: true,
     clientId: '',
+    allowedDomains: '',
     landingPageEnabled: false,
     landingPageSlug: '',
 
@@ -1070,6 +1071,7 @@ export default function EditWidgetPage() {
           offsetY: config.display?.offsetY || 20,
           isActive: data.is_active,
           clientId: data.client_id || '',
+          allowedDomains: data.allowed_domains ? data.allowed_domains.join('\n') : '',
           landingPageEnabled: data.landing_page_enabled || false,
           landingPageSlug: data.landing_page_slug || '',
 
@@ -1414,6 +1416,14 @@ export default function EditWidgetPage() {
         setFormData({ ...formData, landingPageSlug })
       }
 
+      // Parse allowed domains (one per line)
+      const allowedDomainsArray = formData.allowedDomains
+        ? formData.allowedDomains
+            .split('\n')
+            .map(domain => domain.trim())
+            .filter(domain => domain.length > 0)
+        : null
+
       const { error: updateError } = await supabase
         .from('widgets')
         .update({
@@ -1422,6 +1432,7 @@ export default function EditWidgetPage() {
           config: widgetConfig,
           is_active: formData.isActive,
           client_id: formData.clientId || null,
+          allowed_domains: allowedDomainsArray,
           landing_page_enabled: formData.landingPageEnabled,
           landing_page_slug: landingPageSlug || null,
           landing_page_title: formData.landingPageTitle || null,
@@ -1615,6 +1626,53 @@ export default function EditWidgetPage() {
                   <p className="text-xs text-gray-500">
                     Associate this widget with a client to enable landing pages
                   </p>
+                </div>
+
+                {/* Domain Restrictions */}
+                <div className="space-y-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center gap-2">
+                    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    <h3 className="text-sm font-semibold text-gray-900">Domain Restrictions (CORS)</h3>
+                  </div>
+
+                  <p className="text-xs text-gray-600">
+                    Restrict which domains can embed and use this widget. Leave empty to allow all domains.
+                  </p>
+
+                  <div className="space-y-2">
+                    <label htmlFor="allowedDomains" className="block text-sm font-medium text-gray-700">
+                      Allowed Domains (one per line)
+                    </label>
+                    <textarea
+                      id="allowedDomains"
+                      value={formData.allowedDomains}
+                      onChange={(e) => setFormData({ ...formData, allowedDomains: e.target.value })}
+                      placeholder={'example.com\nwww.example.com\n*.staging.example.com\nlocalhost'}
+                      rows={6}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                    />
+                    <div className="space-y-1">
+                      <p className="text-xs text-gray-500">
+                        <strong>Examples:</strong>
+                      </p>
+                      <ul className="text-xs text-gray-500 space-y-1 ml-4">
+                        <li>• <code className="bg-gray-200 px-1 rounded">example.com</code> - Exact domain only</li>
+                        <li>• <code className="bg-gray-200 px-1 rounded">*.example.com</code> - All subdomains</li>
+                        <li>• <code className="bg-gray-200 px-1 rounded">localhost</code> - Local development</li>
+                        <li>• <code className="bg-gray-200 px-1 rounded">127.0.0.1</code> - Local IP</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {formData.allowedDomains && (
+                    <div className="p-2 bg-blue-50 rounded border border-blue-200">
+                      <p className="text-xs text-blue-800">
+                        <strong>⚠️ Widget will only work on the domains listed above.</strong> Make sure to include all domains where you want to use this widget, including development environments.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-3">

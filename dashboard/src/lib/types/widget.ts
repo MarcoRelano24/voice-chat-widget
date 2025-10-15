@@ -121,6 +121,7 @@ export interface Widget {
   type: WidgetType;
   config: WidgetConfig;
   is_active: boolean;
+  allowed_domains?: string[] | null;
   landing_page_enabled?: boolean;
   landing_page_slug?: string;
   landing_page_title?: string;
