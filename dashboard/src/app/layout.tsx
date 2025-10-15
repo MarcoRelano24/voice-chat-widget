@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Voice Chat Widget Management - Romea AI",
-  description: "Create and manage voice chat widgets powered by Vapi for your clients",
+  description: "Create and manage AI-powered voice chat widgets for your clients",
 };
 
 export default function RootLayout({
