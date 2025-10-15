@@ -55,7 +55,16 @@ export async function GET(
     // Get appropriate CORS headers
     const corsHeaders = getCorsHeaders(origin, widget.allowed_domains)
 
-    return NextResponse.json(widget.config, {
+    // Inject environment variable Vapi Public API Key if widget doesn't have one
+    const config = { ...widget.config }
+    if (!config.vapi?.publicApiKey && process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY) {
+      config.vapi = {
+        ...config.vapi,
+        publicApiKey: process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY,
+      }
+    }
+
+    return NextResponse.json(config, {
       headers: corsHeaders,
     })
   } catch (error) {

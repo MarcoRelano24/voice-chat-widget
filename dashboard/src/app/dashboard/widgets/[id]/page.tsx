@@ -1383,7 +1383,7 @@ export default function EditWidgetPage() {
           fontWeight: formData.fontWeight,
         },
         vapi: {
-          publicApiKey: formData.vapiPublicKey,
+          publicApiKey: formData.vapiPublicKey || undefined, // Use env variable if not provided
           assistantId: formData.vapiAssistantId,
         },
         consent: {
@@ -1911,17 +1911,19 @@ export default function EditWidgetPage() {
                   <div className="space-y-3">
                     <div>
                       <label htmlFor="vapiPublicKey" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Vapi Public API Key
+                        Vapi Public API Key (Optional)
                       </label>
                       <input
                         id="vapiPublicKey"
                         type="text"
-                        required
                         value={formData.vapiPublicKey}
                         onChange={(e) => setFormData({ ...formData, vapiPublicKey: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
-                        placeholder="pk_..."
+                        className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                        placeholder="pk_... (leave empty to use environment variable)"
                       />
+                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        If left empty, the widget will use the NEXT_PUBLIC_VAPI_PUBLIC_KEY from your environment variables.
+                      </p>
                     </div>
 
                     <div>

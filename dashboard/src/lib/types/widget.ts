@@ -66,7 +66,7 @@ export interface WidgetConfig {
     minimizable?: boolean;
   };
   vapi: {
-    publicApiKey: string;
+    publicApiKey?: string; // Optional - uses env variable if not provided
     assistantId: string;
   };
   // Inline widget specific options
