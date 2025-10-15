@@ -959,7 +959,7 @@ export default function EditWidgetPage() {
           vapiPublicKey: config.vapi?.publicApiKey || '',
           vapiAssistantId: config.vapi?.assistantId || '',
           companyName: config.content?.companyName || '',
-          logoUrl: config.branding?.logoUrl || '',
+          logoUrl: config.content?.logoUrl || config.branding?.logoUrl || '',
           logoPosition: config.branding?.logoPosition || 'header',
           logoAlignment: config.branding?.logoAlignment || 'left',
           companyNameAlignment: config.branding?.companyNameAlignment || 'left',
@@ -1309,6 +1309,7 @@ export default function EditWidgetPage() {
           companyName: formData.companyName,
           welcomeMessage: formData.welcomeMessage,
           buttonText: formData.buttonText,
+          logoUrl: formData.logoUrl,
         },
         branding: {
           logoUrl: formData.logoUrl,
