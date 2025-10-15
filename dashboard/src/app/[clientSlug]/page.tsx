@@ -163,17 +163,17 @@ export default function ClientLandingPage() {
       {/* Header (conditional) */}
       {showDefaultContent && (
         <header className="border-b" style={{ backgroundColor: pageBackgroundColor, borderColor: `${primaryColor}20` }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 sm:gap-4">
                 {config.content?.logoUrl && (
                   <img
                     src={config.content.logoUrl}
                     alt={companyName}
-                    className="h-12 w-auto object-contain"
+                    className="h-8 sm:h-12 w-auto object-contain"
                   />
                 )}
-                <h1 className="text-2xl font-bold" style={{ color: primaryColor }}>
+                <h1 className="text-lg sm:text-2xl font-bold" style={{ color: primaryColor }}>
                   {companyName}
                 </h1>
               </div>
@@ -184,26 +184,26 @@ export default function ClientLandingPage() {
 
       {/* Header Image */}
       {headerImage && (
-        <div className="w-full" style={{ maxHeight: '400px', overflow: 'hidden' }}>
+        <div className="w-full" style={{ maxHeight: '300px', overflow: 'hidden' }}>
           <img
             src={headerImage}
             alt="Header"
             className="w-full h-full object-cover"
-            style={{ maxHeight: '400px' }}
+            style={{ maxHeight: '300px' }}
           />
         </div>
       )}
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         {/* Title and Description (conditional) */}
         {showDefaultContent && (
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4" style={{ color: textColor }}>
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2" style={{ color: textColor }}>
               {pageTitle}
             </h2>
             {pageDescription && (
-              <p className="text-lg text-gray-600 mb-8">{pageDescription}</p>
+              <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 px-2">{pageDescription}</p>
             )}
           </div>
         )}
@@ -217,17 +217,17 @@ export default function ClientLandingPage() {
         )}
 
         {/* Widget Container */}
-        <div className="flex justify-center">
-          <div id="voice-widget-container"></div>
+        <div className="flex justify-center w-full">
+          <div id="voice-widget-container" className="w-full max-w-full"></div>
         </div>
 
         {/* Default Instructions (conditional) */}
         {showDefaultContent && (
-          <div className="mt-12 p-6 bg-gray-50 rounded-xl border border-gray-200">
-            <h3 className="text-lg font-semibold mb-3" style={{ color: textColor }}>
+          <div className="mt-8 sm:mt-12 p-4 sm:p-6 bg-gray-50 rounded-xl border border-gray-200">
+            <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3" style={{ color: textColor }}>
               How to use:
             </h3>
-            <ol className="list-decimal list-inside space-y-2 text-gray-600">
+            <ol className="list-decimal list-inside space-y-1.5 sm:space-y-2 text-sm sm:text-base text-gray-600">
               <li>Click the button below to start a voice conversation</li>
               <li>Allow microphone access when prompted</li>
               <li>Speak naturally - our AI assistant will help you</li>
@@ -239,9 +239,9 @@ export default function ClientLandingPage() {
 
       {/* Footer (conditional) */}
       {showDefaultContent && (
-        <footer className="border-t mt-20" style={{ borderColor: `${primaryColor}20` }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <p className="text-center text-sm text-gray-500">
+        <footer className="border-t mt-12 sm:mt-20" style={{ borderColor: `${primaryColor}20` }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+            <p className="text-center text-xs sm:text-sm text-gray-500">
               Powered by{' '}
               <a
                 href="https://www.romea.ai"
