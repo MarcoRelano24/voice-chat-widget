@@ -1192,7 +1192,7 @@ export default function EditWidgetPage() {
 
   const startCall = async () => {
     if (!vapiInstance) {
-      setError('Vapi not initialized. Please check your API key.')
+      setError('System not initialized. Please check your configuration.')
       setTimeout(() => setError(''), 3000)
       return
     }
@@ -1909,7 +1909,7 @@ export default function EditWidgetPage() {
                   <div className="space-y-3">
                     <div>
                       <label htmlFor="vapiAssistantId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Vapi Assistant ID
+                        Assistant ID
                       </label>
                       <input
                         id="vapiAssistantId"
@@ -1920,9 +1920,6 @@ export default function EditWidgetPage() {
                         className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
                         placeholder="asst_..."
                       />
-                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                        The Vapi Public API Key is configured via NEXT_PUBLIC_VAPI_PUBLIC_KEY environment variable.
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -4636,7 +4633,7 @@ export default function EditWidgetPage() {
                       </>
                     ) : (
                       <>
-                        <span className="font-semibold">Preview Mode:</span> Add your Vapi API credentials in the Advanced tab to test calls.
+                        <span className="font-semibold">Preview Mode:</span> Configure your API credentials to test calls.
                       </>
                     )}
                   </p>
