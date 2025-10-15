@@ -6,14 +6,37 @@ import Script from 'next/script'
 import { createClient } from '@/lib/supabase/client'
 import type { Widget, Client } from '@/lib/types/widget'
 
-// Helper function to generate URL slug from client name
-function generateSlug(name: string): string {
-  return name
+// Helper function to generate URL slug from client name and widget type
+function generateSlug(name: string, widgetType?: string): string {
+  const baseSlug = name
     .toLowerCase()
     .trim()
     .replace(/\s+/g, '-')
     .replace(/[^\w\-]+/g, '')
     .replace(/\-\-+/g, '-')
+
+  return widgetType ? `${baseSlug}-${widgetType}` : baseSlug
+}
+
+// Helper function to parse slug and extract client name pattern and widget type
+function parseSlug(slug: string): { widgetType: 'floating' | 'inline' | 'page' | null, clientSlugPattern: string } {
+  const validTypes = ['floating', 'inline', 'page']
+  const parts = slug.split('-')
+
+  // Check if last part is a valid widget type
+  const lastPart = parts[parts.length - 1]
+  if (validTypes.includes(lastPart)) {
+    return {
+      widgetType: lastPart as 'floating' | 'inline' | 'page',
+      clientSlugPattern: parts.slice(0, -1).join('-')
+    }
+  }
+
+  // No widget type found in slug
+  return {
+    widgetType: null,
+    clientSlugPattern: slug
+  }
 }
 
 export default function ClientLandingPage() {
@@ -29,6 +52,15 @@ export default function ClientLandingPage() {
   useEffect(() => {
     async function fetchLandingPage() {
       try {
+        // Parse the slug to extract widget type and client slug pattern
+        const { widgetType, clientSlugPattern } = parseSlug(clientSlug)
+
+        if (!widgetType) {
+          setError('Invalid landing page URL - widget type not specified')
+          setLoading(false)
+          return
+        }
+
         // Fetch all clients and find one with matching slug
         const { data: clients, error: clientsError } = await supabase
           .from('clients')
@@ -36,8 +68,8 @@ export default function ClientLandingPage() {
 
         if (clientsError) throw clientsError
 
-        // Find client with matching slug
-        const matchingClient = clients?.find(c => generateSlug(c.name) === clientSlug)
+        // Find client with matching slug (without widget type)
+        const matchingClient = clients?.find(c => generateSlug(c.name) === clientSlugPattern)
 
         if (!matchingClient) {
           setError('Landing page not found')
@@ -47,18 +79,19 @@ export default function ClientLandingPage() {
 
         setClient(matchingClient)
 
-        // Fetch widget for this client with landing page enabled
+        // Fetch widget for this client with landing page enabled AND matching type
         const { data: widgets, error: widgetsError } = await supabase
           .from('widgets')
           .select('*')
           .eq('client_id', matchingClient.id)
+          .eq('type', widgetType)
           .eq('landing_page_enabled', true)
           .eq('is_active', true)
           .limit(1)
           .single()
 
         if (widgetsError || !widgets) {
-          setError('No active landing page found for this client')
+          setError(`No active ${widgetType} landing page found for this client`)
           setLoading(false)
           return
         }

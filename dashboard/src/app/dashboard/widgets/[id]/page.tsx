@@ -633,14 +633,16 @@ function CollapsibleSection({ title, icon, children, defaultOpen = true, descrip
   )
 }
 
-// Helper function to generate URL slug from client name
-function generateSlug(name: string): string {
-  return name
+// Helper function to generate URL slug from client name and widget type
+function generateSlug(name: string, widgetType?: string): string {
+  const baseSlug = name
     .toLowerCase()
     .trim()
     .replace(/\s+/g, '-')
     .replace(/[^\w\-]+/g, '')
     .replace(/\-\-+/g, '-')
+
+  return widgetType ? `${baseSlug}-${widgetType}` : baseSlug
 }
 
 export default function EditWidgetPage() {
@@ -1550,12 +1552,12 @@ export default function EditWidgetPage() {
                       <p className="text-xs text-green-900 font-medium mb-2">Landing Page URL:</p>
                       <div className="flex items-center gap-2">
                         <code className="flex-1 px-3 py-2 bg-white rounded border border-green-300 text-sm text-green-800 font-mono">
-                          https://voice.romea.ai/{generateSlug(clientName)}
+                          https://voice.romea.ai/{generateSlug(clientName, formData.type)}
                         </code>
                         <button
                           type="button"
                           onClick={() => {
-                            navigator.clipboard.writeText(`https://voice.romea.ai/${generateSlug(clientName)}`)
+                            navigator.clipboard.writeText(`https://voice.romea.ai/${generateSlug(clientName, formData.type)}`)
                             setSuccess('Landing page URL copied to clipboard!')
                             setTimeout(() => setSuccess(''), 2000)
                           }}
