@@ -4,7 +4,6 @@
   // Get widget configuration
   const config = window.voiceWidgetConfig;
   if (!config || !config.widgetId) {
-    console.error('Voice Widget: widgetId is required');
     return;
   }
 
@@ -29,16 +28,14 @@
       initWidget(widgetConfig);
     })
     .catch(error => {
-      console.error('Voice Widget Error:', error);
+      // Silently fail
     });
 
   function initWidget(widgetConfig) {
-    console.log('Initializing widget with config:', widgetConfig);
-
     // Add widgetId to config for consent storage
     widgetConfig.widgetId = config.widgetId;
 
-    // Simply create the widget - we'll load Vapi differently
+    // Create the widget
     createWidget(widgetConfig);
   }
 
@@ -67,20 +64,19 @@
       if (targetElement) {
         targetElement.appendChild(container);
       } else {
-        console.warn(`Target container #${targetContainerId} not found, appending to body`);
         document.body.appendChild(container);
       }
     } else {
       document.body.appendChild(container);
     }
 
-    // Initialize Vapi using dynamic import
+    // Initialize voice SDK
     initializeVapi(container, config);
   }
 
   async function initializeVapi(container, config) {
     try {
-      // Wait for Vapi SDK to be loaded from CDN (from embed code)
+      // Wait for voice SDK to be loaded
       let attempts = 0;
       while (typeof window.Vapi === 'undefined' && attempts < 30) {
         await new Promise(resolve => setTimeout(resolve, 100));
@@ -88,25 +84,17 @@
       }
 
       if (typeof window.Vapi !== 'undefined') {
-        console.log('Vapi SDK loaded from CDN');
-        console.log('window.Vapi type:', typeof window.Vapi);
-        console.log('window.Vapi:', window.Vapi);
-
         // Handle both default export and named export
         const VapiClass = window.Vapi.default || window.Vapi;
-        console.log('VapiClass:', VapiClass);
 
         const vapi = new VapiClass(config.vapi.publicApiKey);
         setupWidgetFunctionality(container, vapi, config);
         setupBehaviorFeatures(container, config);
         executeCustomJS(config, container, vapi);
-        console.log('Widget created and Vapi initialized');
       } else {
-        throw new Error('Vapi SDK not loaded after 3 seconds');
+        throw new Error('Voice SDK not loaded');
       }
     } catch (error) {
-      console.error('Failed to initialize Vapi SDK:', error);
-      console.log('Widget UI created but voice functionality disabled');
       setupBasicFunctionality(container);
       setupBehaviorFeatures(container, config);
       executeCustomJS(config, container, null);
@@ -121,7 +109,7 @@
         const customFunction = new Function('container', 'config', 'vapi', config.customJS);
         customFunction(container, config, vapi);
       } catch (error) {
-        console.error('Error executing custom JS:', error);
+        // Silently fail
       }
     }
   }
@@ -287,18 +275,9 @@
       try {
         return localStorage.getItem(consentStorageKey) === 'true';
       } catch (e) {
-        console.warn('localStorage not available, consent will be required each time');
         return false;
       }
     }
-
-    // Debug: Log consent configuration
-    console.log('Consent Configuration:', {
-      consentConfig,
-      consentRequired,
-      consentStorageKey,
-      hasConsented: hasUserConsented()
-    });
 
     // Add ripple effect on click if enabled
     if (enableRipple) {
@@ -444,45 +423,31 @@
     // Click to start/end call
     button.addEventListener('click', async () => {
       if (isActive) {
-        console.log('Stopping active call');
         vapi.stop();
       } else {
-        console.log('Starting call - Checking consent...', {
-          consentRequired,
-          hasConsented: hasUserConsented()
-        });
-
         // Check if consent is required and user hasn't consented yet
         if (consentRequired && !hasUserConsented()) {
-          console.log('Consent required but not given - showing modal');
           try {
             await showConsentModal();
-            console.log('User accepted consent');
             // User accepted, save consent
             try {
               localStorage.setItem(consentStorageKey, 'true');
-              console.log('Consent saved to localStorage');
             } catch (e) {
-              console.warn('Could not save consent to localStorage');
+              // Silently fail
             }
             // Continue with call
           } catch (error) {
             // User declined
-            console.log('User declined consent - aborting call');
             return;
           }
-        } else {
-          console.log('Consent not required or already given - proceeding with call');
         }
 
         // Start the call
         try {
-          console.log('Updating button text to:', connectingText);
           updateButtonText(connectingText);
           button.disabled = true;
           await vapi.start(config.vapi.assistantId);
         } catch (error) {
-          console.error('Failed to start call:', error);
           updateButtonText(originalText);
           button.disabled = false;
           alert('Failed to start call. Please check your configuration.');
@@ -498,12 +463,8 @@
     const activeColor = inlineConfig.activeColor || '#dc3545';
     const activeTextColor = inlineConfig.activeTextColor || config.colors?.buttonText || '#ffffff';
 
-    // Vapi event listeners for inline widget
+    // Voice SDK event listeners for inline widget
     vapi.on('call-start', () => {
-      console.log('Call started - updating to active state');
-      console.log('Setting active text to:', activeText);
-      console.log('Applying colors:', { activeColor, activeTextColor });
-
       isActive = true;
       isMuted = false;
       button.disabled = false;
@@ -519,22 +480,6 @@
       button.style.setProperty('animation', 'none', 'important');
 
       updateButtonText(activeText);
-      console.log('Button text updated, button classes:', button.className);
-
-      // Debug: Check computed styles after inline styles applied
-      const computedStyle = window.getComputedStyle(button);
-      const textElement = button.querySelector('.button-text, span');
-      const textComputedStyle = textElement ? window.getComputedStyle(textElement) : null;
-      console.log('🎨 Active State Styles (after inline styles):', {
-        buttonBackgroundColor: computedStyle.backgroundColor,
-        buttonColor: computedStyle.color,
-        textElementColor: textComputedStyle ? textComputedStyle.color : 'No text element',
-        inlineStylesApplied: {
-          backgroundColor: button.style.backgroundColor,
-          background: button.style.background,
-          color: button.style.color
-        }
-      });
 
       // Transform symbol to mute button
       transformToMuteButton();
@@ -559,7 +504,6 @@
     });
 
     vapi.on('error', (error) => {
-      console.error('Vapi error:', error);
       isActive = false;
       isMuted = false;
       button.disabled = false;
@@ -596,7 +540,7 @@
       panel?.classList.remove('visible');
     });
 
-    // For inline widget without Vapi
+    // For inline widget without voice SDK
     if (inlineButton) {
       inlineButton.addEventListener('click', () => {
         alert('Voice functionality is currently unavailable. Please refresh the page.');
@@ -1012,7 +956,6 @@
       try {
         return localStorage.getItem(consentStorageKey) === 'true';
       } catch (e) {
-        console.warn('localStorage not available, consent will be required each time');
         return false;
       }
     }
@@ -1066,12 +1009,11 @@
             try {
               localStorage.setItem(consentStorageKey, 'true');
             } catch (e) {
-              console.warn('Could not save consent to localStorage');
+              // Silently fail
             }
             // Continue with call
           } catch (error) {
             // User declined
-            console.log('User declined consent');
             return;
           }
         }
@@ -1080,7 +1022,6 @@
         try {
           await vapi.start(config.vapi.assistantId);
         } catch (error) {
-          console.error('Failed to start call:', error);
           alert('Failed to start call. Please check your configuration.');
         }
       }
@@ -1101,7 +1042,7 @@
       }
     });
 
-    // Vapi event listeners
+    // Voice SDK event listeners
     vapi.on('call-start', () => {
       isActive = true;
       if (statusEl) statusEl.textContent = 'Connected';
@@ -1140,7 +1081,6 @@
     });
 
     vapi.on('error', (error) => {
-      console.error('Vapi error:', error);
       isActive = false;
       if (statusEl) statusEl.textContent = 'Error';
     });
@@ -1165,12 +1105,6 @@
     const textColor = config.colors?.text || '#333333';
     const buttonBgColor = config.colors?.buttonBackground || primaryColor;
     const buttonTextColor = config.colors?.buttonText || '#ffffff';
-
-    console.log('💡 Button Text Color Configuration:', {
-      buttonTextColor,
-      configColorsButtonText: config.colors?.buttonText,
-      fallback: '#ffffff'
-    });
 
     const buttonSize = config.dimensions?.buttonSize || 60;
     const panelWidth = config.dimensions?.panelWidth || 380;
@@ -1239,15 +1173,6 @@
     const marginRight = inlineConfig.marginRight ?? 0;
     const marginBottom = inlineConfig.marginBottom ?? 0;
     const marginLeft = inlineConfig.marginLeft ?? 0;
-
-    console.log('💡 Active Call Colors Configuration:', {
-      activeColor,
-      configInlineActiveColor: inlineConfig.activeColor,
-      activeTextColor,
-      configInlineActiveTextColor: inlineConfig.activeTextColor,
-      primaryColor,
-      buttonTextColor
-    });
 
     // Mute button colors
     const muteButtonConfig = config.muteButton || {};

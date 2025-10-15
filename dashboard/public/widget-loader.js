@@ -36,11 +36,8 @@
   const baseUrl = getBaseUrl();
 
   if (!config.id) {
-    console.error('Voice Widget: Widget ID is required. Use: <script src="widget-loader.js?id=YOUR_WIDGET_ID"></script>');
     return;
   }
-
-  console.log('Voice Widget Loader: Starting...', { widgetId: config.id, target: config.target, baseUrl });
 
   // Load a script dynamically
   function loadScript(src) {
@@ -60,20 +57,16 @@
     });
   }
 
-  // Load Vapi SDK via dynamic import (ESM)
-  async function loadVapiSDK() {
+  // Load voice SDK via dynamic import (ESM)
+  async function loadVoiceSDK() {
     if (window.Vapi) {
-      console.log('Vapi SDK already loaded');
       return;
     }
 
     try {
-      console.log('Loading Vapi SDK...');
       const module = await import('https://cdn.jsdelivr.net/npm/@vapi-ai/web@2.4.0/+esm');
       window.Vapi = module.default || module;
-      console.log('Vapi SDK loaded successfully');
     } catch (error) {
-      console.error('Failed to load Vapi SDK:', error);
       throw error;
     }
   }
@@ -81,13 +74,11 @@
   // Main initialization
   async function init() {
     try {
-      // Step 1: Load Daily.co SDK (from local copy)
-      console.log('Loading Daily.co SDK...');
+      // Step 1: Load communication SDK (from local copy)
       await loadScript(`${baseUrl}/daily-co.js`);
-      console.log('Daily.co SDK loaded');
 
-      // Step 2: Load Vapi SDK
-      await loadVapiSDK();
+      // Step 2: Load voice SDK
+      await loadVoiceSDK();
 
       // Step 3: Set widget config
       window.voiceWidgetConfig = {
@@ -101,12 +92,10 @@
       }
 
       // Step 4: Load main widget script
-      console.log('Loading widget script...');
       await loadScript(`${baseUrl}/widget.js`);
-      console.log('Widget loaded successfully');
 
     } catch (error) {
-      console.error('Voice Widget Loader: Failed to initialize', error);
+      // Silently fail
     }
   }
 
