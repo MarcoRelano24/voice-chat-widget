@@ -633,6 +633,16 @@ function CollapsibleSection({ title, icon, children, defaultOpen = true, descrip
   )
 }
 
+// Helper function to generate URL slug from client name
+function generateSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+}
+
 export default function EditWidgetPage() {
   const params = useParams()
   const router = useRouter()
@@ -652,6 +662,7 @@ export default function EditWidgetPage() {
   const [transcript, setTranscript] = useState<Array<{role: string, text: string}>>([])
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
+  const [clientName, setClientName] = useState<string>('')
 
   const [formData, setFormData] = useState({
     name: '',
@@ -774,6 +785,7 @@ export default function EditWidgetPage() {
     offsetX: 20,
     offsetY: 20,
     isActive: true,
+    landingPageEnabled: false,
 
     // Legal & Consent
     enableConsent: false,
@@ -913,11 +925,16 @@ export default function EditWidgetPage() {
     async function fetchWidget() {
       const { data, error } = await supabase
         .from('widgets')
-        .select('*')
+        .select('*, clients(name)')
         .eq('id', id)
         .single()
 
       if (!error && data) {
+        // Set client name if it exists
+        if (data.clients && typeof data.clients === 'object' && 'name' in data.clients) {
+          setClientName(data.clients.name)
+        }
+
         const config = data.config
         setFormData({
           name: data.name,
@@ -1035,6 +1052,7 @@ export default function EditWidgetPage() {
           offsetX: config.display?.offsetX || 20,
           offsetY: config.display?.offsetY || 20,
           isActive: data.is_active,
+          landingPageEnabled: data.landing_page_enabled || false,
 
           // Legal & Consent
           enableConsent: config.consent?.enabled || false,
@@ -1350,6 +1368,7 @@ export default function EditWidgetPage() {
           type: formData.type,
           config: widgetConfig,
           is_active: formData.isActive,
+          landing_page_enabled: formData.landingPageEnabled,
         })
         .eq('id', id)
 
@@ -1504,6 +1523,49 @@ export default function EditWidgetPage() {
                   <label htmlFor="isActive" className="text-sm text-gray-700 font-medium">
                     Widget is active and visible on your website
                   </label>
+                </div>
+
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                    <input
+                      id="landingPageEnabled"
+                      type="checkbox"
+                      checked={formData.landingPageEnabled}
+                      onChange={(e) => setFormData({ ...formData, landingPageEnabled: e.target.checked })}
+                      className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-blue-300 rounded"
+                      disabled={!clientName}
+                    />
+                    <div className="flex-1">
+                      <label htmlFor="landingPageEnabled" className="text-sm text-blue-900 font-medium block">
+                        Enable Hosted Landing Page
+                      </label>
+                      <p className="text-xs text-blue-700 mt-1">
+                        {clientName ? 'Generate a public landing page for this widget' : 'Associate this widget with a client to enable landing pages'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {formData.landingPageEnabled && clientName && (
+                    <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                      <p className="text-xs text-green-900 font-medium mb-2">Landing Page URL:</p>
+                      <div className="flex items-center gap-2">
+                        <code className="flex-1 px-3 py-2 bg-white rounded border border-green-300 text-sm text-green-800 font-mono">
+                          https://voice.romea.ai/{generateSlug(clientName)}
+                        </code>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard.writeText(`https://voice.romea.ai/${generateSlug(clientName)}`)
+                            setSuccess('Landing page URL copied to clipboard!')
+                            setTimeout(() => setSuccess(''), 2000)
+                          }}
+                          className="px-3 py-2 bg-green-600 text-white text-xs rounded hover:bg-green-700 transition-colors"
+                        >
+                          Copy
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="pt-4 border-t border-gray-200">

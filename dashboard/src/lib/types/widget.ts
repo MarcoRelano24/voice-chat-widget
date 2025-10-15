@@ -116,10 +116,21 @@ export interface WidgetConfig {
 export interface Widget {
   id: string;
   user_id: string;
+  client_id?: string;
   name: string;
   type: WidgetType;
   config: WidgetConfig;
   is_active: boolean;
+  landing_page_enabled?: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Client {
+  id: string;
+  user_id: string;
+  name: string;
+  description?: string;
   created_at: string;
   updated_at: string;
 }
