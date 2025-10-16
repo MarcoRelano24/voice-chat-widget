@@ -17,6 +17,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Initialize from localStorage if available
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme') as Theme | null
+      console.log('ThemeProvider initializing with theme:', savedTheme || 'system')
       return savedTheme || 'system'
     }
     return 'system'
@@ -25,6 +26,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    console.log('ThemeProvider mounted')
     setMounted(true)
   }, [])
 
@@ -34,21 +36,26 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const root = document.documentElement
 
     const applyTheme = () => {
+      console.log('Applying theme:', theme)
       if (theme === 'system') {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
         if (prefersDark) {
           root.classList.add('dark')
           setResolvedTheme('dark')
+          console.log('Applied: dark (system preference)')
         } else {
           root.classList.remove('dark')
           setResolvedTheme('light')
+          console.log('Applied: light (system preference)')
         }
       } else if (theme === 'dark') {
         root.classList.add('dark')
         setResolvedTheme('dark')
+        console.log('Applied: dark')
       } else {
         root.classList.remove('dark')
         setResolvedTheme('light')
+        console.log('Applied: light')
       }
 
       // Save to localStorage
@@ -84,12 +91,15 @@ export function useTheme() {
   const context = useContext(ThemeContext)
   if (context === undefined) {
     // Return safe defaults instead of throwing
-    console.warn('useTheme: ThemeProvider not found, using defaults')
+    console.warn('useTheme: ThemeProvider not found in context tree!')
     return {
       theme: 'system' as Theme,
-      setTheme: () => {},
+      setTheme: (newTheme: Theme) => {
+        console.warn('setTheme called but ThemeProvider not found. Attempted to set:', newTheme)
+      },
       resolvedTheme: 'light' as 'light' | 'dark'
     }
   }
+  console.log('useTheme: Context found, current theme:', context.theme)
   return context
 }
