@@ -11,12 +11,17 @@ import { NextResponse } from 'next/server'
  */
 export async function POST(request: Request) {
   try {
-    // Optional: Add authentication check for admin/cron access
+    // Authentication check for cron/admin access
+    // Vercel cron jobs send a special header for authentication
+    const isVercelCron = request.headers.get('x-vercel-cron-id')
     const authHeader = request.headers.get('authorization')
     const cronSecret = process.env.CRON_SECRET
 
-    // If CRON_SECRET is set, require it for authentication
-    if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+    // Allow if request is from Vercel cron (automatic authentication)
+    // OR if valid CRON_SECRET is provided (manual/admin access)
+    const isAuthenticated = isVercelCron || (cronSecret && authHeader === `Bearer ${cronSecret}`)
+
+    if (!isAuthenticated && cronSecret) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
