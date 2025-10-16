@@ -42,6 +42,8 @@ export default function RootLayout({
 
                 if (theme === 'dark' || (theme === 'system' && prefersDark)) {
                   document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
                 }
               })();
             `,
