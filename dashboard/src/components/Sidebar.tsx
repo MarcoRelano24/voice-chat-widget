@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 
 interface Client {
@@ -16,6 +16,7 @@ interface SidebarProps {
 
 export default function Sidebar({ userEmail }: SidebarProps) {
   const pathname = usePathname()
+  const router = useRouter()
   const supabase = createClient()
   const [clients, setClients] = useState<Client[]>([])
   const [loading, setLoading] = useState(true)
@@ -46,6 +47,15 @@ export default function Sidebar({ userEmail }: SidebarProps) {
       return pathname === '/dashboard'
     }
     return pathname.startsWith(path)
+  }
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut()
+      router.push('/login')
+    } catch (error) {
+      console.error('Error signing out:', error)
+    }
   }
 
   return (
@@ -140,14 +150,12 @@ export default function Sidebar({ userEmail }: SidebarProps) {
                 <p className="text-sm font-medium text-gray-700 dark:text-gray-300 truncate">{userEmail}</p>
               </div>
             </div>
-            <form action="/api/auth/signout" method="post">
-              <button
-                type="submit"
-                className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 text-sm ml-2"
-              >
-                Logout
-              </button>
-            </form>
+            <button
+              onClick={handleLogout}
+              className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 text-sm ml-2"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>
