@@ -70,11 +70,11 @@ export default function AnalyticsPage() {
         .from('clients')
         .select('*', { count: 'exact', head: true })
 
-      // Fetch call events (call_started)
+      // Fetch call events (call_start)
       const { data: callEvents, count: totalCalls } = await supabase
         .from('widget_analytics')
         .select('*, widgets!inner(name)', { count: 'exact' })
-        .eq('event_type', 'call_started')
+        .eq('event_type', 'call_start')
         .gte('timestamp', startDate.toISOString())
         .lte('timestamp', endDate.toISOString())
         .order('timestamp', { ascending: false })
