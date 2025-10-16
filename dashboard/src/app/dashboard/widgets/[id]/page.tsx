@@ -156,7 +156,7 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
             type="text"
             value={hexInput}
             onChange={(e) => handleHexInput(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm uppercase"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm uppercase"
             placeholder="#667eea"
             maxLength={7}
           />
@@ -532,7 +532,7 @@ function BoxModelControl({ label, values, onChange, min = 0, max = 100, unit = '
                 onChange={(e) => handleChange('top', parseInt(e.target.value) || 0)}
                 min={min}
                 max={max}
-                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="Top"
               />
             </div>
@@ -545,7 +545,7 @@ function BoxModelControl({ label, values, onChange, min = 0, max = 100, unit = '
                 onChange={(e) => handleChange('left', parseInt(e.target.value) || 0)}
                 min={min}
                 max={max}
-                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="Left"
               />
             </div>
@@ -563,7 +563,7 @@ function BoxModelControl({ label, values, onChange, min = 0, max = 100, unit = '
                 onChange={(e) => handleChange('right', parseInt(e.target.value) || 0)}
                 min={min}
                 max={max}
-                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="Right"
               />
             </div>
@@ -576,7 +576,7 @@ function BoxModelControl({ label, values, onChange, min = 0, max = 100, unit = '
                 onChange={(e) => handleChange('bottom', parseInt(e.target.value) || 0)}
                 min={min}
                 max={max}
-                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-20 px-2 py-1 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 placeholder="Bottom"
               />
             </div>
@@ -1568,7 +1568,7 @@ export default function EditWidgetPage() {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                     placeholder="My Voice Widget"
                   />
                 </div>
@@ -1585,7 +1585,7 @@ export default function EditWidgetPage() {
                         onClick={() => setFormData({ ...formData, type })}
                         className={`p-4 border-2 rounded-xl text-center transition-all ${
                           formData.type === type
-                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 shadow-sm'
+                            ? 'border-indigo-500 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400 shadow-sm'
                             : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
                         }`}
                       >
@@ -1606,7 +1606,7 @@ export default function EditWidgetPage() {
                     type="checkbox"
                     checked={formData.isActive}
                     onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                    className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    className="h-5 w-5 text-blue-600 focus:ring-indigo-500 border-gray-300 rounded"
                   />
                   <label htmlFor="isActive" className="text-sm text-gray-700 dark:text-gray-300 font-medium">
                     Widget is active and visible on your website
@@ -1628,7 +1628,7 @@ export default function EditWidgetPage() {
                         setClientName(selectedClient.name)
                       }
                     }}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
                     <option value="">No client (optional)</option>
                     {clients.map((client) => (
@@ -1665,7 +1665,7 @@ export default function EditWidgetPage() {
                       onChange={(e) => setFormData({ ...formData, allowedDomains: e.target.value })}
                       placeholder={'example.com\nwww.example.com\n*.staging.example.com\nlocalhost'}
                       rows={6}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-mono"
                     />
                     <div className="space-y-1">
                       <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -1696,7 +1696,7 @@ export default function EditWidgetPage() {
                       type="checkbox"
                       checked={formData.landingPageEnabled}
                       onChange={(e) => setFormData({ ...formData, landingPageEnabled: e.target.checked })}
-                      className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-blue-300 rounded"
+                      className="h-5 w-5 text-blue-600 focus:ring-indigo-500 border-blue-300 rounded"
                       disabled={!clientName}
                     />
                     <div className="flex-1">
@@ -1723,12 +1723,12 @@ export default function EditWidgetPage() {
                             value={formData.landingPageSlug}
                             onChange={(e) => setFormData({ ...formData, landingPageSlug: sanitizeSlug(e.target.value) })}
                             placeholder="auto-generated-slug"
-                            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-mono"
                           />
                           <button
                             type="button"
                             onClick={() => setFormData({ ...formData, landingPageSlug: generateRandomSlug() })}
-                            className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap"
+                            className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-sm rounded-lg shadow-md hover:shadow-lg transition-colors whitespace-nowrap"
                           >
                             Generate
                           </button>
@@ -1780,7 +1780,7 @@ export default function EditWidgetPage() {
                                 value={formData.landingPageTitle}
                                 onChange={(e) => setFormData({ ...formData, landingPageTitle: e.target.value })}
                                 placeholder="Welcome to our voice assistant (optional, defaults to company name)"
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                               />
                             </div>
 
@@ -1794,7 +1794,7 @@ export default function EditWidgetPage() {
                                 onChange={(e) => setFormData({ ...formData, landingPageDescription: e.target.value })}
                                 placeholder="Describe your voice assistant and what it can help with..."
                                 rows={3}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                               />
                             </div>
                           </div>
@@ -1827,7 +1827,7 @@ export default function EditWidgetPage() {
                                   value={formData.landingPageHeaderImage}
                                   onChange={(e) => setFormData({ ...formData, landingPageHeaderImage: e.target.value })}
                                   placeholder="https://example.com/hero.jpg"
-                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                                 />
                               </div>
                             </div>
@@ -1838,7 +1838,7 @@ export default function EditWidgetPage() {
                                 type="checkbox"
                                 checked={formData.landingPageShowDefaultContent}
                                 onChange={(e) => setFormData({ ...formData, landingPageShowDefaultContent: e.target.checked })}
-                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                className="h-4 w-4 text-blue-600 focus:ring-indigo-500 border-gray-300 rounded"
                               />
                               <div className="flex-1">
                                 <label htmlFor="landingPageShowDefaultContent" className="text-sm text-gray-700 dark:text-gray-300 font-medium block">
@@ -1866,7 +1866,7 @@ export default function EditWidgetPage() {
                                 onChange={(e) => setFormData({ ...formData, landingPageCustomHTML: e.target.value })}
                                 placeholder="<div>Your custom HTML content here...</div>"
                                 rows={5}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-mono"
                               />
                             </div>
 
@@ -1880,7 +1880,7 @@ export default function EditWidgetPage() {
                                 onChange={(e) => setFormData({ ...formData, landingPageCustomCSS: e.target.value })}
                                 placeholder=".custom-class { color: blue; }"
                                 rows={5}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-mono"
                               />
                             </div>
 
@@ -1894,7 +1894,7 @@ export default function EditWidgetPage() {
                                 onChange={(e) => setFormData({ ...formData, landingPageCustomJS: e.target.value })}
                                 placeholder="console.log('Custom JS'); // Your code here"
                                 rows={5}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-mono"
                               />
                               <p className="text-xs text-amber-600 mt-1">⚠️ Be careful with custom JavaScript - test thoroughly before deploying</p>
                             </div>
@@ -1917,7 +1917,7 @@ export default function EditWidgetPage() {
                         required
                         value={formData.vapiAssistantId}
                         onChange={(e) => setFormData({ ...formData, vapiAssistantId: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                        className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-mono text-sm"
                         placeholder="asst_..."
                       />
                     </div>
@@ -1938,7 +1938,7 @@ export default function EditWidgetPage() {
                       onClick={() => setActiveTab(tab.id)}
                       className={`flex-1 py-4 px-4 text-center border-b-2 font-medium text-sm transition-all ${
                         activeTab === tab.id
-                          ? 'border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/30'
+                          ? 'border-blue-500 text-indigo-600 dark:text-indigo-400 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 dark:from-indigo-900/30 dark:to-purple-900/30'
                           : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
                       }`}
                     >
@@ -2009,7 +2009,7 @@ export default function EditWidgetPage() {
                               max="600"
                               value={formData.panelWidth}
                               onChange={(e) => setFormData({ ...formData, panelWidth: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                           <div>
@@ -2023,7 +2023,7 @@ export default function EditWidgetPage() {
                               max="800"
                               value={formData.panelHeight}
                               onChange={(e) => setFormData({ ...formData, panelHeight: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                           <div>
@@ -2037,7 +2037,7 @@ export default function EditWidgetPage() {
                               max="40"
                               value={formData.buttonPadding}
                               onChange={(e) => setFormData({ ...formData, buttonPadding: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                           <div>
@@ -2051,7 +2051,7 @@ export default function EditWidgetPage() {
                               max="40"
                               value={formData.panelPadding}
                               onChange={(e) => setFormData({ ...formData, panelPadding: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                         </div>
@@ -2075,7 +2075,7 @@ export default function EditWidgetPage() {
                               type="text"
                               value={formData.inlineButtonWidth}
                               onChange={(e) => setFormData({ ...formData, inlineButtonWidth: e.target.value })}
-                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                               placeholder="auto or 200px"
                             />
                           </div>
@@ -2090,7 +2090,7 @@ export default function EditWidgetPage() {
                               max="100"
                               value={formData.inlineButtonHeight}
                               onChange={(e) => setFormData({ ...formData, inlineButtonHeight: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                           <div>
@@ -2104,7 +2104,7 @@ export default function EditWidgetPage() {
                               max="40"
                               value={formData.buttonPadding}
                               onChange={(e) => setFormData({ ...formData, buttonPadding: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                         </div>
@@ -2132,7 +2132,7 @@ export default function EditWidgetPage() {
                                   onClick={() => setFormData({ ...formData, textAlign: align })}
                                   className={`px-4 py-2.5 text-sm font-medium rounded-lg border-2 transition-all ${
                                     formData.textAlign === align
-                                      ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                      ? 'border-indigo-600 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                       : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
                                   }`}
                                 >
@@ -2190,7 +2190,7 @@ export default function EditWidgetPage() {
                                   max="100"
                                   value={formData.marginTop}
                                   onChange={(e) => setFormData({ ...formData, marginTop: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                 />
                               </div>
                               <div>
@@ -2204,7 +2204,7 @@ export default function EditWidgetPage() {
                                   max="100"
                                   value={formData.marginRight}
                                   onChange={(e) => setFormData({ ...formData, marginRight: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                 />
                               </div>
                               <div>
@@ -2218,7 +2218,7 @@ export default function EditWidgetPage() {
                                   max="100"
                                   value={formData.marginBottom}
                                   onChange={(e) => setFormData({ ...formData, marginBottom: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                 />
                               </div>
                               <div>
@@ -2232,7 +2232,7 @@ export default function EditWidgetPage() {
                                   max="100"
                                   value={formData.marginLeft}
                                   onChange={(e) => setFormData({ ...formData, marginLeft: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                 />
                               </div>
                             </div>
@@ -2262,7 +2262,7 @@ export default function EditWidgetPage() {
                               max="50"
                               value={formData.borderRadius}
                               onChange={(e) => setFormData({ ...formData, borderRadius: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                           <div>
@@ -2276,7 +2276,7 @@ export default function EditWidgetPage() {
                               max="10"
                               value={formData.borderWidth}
                               onChange={(e) => setFormData({ ...formData, borderWidth: parseInt(e.target.value) })}
-                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             />
                           </div>
                         </div>
@@ -2301,7 +2301,7 @@ export default function EditWidgetPage() {
                                 onClick={() => setFormData({ ...formData, shadowIntensity: intensity })}
                                 className={`p-3 border-2 rounded-lg text-center transition-all capitalize text-sm ${
                                   formData.shadowIntensity === intensity
-                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                    ? 'border-indigo-500 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                     : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                 }`}
                               >
@@ -2419,7 +2419,7 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.borderTopLeftRadius}
                                 onChange={(e) => setFormData({ ...formData, borderTopLeftRadius: parseInt(e.target.value) })}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                               />
                             </div>
                             <div>
@@ -2433,7 +2433,7 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.borderTopRightRadius}
                                 onChange={(e) => setFormData({ ...formData, borderTopRightRadius: parseInt(e.target.value) })}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                               />
                             </div>
                             <div>
@@ -2447,7 +2447,7 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.borderBottomLeftRadius}
                                 onChange={(e) => setFormData({ ...formData, borderBottomLeftRadius: parseInt(e.target.value) })}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                               />
                             </div>
                             <div>
@@ -2461,7 +2461,7 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.borderBottomRightRadius}
                                 onChange={(e) => setFormData({ ...formData, borderBottomRightRadius: parseInt(e.target.value) })}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                               />
                             </div>
                           </div>
@@ -2493,7 +2493,7 @@ export default function EditWidgetPage() {
                                   onClick={() => setFormData({ ...formData, position: pos.value })}
                                   className={`p-3 border-2 rounded-lg text-center transition-all ${
                                     formData.position === pos.value
-                                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                      ? 'border-indigo-500 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                       : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                   }`}
                                 >
@@ -2515,7 +2515,7 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.offsetX}
                                 onChange={(e) => setFormData({ ...formData, offsetX: parseInt(e.target.value) })}
-                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                               />
                             </div>
                             <div>
@@ -2529,7 +2529,7 @@ export default function EditWidgetPage() {
                                 max="100"
                                 value={formData.offsetY}
                                 onChange={(e) => setFormData({ ...formData, offsetY: parseInt(e.target.value) })}
-                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                               />
                             </div>
                           </div>
@@ -2557,7 +2557,7 @@ export default function EditWidgetPage() {
                             type="text"
                             value={formData.companyName}
                             onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             placeholder="Your Company"
                           />
                         </div>
@@ -2584,7 +2584,7 @@ export default function EditWidgetPage() {
                                 onClick={() => setFormData({ ...formData, logoPosition: pos.value as 'header' | 'none' })}
                                 className={`p-3 border-2 rounded-lg text-center transition-all ${
                                   formData.logoPosition === pos.value
-                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                    ? 'border-indigo-500 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                     : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                 }`}
                               >
@@ -2610,7 +2610,7 @@ export default function EditWidgetPage() {
                                       onClick={() => setFormData({ ...formData, logoAlignment: align })}
                                       className={`px-3 py-2 text-xs font-medium rounded-lg border-2 transition-all ${
                                         formData.logoAlignment === align
-                                          ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                          ? 'border-indigo-600 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                           : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
                                       }`}
                                     >
@@ -2659,7 +2659,7 @@ export default function EditWidgetPage() {
                                     onClick={() => setFormData({ ...formData, logoShape: shape.value as 'circle' | 'rounded' | 'square' })}
                                     className={`px-4 py-2.5 text-sm font-medium rounded-lg border-2 transition-all ${
                                       formData.logoShape === shape.value
-                                        ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                        ? 'border-indigo-600 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                         : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
                                     }`}
                                   >
@@ -2681,7 +2681,7 @@ export default function EditWidgetPage() {
                                   max="128"
                                   value={formData.logoSize}
                                   onChange={(e) => setFormData({ ...formData, logoSize: parseInt(e.target.value) || 32 })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                               <div>
@@ -2695,7 +2695,7 @@ export default function EditWidgetPage() {
                                   max="20"
                                   value={formData.logoPadding}
                                   onChange={(e) => setFormData({ ...formData, logoPadding: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                             </div>
@@ -2712,7 +2712,7 @@ export default function EditWidgetPage() {
                                   max="20"
                                   value={formData.logoOffsetX}
                                   onChange={(e) => setFormData({ ...formData, logoOffsetX: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                               <div>
@@ -2726,7 +2726,7 @@ export default function EditWidgetPage() {
                                   max="20"
                                   value={formData.logoOffsetY}
                                   onChange={(e) => setFormData({ ...formData, logoOffsetY: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                             </div>
@@ -2747,7 +2747,7 @@ export default function EditWidgetPage() {
                                   type="text"
                                   value={formData.logoBackgroundColor}
                                   onChange={(e) => setFormData({ ...formData, logoBackgroundColor: e.target.value })}
-                                  className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                   placeholder="#ffffff or transparent"
                                 />
                               </div>
@@ -2773,7 +2773,7 @@ export default function EditWidgetPage() {
                                       max="10"
                                       value={formData.logoBorderWidth}
                                       onChange={(e) => setFormData({ ...formData, logoBorderWidth: parseInt(e.target.value) || 0 })}
-                                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                     />
                                   </div>
                                   <div>
@@ -2792,7 +2792,7 @@ export default function EditWidgetPage() {
                                         type="text"
                                         value={formData.logoBorderColor}
                                         onChange={(e) => setFormData({ ...formData, logoBorderColor: e.target.value })}
-                                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
                                       />
                                     </div>
                                   </div>
@@ -2805,7 +2805,7 @@ export default function EditWidgetPage() {
                                     id="logoBorderStyle"
                                     value={formData.logoBorderStyle}
                                     onChange={(e) => setFormData({ ...formData, logoBorderStyle: e.target.value as 'solid' | 'dashed' | 'dotted' })}
-                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                   >
                                     <option value="solid">Solid</option>
                                     <option value="dashed">Dashed</option>
@@ -2903,7 +2903,7 @@ export default function EditWidgetPage() {
                             rows={3}
                             value={formData.welcomeMessage}
                             onChange={(e) => setFormData({ ...formData, welcomeMessage: e.target.value })}
-                            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                             placeholder="How can we help you today?"
                           />
                         </div>
@@ -2924,7 +2924,7 @@ export default function EditWidgetPage() {
                           type="text"
                           value={formData.buttonText}
                           onChange={(e) => setFormData({ ...formData, buttonText: e.target.value })}
-                          className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                          className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                           placeholder="Start Call"
                         />
                       </div>
@@ -2944,7 +2944,7 @@ export default function EditWidgetPage() {
                                 id="enableFooter"
                                 checked={formData.enableFooter}
                                 onChange={(e) => setFormData({ ...formData, enableFooter: e.target.checked })}
-                                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-indigo-500"
                               />
                               <label htmlFor="enableFooter" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Enable Footer
@@ -2962,7 +2962,7 @@ export default function EditWidgetPage() {
                                     type="text"
                                     value={formData.footerText}
                                     onChange={(e) => setFormData({ ...formData, footerText: e.target.value })}
-                                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                     placeholder="Powered by"
                                   />
                                 </div>
@@ -2976,7 +2976,7 @@ export default function EditWidgetPage() {
                                     type="text"
                                     value={formData.footerLinkText}
                                     onChange={(e) => setFormData({ ...formData, footerLinkText: e.target.value })}
-                                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                     placeholder="Romea AI"
                                   />
                                 </div>
@@ -2990,7 +2990,7 @@ export default function EditWidgetPage() {
                                     type="url"
                                     value={formData.footerLinkUrl}
                                     onChange={(e) => setFormData({ ...formData, footerLinkUrl: e.target.value })}
-                                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                     placeholder="https://www.romea.ai/"
                                   />
                                 </div>
@@ -3100,7 +3100,7 @@ export default function EditWidgetPage() {
                                   step="0.01"
                                   value={formData.hoverScale}
                                   onChange={(e) => setFormData({ ...formData, hoverScale: parseFloat(e.target.value) })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                             </div>
@@ -3114,7 +3114,7 @@ export default function EditWidgetPage() {
                                 type="text"
                                 value={formData.hoverText}
                                 onChange={(e) => setFormData({ ...formData, hoverText: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 placeholder="Click to Call"
                               />
                             </div>
@@ -3131,7 +3131,7 @@ export default function EditWidgetPage() {
                                     onClick={() => setFormData({ ...formData, hoverTransitionType: type as any })}
                                     className={`p-3 border-2 rounded-lg text-center transition-all capitalize text-sm ${
                                       formData.hoverTransitionType === type
-                                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                        ? 'border-indigo-500 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                         : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                     }`}
                                   >
@@ -3147,7 +3147,7 @@ export default function EditWidgetPage() {
                                 type="checkbox"
                                 checked={formData.enableSlideEffect}
                                 onChange={(e) => setFormData({ ...formData, enableSlideEffect: e.target.checked })}
-                                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                className="h-5 w-5 text-blue-600 focus:ring-indigo-500 border-gray-300 rounded"
                               />
                               <label htmlFor="enableSlideEffect" className="text-sm text-gray-700 font-medium">
                                 Enable slide text effect
@@ -3167,7 +3167,7 @@ export default function EditWidgetPage() {
                                       onClick={() => setFormData({ ...formData, slideDirection: dir as any })}
                                       className={`p-3 border-2 rounded-lg text-center transition-all capitalize text-sm ${
                                         formData.slideDirection === dir
-                                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                          ? 'border-indigo-500 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                           : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                       }`}
                                     >
@@ -3198,7 +3198,7 @@ export default function EditWidgetPage() {
                                   max="10"
                                   value={formData.inlineBorderWidth}
                                   onChange={(e) => setFormData({ ...formData, inlineBorderWidth: parseInt(e.target.value) || 0 })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                 />
                               </div>
                               <div>
@@ -3209,7 +3209,7 @@ export default function EditWidgetPage() {
                                   id="inlineBorderStyle"
                                   value={formData.inlineBorderStyle}
                                   onChange={(e) => setFormData({ ...formData, inlineBorderStyle: e.target.value as any })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                 >
                                   <option value="solid">Solid</option>
                                   <option value="dashed">Dashed</option>
@@ -3239,7 +3239,7 @@ export default function EditWidgetPage() {
                                 type="checkbox"
                                 checked={formData.enableSymbol}
                                 onChange={(e) => setFormData({ ...formData, enableSymbol: e.target.checked })}
-                                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                className="h-5 w-5 text-blue-600 focus:ring-indigo-500 border-gray-300 rounded"
                               />
                               <label htmlFor="enableSymbol" className="text-sm text-gray-700 font-medium">
                                 Show icon/emoji on button
@@ -3258,7 +3258,7 @@ export default function EditWidgetPage() {
                                       type="text"
                                       value={formData.symbolText}
                                       onChange={(e) => setFormData({ ...formData, symbolText: e.target.value })}
-                                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-2xl"
+                                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-center text-2xl"
                                     />
                                   </div>
                                   <div>
@@ -3273,7 +3273,7 @@ export default function EditWidgetPage() {
                                           onClick={() => setFormData({ ...formData, symbolPosition: pos as any })}
                                           className={`p-3 border-2 rounded-lg text-center transition-all capitalize text-sm ${
                                             formData.symbolPosition === pos
-                                              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                              ? 'border-indigo-500 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                               : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                           }`}
                                         >
@@ -3309,7 +3309,7 @@ export default function EditWidgetPage() {
                                       max="60"
                                       value={formData.symbolSize}
                                       onChange={(e) => setFormData({ ...formData, symbolSize: parseInt(e.target.value) })}
-                                      className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                      className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                     />
                                   </div>
                                   <div>
@@ -3323,7 +3323,7 @@ export default function EditWidgetPage() {
                                       max="50"
                                       value={formData.symbolBorderRadius}
                                       onChange={(e) => setFormData({ ...formData, symbolBorderRadius: parseInt(e.target.value) })}
-                                      className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                      className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                     />
                                   </div>
                                 </div>
@@ -3354,7 +3354,7 @@ export default function EditWidgetPage() {
                                 type="text"
                                 value={formData.activeText}
                                 onChange={(e) => setFormData({ ...formData, activeText: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 placeholder="End Call"
                               />
                             </div>
@@ -3368,7 +3368,7 @@ export default function EditWidgetPage() {
                                 type="text"
                                 value={formData.connectingText}
                                 onChange={(e) => setFormData({ ...formData, connectingText: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 placeholder="Connecting..."
                               />
                             </div>
@@ -3391,7 +3391,7 @@ export default function EditWidgetPage() {
                                 type="checkbox"
                                 checked={formData.enablePulse}
                                 onChange={(e) => setFormData({ ...formData, enablePulse: e.target.checked })}
-                                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                className="h-5 w-5 text-blue-600 focus:ring-indigo-500 border-gray-300 rounded"
                               />
                               <label htmlFor="enablePulse" className="text-sm text-gray-700 font-medium">
                                 Enable pulse animation
@@ -3404,7 +3404,7 @@ export default function EditWidgetPage() {
                                 type="checkbox"
                                 checked={formData.enableRipple}
                                 onChange={(e) => setFormData({ ...formData, enableRipple: e.target.checked })}
-                                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                className="h-5 w-5 text-blue-600 focus:ring-indigo-500 border-gray-300 rounded"
                               />
                               <label htmlFor="enableRipple" className="text-sm text-gray-700 font-medium">
                                 Enable ripple effect on click
@@ -3417,7 +3417,7 @@ export default function EditWidgetPage() {
                                 type="checkbox"
                                 checked={formData.enableGlow}
                                 onChange={(e) => setFormData({ ...formData, enableGlow: e.target.checked })}
-                                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                className="h-5 w-5 text-blue-600 focus:ring-indigo-500 border-gray-300 rounded"
                               />
                               <label htmlFor="enableGlow" className="text-sm text-gray-700 font-medium">
                                 Enable glow effect
@@ -3438,7 +3438,7 @@ export default function EditWidgetPage() {
                                 onClick={() => setFormData({ ...formData, animationSpeed: speed as any })}
                                 className={`p-3 border-2 rounded-lg text-center transition-all capitalize text-sm ${
                                   formData.animationSpeed === speed
-                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                    ? 'border-indigo-500 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                     : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                 }`}
                               >
@@ -3462,7 +3462,7 @@ export default function EditWidgetPage() {
                             type="checkbox"
                             checked={formData.enableMuteButton}
                             onChange={(e) => setFormData({ ...formData, enableMuteButton: e.target.checked })}
-                            className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                            className="h-5 w-5 text-blue-600 focus:ring-indigo-500 border-gray-300 rounded"
                           />
                           <label htmlFor="enableMuteButton" className="text-sm text-gray-700 font-medium">
                             Show mute button during calls
@@ -3481,7 +3481,7 @@ export default function EditWidgetPage() {
                                   type="text"
                                   value={formData.muteButtonText}
                                   onChange={(e) => setFormData({ ...formData, muteButtonText: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                               <div>
@@ -3493,7 +3493,7 @@ export default function EditWidgetPage() {
                                   type="text"
                                   value={formData.unmuteButtonText}
                                   onChange={(e) => setFormData({ ...formData, unmuteButtonText: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                             </div>
@@ -3517,7 +3517,7 @@ export default function EditWidgetPage() {
                                 type="checkbox"
                                 checked={formData.showMuteButtonIcon}
                                 onChange={(e) => setFormData({ ...formData, showMuteButtonIcon: e.target.checked })}
-                                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                className="h-5 w-5 text-blue-600 focus:ring-indigo-500 border-gray-300 rounded"
                               />
                               <label htmlFor="showMuteButtonIcon" className="text-sm text-gray-700 font-medium">
                                 Show microphone icon
@@ -3545,7 +3545,7 @@ export default function EditWidgetPage() {
                             type="checkbox"
                             checked={formData.enableConsent}
                             onChange={(e) => setFormData({ ...formData, enableConsent: e.target.checked })}
-                            className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                            className="h-5 w-5 text-blue-600 focus:ring-indigo-500 border-gray-300 rounded"
                           />
                           <label htmlFor="enableConsent" className="text-sm text-gray-700 font-medium">
                             Require user consent before starting calls
@@ -3570,7 +3570,7 @@ export default function EditWidgetPage() {
                                       onClick={() => setFormData({ ...formData, consentDisplayType: type.value as any })}
                                       className={`p-3 border-2 rounded-lg text-center transition-all ${
                                         formData.consentDisplayType === type.value
-                                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                          ? 'border-indigo-500 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                           : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                       }`}
                                     >
@@ -3590,7 +3590,7 @@ export default function EditWidgetPage() {
                                 type="text"
                                 value={formData.consentTitle}
                                 onChange={(e) => setFormData({ ...formData, consentTitle: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                               />
                             </div>
 
@@ -3603,7 +3603,7 @@ export default function EditWidgetPage() {
                                 rows={4}
                                 value={formData.consentMessage}
                                 onChange={(e) => setFormData({ ...formData, consentMessage: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                               />
                             </div>
 
@@ -3617,7 +3617,7 @@ export default function EditWidgetPage() {
                                   type="text"
                                   value={formData.consentAcceptText}
                                   onChange={(e) => setFormData({ ...formData, consentAcceptText: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                               <div>
@@ -3629,7 +3629,7 @@ export default function EditWidgetPage() {
                                   type="text"
                                   value={formData.consentDeclineText}
                                   onChange={(e) => setFormData({ ...formData, consentDeclineText: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                 />
                               </div>
                             </div>
@@ -3644,7 +3644,7 @@ export default function EditWidgetPage() {
                                   type="url"
                                   value={formData.consentTermsUrl}
                                   onChange={(e) => setFormData({ ...formData, consentTermsUrl: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                   placeholder="https://..."
                                 />
                               </div>
@@ -3657,7 +3657,7 @@ export default function EditWidgetPage() {
                                   type="url"
                                   value={formData.consentPrivacyUrl}
                                   onChange={(e) => setFormData({ ...formData, consentPrivacyUrl: e.target.value })}
-                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                   placeholder="https://..."
                                 />
                               </div>
@@ -3684,7 +3684,7 @@ export default function EditWidgetPage() {
                             max="24"
                             value={formData.fontSize}
                             onChange={(e) => setFormData({ ...formData, fontSize: parseInt(e.target.value) })}
-                            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                           />
                         </div>
                         <div>
@@ -3704,7 +3704,7 @@ export default function EditWidgetPage() {
                                 onClick={() => setFormData({ ...formData, fontWeight: weight.value as any })}
                                 className={`p-2 border-2 rounded-lg text-center transition-all text-xs ${
                                   formData.fontWeight === weight.value
-                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                    ? 'border-indigo-500 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 text-indigo-700 dark:text-indigo-400'
                                     : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                 }`}
                               >
@@ -3730,7 +3730,7 @@ export default function EditWidgetPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
                   {saving ? (
                     <span className="flex items-center gap-2">

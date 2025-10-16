@@ -120,7 +120,7 @@ export default function Sidebar({ userEmail }: SidebarProps) {
               href="/dashboard"
               className={`flex items-center px-4 py-3 rounded-lg transition-colors ${
                 isActive('/dashboard') && !pathname.includes('/clients')
-                  ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                  ? 'bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-700 dark:text-indigo-400'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
@@ -131,7 +131,7 @@ export default function Sidebar({ userEmail }: SidebarProps) {
               href="/dashboard/analytics"
               className={`flex items-center px-4 py-3 rounded-lg transition-colors ${
                 isActive('/dashboard/analytics')
-                  ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                  ? 'bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-700 dark:text-indigo-400'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
@@ -148,7 +148,7 @@ export default function Sidebar({ userEmail }: SidebarProps) {
               </h3>
               <Link
                 href="/dashboard/clients/new"
-                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-xl"
+                className="text-indigo-600 dark:text-indigo-400 hover:text-purple-600 dark:hover:text-purple-400 text-xl"
                 title="Add new client"
               >
                 +
@@ -168,7 +168,7 @@ export default function Sidebar({ userEmail }: SidebarProps) {
                     href={`/dashboard/clients/${client.id}`}
                     className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
                       pathname === `/dashboard/clients/${client.id}`
-                        ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                        ? 'bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-700 dark:text-indigo-400'
                         : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                     }`}
                   >
@@ -190,7 +190,7 @@ export default function Sidebar({ userEmail }: SidebarProps) {
           )}
           <div className="flex items-center justify-between">
             <div className="flex items-center min-w-0 flex-1">
-              <div className="w-8 h-8 bg-blue-600 dark:bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
                 <span className="text-white text-sm font-semibold">
                   {userEmail?.[0]?.toUpperCase()}
                 </span>
