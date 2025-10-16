@@ -2132,8 +2132,8 @@ export default function EditWidgetPage() {
                                   onClick={() => setFormData({ ...formData, textAlign: align })}
                                   className={`px-4 py-2.5 text-sm font-medium rounded-lg border-2 transition-all ${
                                     formData.textAlign === align
-                                      ? 'border-blue-600 bg-blue-50 text-blue-700'
-                                      : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700'
+                                      ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                      : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
                                   }`}
                                 >
                                   {align.charAt(0).toUpperCase() + align.slice(1)}
@@ -2159,8 +2159,8 @@ export default function EditWidgetPage() {
                                     onClick={() => setFormData({ ...formData, hoverTextAlign: align })}
                                     className={`px-4 py-2.5 text-sm font-medium rounded-lg border-2 transition-all ${
                                       formData.hoverTextAlign === align
-                                        ? 'border-green-600 bg-green-50 text-green-700'
-                                        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700'
+                                        ? 'border-green-600 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400'
+                                        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
                                     }`}
                                   >
                                     {align.charAt(0).toUpperCase() + align.slice(1)}
@@ -2301,8 +2301,8 @@ export default function EditWidgetPage() {
                                 onClick={() => setFormData({ ...formData, shadowIntensity: intensity })}
                                 className={`p-3 border-2 rounded-lg text-center transition-all capitalize text-sm ${
                                   formData.shadowIntensity === intensity
-                                    ? 'border-blue-500 bg-blue-50'
-                                    : 'border-gray-200 hover:border-gray-300'
+                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                 }`}
                               >
                                 {intensity}
@@ -2493,8 +2493,8 @@ export default function EditWidgetPage() {
                                   onClick={() => setFormData({ ...formData, position: pos.value })}
                                   className={`p-3 border-2 rounded-lg text-center transition-all ${
                                     formData.position === pos.value
-                                      ? 'border-blue-500 bg-blue-50'
-                                      : 'border-gray-200 hover:border-gray-300'
+                                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                   }`}
                                 >
                                   <span className="text-sm font-medium">{pos.label}</span>
@@ -2584,8 +2584,8 @@ export default function EditWidgetPage() {
                                 onClick={() => setFormData({ ...formData, logoPosition: pos.value as 'header' | 'none' })}
                                 className={`p-3 border-2 rounded-lg text-center transition-all ${
                                   formData.logoPosition === pos.value
-                                    ? 'border-blue-500 bg-blue-50'
-                                    : 'border-gray-200 hover:border-gray-300'
+                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                 }`}
                               >
                                 <span className="text-sm font-medium">{pos.label}</span>
@@ -2610,8 +2610,8 @@ export default function EditWidgetPage() {
                                       onClick={() => setFormData({ ...formData, logoAlignment: align })}
                                       className={`px-3 py-2 text-xs font-medium rounded-lg border-2 transition-all ${
                                         formData.logoAlignment === align
-                                          ? 'border-blue-600 bg-blue-50 text-blue-700'
-                                          : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700'
+                                          ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                          : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
                                       }`}
                                     >
                                       {align.charAt(0).toUpperCase() + align.slice(1)}
@@ -2632,8 +2632,8 @@ export default function EditWidgetPage() {
                                       onClick={() => setFormData({ ...formData, companyNameAlignment: align })}
                                       className={`px-3 py-2 text-xs font-medium rounded-lg border-2 transition-all ${
                                         formData.companyNameAlignment === align
-                                          ? 'border-green-600 bg-green-50 text-green-700'
-                                          : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700'
+                                          ? 'border-green-600 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400'
+                                          : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
                                       }`}
                                     >
                                       {align.charAt(0).toUpperCase() + align.slice(1)}
@@ -2659,8 +2659,8 @@ export default function EditWidgetPage() {
                                     onClick={() => setFormData({ ...formData, logoShape: shape.value as 'circle' | 'rounded' | 'square' })}
                                     className={`px-4 py-2.5 text-sm font-medium rounded-lg border-2 transition-all ${
                                       formData.logoShape === shape.value
-                                        ? 'border-blue-600 bg-blue-50 text-blue-700'
-                                        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700'
+                                        ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
                                     }`}
                                   >
                                     {shape.label}
@@ -3131,8 +3131,8 @@ export default function EditWidgetPage() {
                                     onClick={() => setFormData({ ...formData, hoverTransitionType: type as any })}
                                     className={`p-3 border-2 rounded-lg text-center transition-all capitalize text-sm ${
                                       formData.hoverTransitionType === type
-                                        ? 'border-blue-500 bg-blue-50'
-                                        : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                     }`}
                                   >
                                     {type}
@@ -3167,8 +3167,8 @@ export default function EditWidgetPage() {
                                       onClick={() => setFormData({ ...formData, slideDirection: dir as any })}
                                       className={`p-3 border-2 rounded-lg text-center transition-all capitalize text-sm ${
                                         formData.slideDirection === dir
-                                          ? 'border-blue-500 bg-blue-50'
-                                          : 'border-gray-200 hover:border-gray-300'
+                                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                          : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                       }`}
                                     >
                                       {dir}
@@ -3273,8 +3273,8 @@ export default function EditWidgetPage() {
                                           onClick={() => setFormData({ ...formData, symbolPosition: pos as any })}
                                           className={`p-3 border-2 rounded-lg text-center transition-all capitalize text-sm ${
                                             formData.symbolPosition === pos
-                                              ? 'border-blue-500 bg-blue-50'
-                                              : 'border-gray-200 hover:border-gray-300'
+                                              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                              : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                           }`}
                                         >
                                           {pos}
@@ -3438,8 +3438,8 @@ export default function EditWidgetPage() {
                                 onClick={() => setFormData({ ...formData, animationSpeed: speed as any })}
                                 className={`p-3 border-2 rounded-lg text-center transition-all capitalize text-sm ${
                                   formData.animationSpeed === speed
-                                    ? 'border-blue-500 bg-blue-50'
-                                    : 'border-gray-200 hover:border-gray-300'
+                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                 }`}
                               >
                                 {speed}
@@ -3570,8 +3570,8 @@ export default function EditWidgetPage() {
                                       onClick={() => setFormData({ ...formData, consentDisplayType: type.value as any })}
                                       className={`p-3 border-2 rounded-lg text-center transition-all ${
                                         formData.consentDisplayType === type.value
-                                          ? 'border-blue-500 bg-blue-50'
-                                          : 'border-gray-200 hover:border-gray-300'
+                                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                          : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                       }`}
                                     >
                                       <span className="text-sm font-medium">{type.label}</span>
@@ -3704,8 +3704,8 @@ export default function EditWidgetPage() {
                                 onClick={() => setFormData({ ...formData, fontWeight: weight.value as any })}
                                 className={`p-2 border-2 rounded-lg text-center transition-all text-xs ${
                                   formData.fontWeight === weight.value
-                                    ? 'border-blue-500 bg-blue-50'
-                                    : 'border-gray-200 hover:border-gray-300'
+                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
                                 }`}
                               >
                                 {weight.label}
