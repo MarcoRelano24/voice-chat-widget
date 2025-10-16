@@ -11,6 +11,64 @@
   // This ensures the widget always connects to the correct server
   const API_URL = config.baseUrl || 'http://localhost:3000';
 
+  // Generate unique session ID for analytics
+  const SESSION_ID = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+  let isCallActive = false;
+
+  // Analytics tracking utility - NEVER throws errors
+  function trackEvent(eventType) {
+    try {
+      // Don't track demo widgets
+      if (config.widgetId.startsWith('demo-')) {
+        return;
+      }
+
+      const payload = {
+        widget_id: config.widgetId,
+        event_type: eventType,
+        session_id: SESSION_ID,
+        page_url: window.location.href,
+        user_agent: navigator.userAgent,
+      };
+
+      // Fire and forget - don't await to prevent blocking
+      fetch(`${API_URL}/api/analytics/track`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }).catch(() => {}); // Silently ignore errors
+    } catch (error) {
+      // Silently fail - analytics should never break the widget
+    }
+  }
+
+  // Track page unload with sendBeacon (guaranteed delivery)
+  function setupUnloadTracking() {
+    try {
+      window.addEventListener('beforeunload', () => {
+        if (isCallActive && !config.widgetId.startsWith('demo-')) {
+          const payload = JSON.stringify({
+            widget_id: config.widgetId,
+            event_type: 'call_end',
+            session_id: SESSION_ID,
+            page_url: window.location.href,
+            user_agent: navigator.userAgent,
+          });
+
+          // sendBeacon is guaranteed to send even as page closes
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon(`${API_URL}/api/analytics/track`, payload);
+          }
+        }
+      });
+    } catch (error) {
+      // Silently fail
+    }
+  }
+
+  // Initialize unload tracking
+  setupUnloadTracking();
+
   // Determine API endpoint - use demo endpoint for demo widgets
   const isDemoWidget = config.widgetId.startsWith('demo-');
   const apiPath = isDemoWidget
@@ -37,6 +95,9 @@
 
     // Create the widget
     createWidget(widgetConfig);
+
+    // Track widget load after successful initialization
+    trackEvent('widget_load');
   }
 
   function createWidget(config) {
@@ -466,11 +527,15 @@
     // Voice SDK event listeners for inline widget
     vapi.on('call-start', () => {
       isActive = true;
+      isCallActive = true; // Global flag for analytics
       isMuted = false;
       button.disabled = false;
       button.classList.add('active');
       // Remove animations during call
       button.classList.remove('pulse', 'glow');
+
+      // Track call start
+      trackEvent('call_start');
 
       // Apply inline styles with !important for maximum specificity
       button.style.setProperty('background-color', activeColor, 'important');
@@ -487,6 +552,7 @@
 
     vapi.on('call-end', () => {
       isActive = false;
+      isCallActive = false; // Global flag for analytics
       isMuted = false;
       button.classList.remove('active');
       // Remove inline styles to restore original colors
@@ -501,10 +567,14 @@
       restoreOriginalTexts();
       // Restore original symbol
       restoreOriginalSymbol();
+
+      // Track call end
+      trackEvent('call_end');
     });
 
     vapi.on('error', (error) => {
       isActive = false;
+      isCallActive = false; // Global flag for analytics
       isMuted = false;
       button.disabled = false;
       button.classList.remove('active');
@@ -520,6 +590,9 @@
       restoreOriginalTexts();
       // Restore original symbol
       restoreOriginalSymbol();
+
+      // Track call error
+      trackEvent('call_error');
     });
   }
 
@@ -531,8 +604,14 @@
 
     // Toggle panel for floating/page widgets
     button?.addEventListener('click', () => {
+      const wasHidden = panel?.classList.contains('hidden');
       panel?.classList.toggle('hidden');
       panel?.classList.toggle('visible');
+
+      // Track widget open when panel becomes visible
+      if (wasHidden && panel?.classList.contains('visible')) {
+        trackEvent('widget_open');
+      }
     });
 
     closeBtn?.addEventListener('click', () => {
@@ -984,8 +1063,14 @@
 
     // Toggle panel
     button?.addEventListener('click', () => {
+      const wasHidden = panel?.classList.contains('hidden');
       panel?.classList.toggle('hidden');
       panel?.classList.toggle('visible');
+
+      // Track widget open when panel becomes visible
+      if (wasHidden && panel?.classList.contains('visible')) {
+        trackEvent('widget_open');
+      }
     });
 
     closeBtn?.addEventListener('click', () => {
@@ -1050,6 +1135,7 @@
     // Voice SDK event listeners
     vapi.on('call-start', () => {
       isActive = true;
+      isCallActive = true; // Global flag for analytics
       if (startBtn) {
         startBtn.textContent = 'End Call';
         startBtn.classList.add('danger');
@@ -1060,10 +1146,14 @@
         muteBtn.style.display = 'block';
         muteBtn.textContent = muteButtonText;
       }
+
+      // Track call start
+      trackEvent('call_start');
     });
 
     vapi.on('call-end', () => {
       isActive = false;
+      isCallActive = false; // Global flag for analytics
       isMuted = false;
       if (startBtn) {
         startBtn.textContent = 'Start Call';
@@ -1074,6 +1164,9 @@
         muteBtn.style.display = 'none';
         muteBtn.classList.remove('muted');
       }
+
+      // Track call end
+      trackEvent('call_end');
     });
 
     vapi.on('message', (message) => {
@@ -1086,6 +1179,10 @@
 
     vapi.on('error', (error) => {
       isActive = false;
+      isCallActive = false; // Global flag for analytics
+
+      // Track call error
+      trackEvent('call_error');
     });
 
     function updateTranscript() {
