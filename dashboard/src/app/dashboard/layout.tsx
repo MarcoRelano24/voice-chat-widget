@@ -20,8 +20,8 @@ export default async function DashboardLayout({
       <Sidebar userEmail={user.email || ''} />
 
       {/* Main Content */}
-      <div className="ml-64">
-        <div className="p-8">
+      <div className="lg:ml-64">
+        <div className="p-4 pt-16 lg:p-8 lg:pt-8">
           {children}
         </div>
       </div>
