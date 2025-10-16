@@ -13,18 +13,24 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('system')
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Initialize from localStorage if available
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme') as Theme | null
+      return savedTheme || 'system'
+    }
+    return 'system'
+  })
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light')
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    // Load theme from localStorage
-    const savedTheme = localStorage.getItem('theme') as Theme | null
-    if (savedTheme) {
-      setTheme(savedTheme)
-    }
+    setMounted(true)
   }, [])
 
   useEffect(() => {
+    if (!mounted) return
+
     const root = document.documentElement
 
     const applyTheme = () => {
@@ -46,7 +52,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       }
 
       // Save to localStorage
-      localStorage.setItem('theme', theme)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('theme', theme)
+      }
     }
 
     applyTheme()
@@ -58,7 +66,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       mediaQuery.addEventListener('change', handler)
       return () => mediaQuery.removeEventListener('change', handler)
     }
-  }, [theme])
+  }, [theme, mounted])
+
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return <>{children}</>
+  }
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme }}>

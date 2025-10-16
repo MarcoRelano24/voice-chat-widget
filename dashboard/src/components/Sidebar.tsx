@@ -6,6 +6,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useTheme } from './ThemeProvider'
 
+type Theme = 'light' | 'dark' | 'system'
+
 interface Client {
   id: string
   name: string
@@ -65,13 +67,17 @@ export default function Sidebar({ userEmail }: SidebarProps) {
   }
 
   const toggleTheme = () => {
+    console.log('Current theme:', theme)
+    let newTheme: Theme
     if (theme === 'light') {
-      setTheme('dark')
+      newTheme = 'dark'
     } else if (theme === 'dark') {
-      setTheme('system')
+      newTheme = 'system'
     } else {
-      setTheme('light')
+      newTheme = 'light'
     }
+    console.log('Setting theme to:', newTheme)
+    setTheme(newTheme)
   }
 
   const getThemeIcon = () => {
