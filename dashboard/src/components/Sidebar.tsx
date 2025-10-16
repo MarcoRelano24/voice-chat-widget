@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { useTheme } from './ThemeProvider'
 
 interface Client {
   id: string
@@ -18,6 +19,7 @@ export default function Sidebar({ userEmail }: SidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
+  const { theme, setTheme, resolvedTheme } = useTheme()
   const [clients, setClients] = useState<Client[]>([])
   const [loading, setLoading] = useState(true)
   const [logoutSuccess, setLogoutSuccess] = useState(false)
@@ -62,15 +64,46 @@ export default function Sidebar({ userEmail }: SidebarProps) {
     }
   }
 
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark')
+    } else if (theme === 'dark') {
+      setTheme('system')
+    } else {
+      setTheme('light')
+    }
+  }
+
+  const getThemeIcon = () => {
+    if (theme === 'system') {
+      return '💻'
+    }
+    return resolvedTheme === 'dark' ? '🌙' : '☀️'
+  }
+
   return (
     <div className="fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
       <div className="flex flex-col h-full">
         {/* Logo */}
-        <div className="flex flex-col items-center justify-center h-20 border-b border-gray-200 dark:border-gray-700 px-4 py-2">
-          <h1 className="text-base font-bold text-gray-900 dark:text-white text-center leading-tight">
-            Voice Chat Widget<br />Management
-          </h1>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">by Romea AI</p>
+        <div className="border-b border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col items-center justify-center h-20 px-4 py-2">
+            <h1 className="text-base font-bold text-gray-900 dark:text-white text-center leading-tight">
+              Voice Chat Widget<br />Management
+            </h1>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">by Romea AI</p>
+          </div>
+
+          {/* Theme Toggle */}
+          <div className="px-4 pb-3">
+            <button
+              onClick={toggleTheme}
+              className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
+              title={`Current theme: ${theme}`}
+            >
+              <span className="text-gray-700 dark:text-gray-300 font-medium">Theme</span>
+              <span className="text-lg">{getThemeIcon()}</span>
+            </button>
+          </div>
         </div>
 
         {/* Navigation */}
