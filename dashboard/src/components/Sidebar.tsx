@@ -20,6 +20,7 @@ export default function Sidebar({ userEmail }: SidebarProps) {
   const supabase = createClient()
   const [clients, setClients] = useState<Client[]>([])
   const [loading, setLoading] = useState(true)
+  const [logoutSuccess, setLogoutSuccess] = useState(false)
 
   useEffect(() => {
     fetchClients()
@@ -52,7 +53,10 @@ export default function Sidebar({ userEmail }: SidebarProps) {
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut()
-      router.push('/login')
+      setLogoutSuccess(true)
+      setTimeout(() => {
+        router.push('/login')
+      }, 1000)
     } catch (error) {
       console.error('Error signing out:', error)
     }
@@ -62,10 +66,11 @@ export default function Sidebar({ userEmail }: SidebarProps) {
     <div className="fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
       <div className="flex flex-col h-full">
         {/* Logo */}
-        <div className="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700 px-4">
-          <h1 className="text-lg font-bold text-gray-900 dark:text-white text-center leading-tight">
+        <div className="flex flex-col items-center justify-center h-20 border-b border-gray-200 dark:border-gray-700 px-4 py-2">
+          <h1 className="text-base font-bold text-gray-900 dark:text-white text-center leading-tight">
             Voice Chat Widget<br />Management
           </h1>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">by Romea AI</p>
         </div>
 
         {/* Navigation */}
@@ -139,6 +144,11 @@ export default function Sidebar({ userEmail }: SidebarProps) {
 
         {/* User Info */}
         <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+          {logoutSuccess && (
+            <div className="mb-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 px-3 py-2 rounded-lg text-xs">
+              Logged out successfully! Redirecting...
+            </div>
+          )}
           <div className="flex items-center justify-between">
             <div className="flex items-center min-w-0 flex-1">
               <div className="w-8 h-8 bg-blue-600 dark:bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -152,7 +162,8 @@ export default function Sidebar({ userEmail }: SidebarProps) {
             </div>
             <button
               onClick={handleLogout}
-              className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 text-sm ml-2"
+              disabled={logoutSuccess}
+              className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 text-sm ml-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Logout
             </button>

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Voice Chat Widget Management - Romea AI",
+  title: "Voice Widget Platform by Romea AI",
   description: "Create and manage AI-powered voice chat widgets for your clients",
 };
 
