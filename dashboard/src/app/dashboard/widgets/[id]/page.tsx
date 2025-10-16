@@ -164,7 +164,7 @@ function ColorPicker({ label, value, onChange, description }: ColorPickerProps) 
       </div>
 
       {description && (
-        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">{description}</p>
+        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{description}</p>
       )}
 
       {showPicker && (
@@ -440,7 +440,7 @@ function ImageUpload({ label, value, onChange, description }: ImageUploadProps) 
             {uploading ? (
               <>
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-500">Uploading...</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Uploading...</p>
               </>
             ) : (
               <>
@@ -469,7 +469,7 @@ function ImageUpload({ label, value, onChange, description }: ImageUploadProps) 
       )}
 
       {description && (
-        <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">{description}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">{description}</p>
       )}
     </div>
   )
@@ -620,9 +620,9 @@ function CollapsibleSection({ title, icon, children, defaultOpen = true, descrip
           </div>
         </div>
         {isOpen ? (
-          <ChevronUpIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500" />
+          <ChevronUpIcon className="w-5 h-5 text-gray-400 dark:text-gray-500" />
         ) : (
-          <ChevronDownIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-500" />
+          <ChevronDownIcon className="w-5 h-5 text-gray-400 dark:text-gray-500" />
         )}
       </button>
 
@@ -1477,7 +1477,7 @@ export default function EditWidgetPage() {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
-          <div className="text-gray-600 dark:text-gray-400 dark:text-gray-400 dark:text-gray-500">Loading widget...</div>
+          <div className="text-gray-600 dark:text-gray-400">Loading widget...</div>
         </div>
       </div>
     )
@@ -1506,11 +1506,11 @@ export default function EditWidgetPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Edit Widget</h1>
-            <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mt-1">Customize your voice chat widget</p>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">Customize your voice chat widget</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="text-right">
-              <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">Widget Type</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">Widget Type</div>
               <div className="text-sm font-semibold text-gray-900 dark:text-white capitalize">{formData.type}</div>
             </div>
           </div>
@@ -1553,7 +1553,7 @@ export default function EditWidgetPage() {
                 </div>
                 <div>
                   <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Basic Information</h2>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">Configure widget name, type, and status</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Configure widget name, type, and status</p>
                 </div>
               </div>
 
@@ -1608,14 +1608,14 @@ export default function EditWidgetPage() {
                     onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
                     className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
-                  <label htmlFor="isActive" className="text-sm text-gray-700 font-medium">
+                  <label htmlFor="isActive" className="text-sm text-gray-700 dark:text-gray-300 font-medium">
                     Widget is active and visible on your website
                   </label>
                 </div>
 
                 {/* Client Selector */}
                 <div className="space-y-2">
-                  <label htmlFor="clientId" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="clientId" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Associate with Client
                   </label>
                   <select
@@ -1637,26 +1637,26 @@ export default function EditWidgetPage() {
                       </option>
                     ))}
                   </select>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
                     Associate this widget with a client to enable landing pages
                   </p>
                 </div>
 
                 {/* Domain Restrictions */}
-                <div className="space-y-3 p-4 bg-gray-50 rounded-lg border border-gray-200 dark:border-gray-700">
+                <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-2">
-                    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                     <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Domain Restrictions (CORS)</h3>
                   </div>
 
-                  <p className="text-xs text-gray-600 dark:text-gray-400 dark:text-gray-500">
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
                     Restrict which domains can embed and use this widget. Leave empty to allow all domains.
                   </p>
 
                   <div className="space-y-2">
-                    <label htmlFor="allowedDomains" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="allowedDomains" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                       Allowed Domains (one per line)
                     </label>
                     <textarea
@@ -1668,14 +1668,14 @@ export default function EditWidgetPage() {
                       className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
                     />
                     <div className="space-y-1">
-                      <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
                         <strong>Examples:</strong>
                       </p>
-                      <ul className="text-xs text-gray-500 space-y-1 ml-4">
-                        <li>• <code className="bg-gray-200 px-1 rounded">example.com</code> - Exact domain only</li>
-                        <li>• <code className="bg-gray-200 px-1 rounded">*.example.com</code> - All subdomains</li>
-                        <li>• <code className="bg-gray-200 px-1 rounded">localhost</code> - Local development</li>
-                        <li>• <code className="bg-gray-200 px-1 rounded">127.0.0.1</code> - Local IP</li>
+                      <ul className="text-xs text-gray-500 dark:text-gray-400 space-y-1 ml-4">
+                        <li>• <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">example.com</code> - Exact domain only</li>
+                        <li>• <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">*.example.com</code> - All subdomains</li>
+                        <li>• <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">localhost</code> - Local development</li>
+                        <li>• <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">127.0.0.1</code> - Local IP</li>
                       </ul>
                     </div>
                   </div>
@@ -1733,7 +1733,7 @@ export default function EditWidgetPage() {
                             Generate
                           </button>
                         </div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
                           A unique identifier for your landing page URL. Click "Generate" for a random slug.
                         </p>
                       </div>
@@ -1762,9 +1762,9 @@ export default function EditWidgetPage() {
 
                       {/* Landing Page Customization Section */}
                       <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3 border-b border-gray-200">
+                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
                           <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">Landing Page Customization</h3>
-                          <p className="text-xs text-gray-600 mt-1">Customize the appearance and content of your landing page</p>
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Customize the appearance and content of your landing page</p>
                         </div>
 
                         <div className="p-4 space-y-4">
@@ -1841,7 +1841,7 @@ export default function EditWidgetPage() {
                                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                               />
                               <div className="flex-1">
-                                <label htmlFor="landingPageShowDefaultContent" className="text-sm text-gray-700 font-medium block">
+                                <label htmlFor="landingPageShowDefaultContent" className="text-sm text-gray-700 dark:text-gray-300 font-medium block">
                                   Show default content
                                 </label>
                                 <p className="text-xs text-gray-500 mt-0.5">
@@ -1852,9 +1852,9 @@ export default function EditWidgetPage() {
                           </div>
 
                           {/* Custom Code Section */}
-                          <div className="space-y-3 pt-3 border-t">
+                          <div className="space-y-3 pt-3 border-t border-gray-200 dark:border-gray-700">
                             <h4 className="text-sm font-medium text-gray-800 dark:text-gray-200">Custom Code</h4>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500">Add your own HTML, CSS, and JavaScript to customize the landing page</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">Add your own HTML, CSS, and JavaScript to customize the landing page</p>
 
                             <div>
                               <label htmlFor="landingPageCustomHTML" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -2175,12 +2175,12 @@ export default function EditWidgetPage() {
 
                           {/* Margins */}
                           <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-3">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                               Margins (px)
                             </label>
                             <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <label htmlFor="marginTop" className="block text-xs text-gray-600 mb-1">
+                                <label htmlFor="marginTop" className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
                                   Top
                                 </label>
                                 <input
@@ -2194,7 +2194,7 @@ export default function EditWidgetPage() {
                                 />
                               </div>
                               <div>
-                                <label htmlFor="marginRight" className="block text-xs text-gray-600 mb-1">
+                                <label htmlFor="marginRight" className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
                                   Right
                                 </label>
                                 <input
@@ -2208,7 +2208,7 @@ export default function EditWidgetPage() {
                                 />
                               </div>
                               <div>
-                                <label htmlFor="marginBottom" className="block text-xs text-gray-600 mb-1">
+                                <label htmlFor="marginBottom" className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
                                   Bottom
                                 </label>
                                 <input
@@ -2222,7 +2222,7 @@ export default function EditWidgetPage() {
                                 />
                               </div>
                               <div>
-                                <label htmlFor="marginLeft" className="block text-xs text-gray-600 mb-1">
+                                <label htmlFor="marginLeft" className="block text-xs text-gray-600 dark:text-gray-400 mb-1">
                                   Left
                                 </label>
                                 <input
@@ -2409,7 +2409,7 @@ export default function EditWidgetPage() {
                           <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">Border Radius (Individual Corners)</h4>
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <label htmlFor="borderTopLeftRadius" className="block text-xs font-medium text-gray-600 mb-2">
+                              <label htmlFor="borderTopLeftRadius" className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
                                 Top Left (px)
                               </label>
                               <input
@@ -2423,7 +2423,7 @@ export default function EditWidgetPage() {
                               />
                             </div>
                             <div>
-                              <label htmlFor="borderTopRightRadius" className="block text-xs font-medium text-gray-600 mb-2">
+                              <label htmlFor="borderTopRightRadius" className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
                                 Top Right (px)
                               </label>
                               <input
@@ -2437,7 +2437,7 @@ export default function EditWidgetPage() {
                               />
                             </div>
                             <div>
-                              <label htmlFor="borderBottomLeftRadius" className="block text-xs font-medium text-gray-600 mb-2">
+                              <label htmlFor="borderBottomLeftRadius" className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
                                 Bottom Left (px)
                               </label>
                               <input
@@ -2451,7 +2451,7 @@ export default function EditWidgetPage() {
                               />
                             </div>
                             <div>
-                              <label htmlFor="borderBottomRightRadius" className="block text-xs font-medium text-gray-600 mb-2">
+                              <label htmlFor="borderBottomRightRadius" className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
                                 Bottom Right (px)
                               </label>
                               <input
@@ -3725,7 +3725,7 @@ export default function EditWidgetPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-semibold text-gray-900 mb-1">Ready to save?</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 dark:text-gray-500">Your changes will be applied immediately</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Your changes will be applied immediately</p>
                 </div>
                 <button
                   type="submit"
