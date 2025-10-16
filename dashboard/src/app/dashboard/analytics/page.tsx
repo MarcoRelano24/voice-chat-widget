@@ -27,9 +27,16 @@ interface AnalyticsData {
   recentActivity: { event: string; timestamp: string; widget: string }[]
 }
 
+interface Client {
+  id: string
+  name: string
+}
+
 export default function AnalyticsPage() {
   const [loading, setLoading] = useState(true)
   const [dateRange, setDateRange] = useState(30) // days
+  const [selectedClientId, setSelectedClientId] = useState<string>('all')
+  const [clients, setClients] = useState<Client[]>([])
   const [data, setData] = useState<AnalyticsData>({
     totalWidgets: 0,
     totalCalls: 0,
@@ -45,8 +52,27 @@ export default function AnalyticsPage() {
   const supabase = createClient()
 
   useEffect(() => {
+    fetchClients()
+  }, [])
+
+  useEffect(() => {
     fetchAnalytics()
-  }, [dateRange])
+  }, [dateRange, selectedClientId])
+
+  const fetchClients = async () => {
+    try {
+      const { data: clientsData } = await supabase
+        .from('clients')
+        .select('id, name')
+        .order('name', { ascending: true })
+
+      if (clientsData) {
+        setClients(clientsData)
+      }
+    } catch (error) {
+      console.error('Error fetching clients:', error)
+    }
+  }
 
   const fetchAnalytics = async () => {
     setLoading(true)
@@ -54,30 +80,43 @@ export default function AnalyticsPage() {
       const startDate = startOfDay(subDays(new Date(), dateRange))
       const endDate = endOfDay(new Date())
 
+      // Build widget query with optional client filter
+      let widgetQuery = supabase.from('widgets').select('*', { count: 'exact', head: true })
+      if (selectedClientId !== 'all') {
+        widgetQuery = widgetQuery.eq('client_id', selectedClientId)
+      }
+
       // Fetch total widgets
-      const { count: totalWidgets } = await supabase
-        .from('widgets')
-        .select('*', { count: 'exact', head: true })
+      const { count: totalWidgets } = await widgetQuery
+
+      // Build active widgets query with optional client filter
+      let activeWidgetQuery = supabase.from('widgets').select('*', { count: 'exact', head: true }).eq('is_active', true)
+      if (selectedClientId !== 'all') {
+        activeWidgetQuery = activeWidgetQuery.eq('client_id', selectedClientId)
+      }
 
       // Fetch active widgets
-      const { count: activeWidgets } = await supabase
-        .from('widgets')
-        .select('*', { count: 'exact', head: true })
-        .eq('is_active', true)
+      const { count: activeWidgets } = await activeWidgetQuery
 
-      // Fetch total clients
+      // Fetch total clients (always show all clients count)
       const { count: totalClients } = await supabase
         .from('clients')
         .select('*', { count: 'exact', head: true })
 
-      // Fetch call events (call_start)
-      const { data: callEvents, count: totalCalls } = await supabase
+      // Build call events query with optional client filter via widgets join
+      let callEventsQuery = supabase
         .from('widget_analytics')
-        .select('*, widgets!inner(name)', { count: 'exact' })
+        .select('*, widgets!inner(name, client_id)', { count: 'exact' })
         .eq('event_type', 'call_start')
         .gte('timestamp', startDate.toISOString())
         .lte('timestamp', endDate.toISOString())
-        .order('timestamp', { ascending: false })
+
+      if (selectedClientId !== 'all') {
+        callEventsQuery = callEventsQuery.eq('widgets.client_id', selectedClientId)
+      }
+
+      // Fetch call events (call_start)
+      const { data: callEvents, count: totalCalls } = await callEventsQuery.order('timestamp', { ascending: false })
 
       // Process calls over time
       const callsOverTime: { [key: string]: number } = {}
@@ -102,10 +141,14 @@ export default function AnalyticsPage() {
         .sort((a, b) => b.calls - a.calls)
         .slice(0, 5)
 
+      // Build widgets type distribution query with optional client filter
+      let widgetsTypeQuery = supabase.from('widgets').select('type, client_id')
+      if (selectedClientId !== 'all') {
+        widgetsTypeQuery = widgetsTypeQuery.eq('client_id', selectedClientId)
+      }
+
       // Fetch all widgets for type distribution
-      const { data: widgets } = await supabase
-        .from('widgets')
-        .select('type')
+      const { data: widgets } = await widgetsTypeQuery
 
       const typeDistribution: { [key: string]: number } = {}
       widgets?.forEach(widget => {
@@ -115,13 +158,20 @@ export default function AnalyticsPage() {
       const widgetTypeDistribution = Object.entries(typeDistribution)
         .map(([type, count]) => ({ type, count }))
 
-      // Top domains
-      const { data: analyticsData } = await supabase
+      // Build top domains query with optional client filter
+      let topDomainsQuery = supabase
         .from('widget_analytics')
-        .select('page_url')
+        .select('page_url, widgets!inner(client_id)')
         .gte('timestamp', startDate.toISOString())
         .lte('timestamp', endDate.toISOString())
         .not('page_url', 'is', null)
+
+      if (selectedClientId !== 'all') {
+        topDomainsQuery = topDomainsQuery.eq('widgets.client_id', selectedClientId)
+      }
+
+      // Top domains
+      const { data: analyticsData } = await topDomainsQuery
 
       const domainCounts: { [key: string]: number } = {}
       analyticsData?.forEach(event => {
@@ -139,10 +189,17 @@ export default function AnalyticsPage() {
         .sort((a, b) => b.visits - a.visits)
         .slice(0, 5)
 
-      // Recent activity
-      const { data: recentEvents } = await supabase
+      // Build recent activity query with optional client filter
+      let recentActivityQuery = supabase
         .from('widget_analytics')
-        .select('event_type, timestamp, widgets!inner(name)')
+        .select('event_type, timestamp, widgets!inner(name, client_id)')
+
+      if (selectedClientId !== 'all') {
+        recentActivityQuery = recentActivityQuery.eq('widgets.client_id', selectedClientId)
+      }
+
+      // Recent activity
+      const { data: recentEvents } = await recentActivityQuery
         .order('timestamp', { ascending: false })
         .limit(10)
 
@@ -185,31 +242,52 @@ export default function AnalyticsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Analytics Dashboard</h1>
           <p className="text-gray-600 dark:text-gray-400">Track your voice widget performance and usage</p>
         </div>
 
-        {/* Date Range Filter */}
-        <div className="mb-6 flex items-center gap-2">
-          <CalendarIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-          <span className="text-sm text-gray-600 dark:text-gray-400">Show data for:</span>
-          <div className="flex gap-2">
-            {[7, 14, 30, 90].map(days => (
-              <button
-                key={days}
-                onClick={() => setDateRange(days)}
-                className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all ${
-                  dateRange === days
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600'
-                }`}
-              >
-                {days} days
-              </button>
-            ))}
+        {/* Filters */}
+        <div className="mb-6 flex flex-col sm:flex-row gap-4 sm:items-center">
+          {/* Date Range Filter */}
+          <div className="flex items-center gap-2">
+            <CalendarIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+            <span className="text-sm text-gray-600 dark:text-gray-400">Show data for:</span>
+            <div className="flex gap-2">
+              {[7, 14, 30, 90].map(days => (
+                <button
+                  key={days}
+                  onClick={() => setDateRange(days)}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all ${
+                    dateRange === days
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md'
+                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600'
+                  }`}
+                >
+                  {days} days
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Client Filter */}
+          <div className="flex items-center gap-2 ml-auto">
+            <UsersIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+            <span className="text-sm text-gray-600 dark:text-gray-400">Filter by client:</span>
+            <select
+              value={selectedClientId}
+              onChange={(e) => setSelectedClientId(e.target.value)}
+              className="px-3 py-1.5 text-sm font-medium rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            >
+              <option value="all">All Clients</option>
+              {clients.map(client => (
+                <option key={client.id} value={client.id}>
+                  {client.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
