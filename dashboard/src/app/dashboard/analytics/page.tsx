@@ -24,7 +24,7 @@ interface AnalyticsData {
   widgetPerformance: { name: string; calls: number }[]
   widgetTypeDistribution: { type: string; count: number }[]
   topDomains: { domain: string; visits: number }[]
-  recentActivity: { event: string; timestamp: string; widget: string }[]
+  recentActivity: { event: string; timestamp: string; widget: string; domain: string }[]
 }
 
 interface Client {
@@ -192,7 +192,7 @@ export default function AnalyticsPage() {
       // Build recent activity query with optional client filter
       let recentActivityQuery = supabase
         .from('widget_analytics')
-        .select('event_type, timestamp, widgets!inner(name, client_id)')
+        .select('event_type, timestamp, page_url, widgets!inner(name, client_id)')
 
       if (selectedClientId !== 'all') {
         recentActivityQuery = recentActivityQuery.eq('widgets.client_id', selectedClientId)
@@ -203,11 +203,24 @@ export default function AnalyticsPage() {
         .order('timestamp', { ascending: false })
         .limit(10)
 
-      const recentActivity = recentEvents?.map(event => ({
-        event: event.event_type,
-        timestamp: format(parseISO(event.timestamp), 'MMM dd, HH:mm'),
-        widget: event.widgets?.name || 'Unknown'
-      })) || []
+      const recentActivity = recentEvents?.map(event => {
+        let domain = 'N/A'
+        if (event.page_url) {
+          try {
+            const url = new URL(event.page_url)
+            domain = url.hostname
+          } catch (e) {
+            domain = 'Invalid URL'
+          }
+        }
+
+        return {
+          event: event.event_type,
+          timestamp: format(parseISO(event.timestamp), 'MMM dd, HH:mm'),
+          widget: event.widgets?.name || 'Unknown',
+          domain
+        }
+      }) || []
 
       setData({
         totalWidgets: totalWidgets || 0,
@@ -478,6 +491,7 @@ export default function AnalyticsPage() {
                   <tr className="border-b border-gray-200 dark:border-gray-700">
                     <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Event</th>
                     <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Widget</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Domain</th>
                     <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Time</th>
                   </tr>
                 </thead>
@@ -490,6 +504,7 @@ export default function AnalyticsPage() {
                         </span>
                       </td>
                       <td className="py-3 px-4 text-sm text-gray-900 dark:text-white">{activity.widget}</td>
+                      <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">{activity.domain}</td>
                       <td className="py-3 px-4 text-sm text-gray-500 dark:text-gray-400">{activity.timestamp}</td>
                     </tr>
                   ))}
