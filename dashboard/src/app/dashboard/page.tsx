@@ -181,28 +181,6 @@ export default function DashboardPage() {
                     </p>
                   )}
                 </div>
-                <span
-                  className={`px-2 py-1 text-xs font-medium rounded ${
-                    widget.is_active
-                      ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                  }`}
-                >
-                  {widget.is_active ? 'Active' : 'Inactive'}
-                </span>
-              </div>
-
-              <div className="flex items-center space-x-2 mb-4">
-                <div
-                  className="w-8 h-8 rounded"
-                  style={{ backgroundColor: widget.config.colors?.primary || '#667eea' }}
-                />
-                <span className="text-sm text-gray-600 dark:text-gray-400">
-                  {widget.config.content?.companyName || 'No name'}
-                </span>
-              </div>
-
-              <div className="flex items-end justify-end pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div className="relative dropdown-container">
                   <button
                     onClick={() => setOpenDropdownId(openDropdownId === widget.id ? null : widget.id)}
@@ -251,6 +229,28 @@ export default function DashboardPage() {
                     </div>
                   )}
                 </div>
+              </div>
+
+              <div className="flex items-center space-x-2 mb-4">
+                <div
+                  className="w-8 h-8 rounded"
+                  style={{ backgroundColor: widget.config.colors?.primary || '#667eea' }}
+                />
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  {widget.config.content?.companyName || 'No name'}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-center pt-4 border-t border-gray-200 dark:border-gray-700">
+                <span
+                  className={`px-3 py-1.5 text-xs font-medium rounded-full ${
+                    widget.is_active
+                      ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+                  }`}
+                >
+                  {widget.is_active ? 'Active' : 'Inactive'}
+                </span>
               </div>
             </div>
           ))}
