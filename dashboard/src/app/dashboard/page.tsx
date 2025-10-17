@@ -28,10 +28,25 @@ export default function DashboardPage() {
   const [widgetToDelete, setWidgetToDelete] = useState<Widget | null>(null)
   const [deleteConfirmText, setDeleteConfirmText] = useState('')
   const [deleting, setDeleting] = useState(false)
+  const [openDropdownId, setOpenDropdownId] = useState<string | null>(null)
 
   useEffect(() => {
     fetchData()
   }, [])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+      if (!target.closest('.dropdown-container')) {
+        setOpenDropdownId(null)
+      }
+    }
+
+    if (openDropdownId) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [openDropdownId])
 
   const fetchData = async () => {
     try {
@@ -187,26 +202,54 @@ export default function DashboardPage() {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
-                <Link
-                  href={`/dashboard/widgets/${widget.id}`}
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium"
-                >
-                  Edit →
-                </Link>
-                <div className="flex items-center space-x-3">
-                  <Link
-                    href={`/dashboard/widgets/${widget.id}/embed`}
-                    className="text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 text-sm font-medium"
-                  >
-                    Get Code
-                  </Link>
+              <div className="flex items-end justify-end pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="relative dropdown-container">
                   <button
-                    onClick={() => openDeleteModal(widget)}
-                    className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm font-medium"
+                    onClick={() => setOpenDropdownId(openDropdownId === widget.id ? null : widget.id)}
+                    className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    aria-label="Widget options"
                   >
-                    Delete
+                    <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
                   </button>
+
+                  {openDropdownId === widget.id && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-10">
+                      <Link
+                        href={`/dashboard/widgets/${widget.id}`}
+                        onClick={() => setOpenDropdownId(null)}
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      >
+                        <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        Edit Widget
+                      </Link>
+                      <Link
+                        href={`/dashboard/widgets/${widget.id}/embed`}
+                        onClick={() => setOpenDropdownId(null)}
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      >
+                        <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        Get Embed Code
+                      </Link>
+                      <button
+                        onClick={() => {
+                          setOpenDropdownId(null)
+                          openDeleteModal(widget)
+                        }}
+                        className="flex items-center w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                      >
+                        <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Delete Widget
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
